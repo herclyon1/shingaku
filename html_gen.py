@@ -354,10 +354,10 @@ def render(rows, TODAY, ME, src, sheet):
     nxt = min([r for r in ok if r['w']], key=lambda r: r['w'][0][1], default=None)
 
     def card(r):
-        v = {'◎': 'ok', '⚠': 'warn', '✕': 'ng'}[r['v']]
+        v = {'◎': 'ok', '◇': 'cond', '⚠': 'warn', '✕': 'ng'}[r['v']]
         dl = r['w'][0][1] if r['w'] else None
         left = (dl - TODAY).days if dl else None
-        sev = 'ng' if v == 'ng' else ('hot' if left is not None and left <= 14
+        sev = 'ng' if v == 'ng' else 'cool' if v == 'cond' else ('hot' if left is not None and left <= 14
               else 'warm' if left is not None and left <= 30 else 'cool')
         sev += ' t-' + r['tier']
         num = str(left) if left is not None else '—'
@@ -518,7 +518,8 @@ def render(rows, TODAY, ME, src, sheet):
     # --- 时间・其他 ---
     cv = Counter(r['v'] for r in rows)
     F_STATUS = chips('status', [(k, lab, cv[m], '') for k, lab, m in
-                                [('ok', '可报', '◎'), ('warn', '待确认', '⚠'), ('ng', '不可报', '✕')]
+                                [('ok', '可报', '◎'), ('cond', '条件卡', '◇'),
+                                 ('ng', '不可报', '✕')]
                                 if cv[m]], N)
     F_DL = chips('dl', [('d14', '14 天内', 0, ''), ('d30', '30 天内', 0, ''),
                         ('d60', '60 天内', 0, ''), ('d90', '60 天以上', 0, '')], N)
@@ -557,6 +558,7 @@ def render(rows, TODAY, ME, src, sheet):
     <div class="counts">
       <div class="cnt"><div class="n">{len(rows)}</div><div class="l">纳入考虑</div></div>
       <div class="cnt a"><div class="n">{C['◎']}</div><div class="l">可报</div></div>
+      <div class="cnt"><div class="n">{C['◇']}</div><div class="l">条件卡</div></div>
       <div class="cnt"><div class="n">{C['✕']}</div><div class="l">不可报</div></div>
       <div class="cnt h"><div class="n">{sen_n}</div><div class="l">专愿</div></div>
       <div class="cnt"><div class="n">32</div><div class="l">专门学校</div></div>
@@ -601,6 +603,7 @@ def render(rows, TODAY, ME, src, sheet):
     <button data-s="tier" aria-pressed="false">按稀有度</button>
   </div>
   {sec('◎ 可报', ok)}
+  {sec('◇ 条件卡 — 拿到英语成绩即入池', [r for r in rows if r['v'] == '◇'])}
   {sec('✕ 不可报', [r for r in rows if r['v'] == '✕'])}
   <p class="empty" id="empty" hidden>没有符合条件的学校。</p>
 

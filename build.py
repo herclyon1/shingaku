@@ -38,11 +38,8 @@ NG = {
  '神戸学院大学':   '必须有 EJU（日语240分）。不认 JLPT',
  '大阪国際大学':   '必须有 EJU（日语200分）。不认 JLPT',
  '上海大学':      '要求中国籍以外，你不符合',
+ '園田学園大学':   '女子大学实质（2025年4月才由园田学园女子大学改制共学，在校生构成仍是女子大延续）——按你的短大·女大指定排除',
  '太成学院大学':   f'要求 N2 112 分以上，你 {ME["jlpt_score"]} 分差 1 分（EJU220／JPT525／J.TEST C级600 也可以替代）',
- '追手門学院大学（パートナー校制度）':
-    '募集要項为日语＋英语双条件（AND）：日语N3你够，但必须另持英语成绩证书'
-    '（TOEIC800／IELTS5.5／TOEFL iBT74／Duolingo100 之一），目前没有证书即不可出愿。'
-    '（若考出英语成绩则可报，且按英语能力最高100%学费免除；你1月自查时也已将其排除）',
  '城西国際大学':
     '学校指定校名单上该校条件栏为空、日程未记载（标注「編集中」）＝当前不存在可执行的出愿路径。'
     '（大学官网2026定价138.7万可查，但指定校条件未发布前无法出愿）',
@@ -148,12 +145,6 @@ def language_req(x, verdict):
     n, c = x['short'], x['cond']
     if n in ('近畿大学', '日本工業大学', '神戸学院大学', '大阪国際大学'):
         return 'eju', '只认 EJU'
-    if n == '追手門学院大学（パートナー校制度）':
-        return 'eng', 'N3 可・但另需英语成绩'
-    if n == '京都外国語大学':
-        return 'split', '按学科：日本語学科要 N1／グローバル系 N2 可'
-    if n == '太成学院大学':
-        return 'n2hi', 'N2 需 112 分以上'
     if n == '城西国際大学':
         return 'unknown', '条件未记载'
     if n == '園田学園大学':
@@ -289,6 +280,10 @@ N1_GAIN = {
 
 def classify(x):
     n = x['short']
+    if n == '追手門学院大学（パートナー校制度）':
+        return '◇', ('条件卡：需先取得英语成绩证书之一（TOEIC800／IELTS5.5／TOEFL iBT74／Duolingo100）。'
+                     '最快路径 Duolingo English Test（在家考、48小时出分、出分后可选择不发送）。'
+                     '拿到成绩即为全池唯一非专愿紫卡，且按英语能力最高100%学费免除')
     if n in NG:
         return '✕', NG[n]
     if n in WARN:
@@ -335,7 +330,7 @@ def build():
         rows[-1]['band'] = ('a' if amt and amt < 1000000 else
                             'b' if amt and amt < 1200000 else
                             'c' if amt else 'x')
-    o = {'◎': 0, '⚠': 1, '✕': 2}
+    o = {'◎': 0, '◇': 1, '⚠': 2, '✕': 3}
     rows.sort(key=lambda r: (o[r['v']], r['w'][0][1] if r['w'] else dt.date(2099, 1, 1)))
     return rows
 
@@ -348,7 +343,7 @@ def excel(rows, path='指定校推薦_出願候補.xlsx'):
     W = [6, 9, 22, 34, 16, 7, 34, 11, 30, 26, 22, 26, 26, 46]
     thin = Side(style='thin', color='D0CEC7')
     BD = Border(left=thin, right=thin, top=thin, bottom=thin)
-    FILL = {'◎': 'E8F0E6', '⚠': 'FBF2DC', '✕': 'F2E6E3'}
+    FILL = {'◎': 'E8F0E6', '◇': 'E3ECF2', '⚠': 'FBF2DC', '✕': 'F2E6E3'}
     ws.append(H)
     for j, (h, w) in enumerate(zip(H, W), 1):
         c = ws.cell(1, j)
