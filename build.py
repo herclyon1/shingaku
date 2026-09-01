@@ -19,30 +19,33 @@ from openpyxl.utils import get_column_letter
 ME = {'attendance': 100, 'jlpt': 'N2', 'jlpt_score': 111, 'eju': None}
 
 SRC   = sorted(glob.glob('data/指定校推薦リスト*.xlsx'))[-1]
+CAMPUS = {k: v for k, v in json.load(open('data/campus.json', encoding='utf-8')).items()
+          if not k.startswith('_')}
+FEES   = {k: v for k, v in json.load(open('data/fees.json', encoding='utf-8')).items()
+          if not k.startswith('_')}
 SHEET = '大学（2026年度）  '
 TODAY = dt.date.fromisoformat(sys.argv[1]) if len(sys.argv) > 1 else dt.date.today()
 
 # ── 判定ルール（本人の条件に対する不可・要確認）───────────────
 NG = {
- '中日本自動車短期大学（岐阜）': '短期大学（本人の除外指定）',
- '大阪キリスト教短期大学':      '短期大学（本人の除外指定）',
- '駒沢女子大学・短期大学':      '女子大学（本人の除外指定）',
- '大阪女学院大学':             '女子大学（本人の除外指定）',
- '平安女学院大学':             '女子大学（本人の除外指定）',
- '近畿大学':      'EJU必須（日本語300点＋総合科目100点＋総得点400点）。JLPT不可',
- '日本工業大学':   'EJU必須（日本語230点、数学コース2も受験要）。JLPT不可',
- '神戸学院大学':   'EJU必須（日本語240点）。JLPT不可',
- '大阪国際大学':   'EJU必須（日本語200点）。JLPT不可',
- '上海大学':      '中国国籍以外が条件。該当しない',
- '太成学院大学':   f'N2は112点以上が必要。{ME["jlpt_score"]}点で1点不足（EJU220/JPT525/J.TEST C級600でも可）',
+ '中日本自動車短期大学（岐阜）': '短期大学（你指定排除）',
+ '大阪キリスト教短期大学':      '短期大学（你指定排除）',
+ '駒沢女子大学・短期大学':      '女子大学（你指定排除）',
+ '大阪女学院大学':             '女子大学（你指定排除）',
+ '平安女学院大学':             '女子大学（你指定排除）',
+ '近畿大学':      '必须有 EJU（日语300分＋综合科目100分＋总分400分）。不认 JLPT',
+ '日本工業大学':   '必须有 EJU（日语230分，还要考数学课程2）。不认 JLPT',
+ '神戸学院大学':   '必须有 EJU（日语240分）。不认 JLPT',
+ '大阪国際大学':   '必须有 EJU（日语200分）。不认 JLPT',
+ '上海大学':      '要求中国籍以外，你不符合',
+ '太成学院大学':   f'要求 N2 112 分以上，你 {ME["jlpt_score"]} 分差 1 分（EJU220／JPT525／J.TEST C级600 也可以替代）',
 }
 WARN = {
  '追手門学院大学（パートナー校制度）':
-    '日本語(N3以上)は満たすが、英語スコア(TOEFL iBT74 / IELTS5.5 / TOEIC800 / Duolingo100)も別途必須',
- '園田学園大学':   '「日本語教育の参照枠 B2 以上」が条件。N2 111点が B2 判定になるか要確認',
- '城西国際大学':   'リスト「編集中」。条件・日程とも未記載',
- '名古屋経済大学': '条件は N2 で可。ただし出願期間欄が 2025 年の日付のまま＝更新漏れの可能性',
- '京都外国語大学': '日本語学科は N1 110点以上で不可。グローバルスタディーズ／グローバル観光学科なら N2 100点以上で可',
+    '日语（N3以上）你够，但还另外要求英语成绩（TOEFL iBT74 / IELTS5.5 / TOEIC800 / Duolingo100）',
+ '城西国際大学':   '名单上标着「編集中」，条件和日程都还没写',
+ '名古屋経済大学': '条件上 N2 可以。但报名期间栏还是 2025 年的日期，可能是漏更新了',
+ '京都外国語大学': '日本語学科要 N1 110 分以上，报不了。グローバルスタディーズ／グローバル観光学科用 N2 100 分以上可以报',
 }
 
 S = lambda x: '' if x is None else str(x).strip()
@@ -110,6 +113,145 @@ def attreq(c):
     m = re.findall(r'出席[率状況][^\n]{0,12}?(\d{2})\s*[％%]', c)
     return int(max(m)) if m else None
 
+# 都道府県 → 地方区分
+CHIHO = {
+ '大阪府': '近畿', '兵庫県': '近畿', '京都府': '近畿', '奈良県': '近畿',
+ '滋賀県': '近畿', '和歌山県': '近畿', '三重県': '近畿',
+ '埼玉県': '関東', '千葉県': '関東', '東京都': '関東', '神奈川県': '関東',
+ '茨城県': '関東', '栃木県': '関東', '群馬県': '関東',
+ '愛知県': '中部', '岐阜県': '中部', '山梨県': '中部', '静岡県': '中部',
+ '長野県': '中部', '新潟県': '中部', '富山県': '中部', '石川県': '中部', '福井県': '中部',
+ '北海道': '北海道',
+}
+
+def regions(loc):
+    """campus.json の pref（'京都府 / 北海道' のような複数表記も可）を
+    (都道府県リスト, 地方リスト) に正規化する。"""
+    raw = loc.get('pref', '')
+    prefs = [p.strip() for p in raw.split('/') if p.strip()]
+    chiho = []
+    for p in prefs:
+        c = CHIHO.get(p, '海外' if '中国' in p or '上海' in p else 'その他')
+        if c not in chiho:
+            chiho.append(c)
+    return prefs, chiho
+
+
+def language_req(x, verdict):
+    """日本語要件を実際のハードルで分類する。表示・絞り込みの二次カテゴリ。"""
+    n, c = x['short'], x['cond']
+    if n in ('近畿大学', '日本工業大学', '神戸学院大学', '大阪国際大学'):
+        return 'eju', '只认 EJU'
+    if n == '追手門学院大学（パートナー校制度）':
+        return 'eng', 'N3 可・但另需英语成绩'
+    if n == '京都外国語大学':
+        return 'split', '按学科：日本語学科要 N1／グローバル系 N2 可'
+    if n == '太成学院大学':
+        return 'n2hi', 'N2 需 112 分以上'
+    if n == '城西国際大学':
+        return 'unknown', '条件未记载'
+    if n == '園田学園大学':
+        return 'n2', 'N2 可（无 N2 才需 B2 证明）'
+    if re.search(r'N\s*3|N３', c):
+        return 'n3', 'N3 即可'
+    if re.search(r'参照枠|CEFR', c) and not re.search(r'N\s*2|N２', c):
+        return 'cefr', 'CEFR 判定'
+    if re.search(r'N\s*2|N２|JLPT2', c):
+        return 'n2', 'N2 可'
+    return 'unknown', '条件未记载'
+
+
+def exam_kind(sub):
+    """試験科目を『その場で日本語を書かされるか』で分類する。
+    口頭試問・読み上げは口述なので oral 側。『筆記は実施しない/免除』の明示が最優先。"""
+    t = (sub or '').replace('\n', ' ')
+    if not t.strip():
+        return 'unknown', '未记载'
+    # 明示的に筆記なしと書いてある場合を最優先で拾う
+    if re.search(r'(筆記試験|日本語\s*[（(]?作文|日本語総合試験)[^。]{0,12}(実施しない|免除)', t):
+        return 'oral', '明确不考笔试'
+    if re.search(r'小論文|課題論文|筆記試験|独自の日本語能力試験|日本語能力試験を実施', t):
+        return 'written', '有笔试／小论文'
+    return 'oral', '只有书类＋面试'
+
+
+def waiver_kind(fee):
+    if not fee:
+        return 'none', '未查到减免信息'
+    if fee.get('hit') is True:
+        return 'hit', '减免适用'
+    if fee.get('hit') is False:
+        return 'no', '第一年无减免'
+    return 'maybe', '减免额未定'
+
+
+def waiver_types(fee):
+    """减免の中身を種類別に分ける（入学金/学费打折/出勤率/成绩）。"""
+    t = (fee or {}).get('reduction') or ''
+    out = []
+    if re.search(r'入学金', t):
+        out.append('w_adm')
+    if re.search(r'学费减|减学费|减 ?\d+%|学费的|学费按|另一套价格', t):
+        out.append('w_tui')
+    if re.search(r'出勤率', t):
+        out.append('w_att')
+    if re.search(r'成绩|GPA|学分|优秀', t):
+        out.append('w_gpa')
+    if re.search(r'收入', t):
+        out.append('w_inc')
+    return out
+
+
+# 通学圏（関西内は実際に通えるかで刻む。関西外は引っ越し前提）
+ZONE = [
+ ('大阪市内', ['大阪市']),
+ ('大阪府下', ['堺市', '東大阪', '大東', '八尾', '和泉', '熊取', '茨木', '守口', '枚方', '高槻']),
+ ('神戸・阪神', ['神戸市', '芦屋', '尼崎', '西宮', '伊丹', '三木']),
+ ('播磨', ['姫路']),
+ ('京都', ['京都市', '京都']),
+ ('奈良', ['天理', '奈良']),
+]
+
+def zone_of(loc):
+    prefs = loc.get('pref', '')
+    cities = ' '.join(b for _, b in loc.get('campus', []))
+    if '中国' in prefs or '上海' in prefs:
+        return 'overseas', '海外'
+    for key, pats in ZONE:
+        if any(p in cities for p in pats):
+            return key, key
+    if any(p in prefs for p in ('大阪府', '兵庫県', '京都府', '奈良県')):
+        return 'kansai_other', '関西・その他'
+    return 'far', '要搬家（关西外）'
+
+
+def quota_band(q):
+    z = str.maketrans('０１２３４５６７８９', '0123456789')
+    ns = [int(v) for v in re.findall(r'(\d+)\s*名', (q or '').translate(z))]
+    if ns:
+        t = sum(ns)
+        return ('q1', '1 名') if t <= 1 else ('q3', '2〜3 名') if t <= 3 else ('q5', '4 名以上')
+    if '若干' in (q or ''):
+        return 'qs', '若干名'
+    return 'qx', '未注明'
+
+
+def att_band(a):
+    if a is None:
+        return 'ax', '未记载'
+    return f'a{a}', f'{a}% 以上'
+
+
+# N1 を取ると条件・金額が改善する学校（学費調査と学校資料から判明した分）
+N1_GAIN = {
+ '関西国際大学':  'N1 取得で給付額に +100,000 円',
+ '大阪観光大学':  'N1 なら学費が N2 の 80万 → 70万（年 10万円差）',
+ '育英館大学':    'N1 合格で減免が 25% → 50%（年 20万 → 40万）',
+ '太成学院大学':  'N1 があれば N2 112 分の不足を回避でき、出願可能になる',
+ '京都外国語大学': 'N1 110 分以上なら日本語学科も出願可能になる',
+}
+
+
 def classify(x):
     n = x['short']
     if n in NG:
@@ -118,7 +260,7 @@ def classify(x):
         return '⚠', WARN[n]
     a = attreq(x['cond'])
     if a is not None and ME['attendance'] < a:
-        return '✕', f'出席率 {a}% 以上が必要（本人 {ME["attendance"]}%）'
+        return '✕', f'要求出勤率 {a}% 以上（你 {ME["attendance"]}%）'
     return '◎', ''
 
 def build():
@@ -135,7 +277,26 @@ def build():
             'sub': x.get('試験科目', ''), 'p': x.get('出願期間', ''),
             't': x.get('試験日', ''), 'r': x.get('発表', ''), 'h': x.get('手続締切', ''),
             'w': ws_, 'cond': x['cond'],
+            'loc': CAMPUS.get(x['short'], {}),
+            'fee': FEES.get(x['short'], {}),
         })
+        rows[-1]['prefs'], rows[-1]['chiho'] = regions(rows[-1]['loc'])
+        rows[-1]['req'], rows[-1]['req_label'] = language_req(x, v)
+        rows[-1]['exam'], rows[-1]['exam_label'] = exam_kind(x.get('試験科目', ''))
+        rows[-1]['wv'], rows[-1]['wv_label'] = waiver_kind(rows[-1]['fee'])
+        rows[-1]['zone'], rows[-1]['zone_label'] = zone_of(rows[-1]['loc'])
+        rows[-1]['qb'], rows[-1]['qb_label'] = quota_band(rows[-1]['q'])
+        rows[-1]['ab'], rows[-1]['ab_label'] = att_band(rows[-1]['a'])
+        rows[-1]['wt'] = waiver_types(rows[-1]['fee'])
+        rows[-1]['n1gain'] = N1_GAIN.get(x['short'], '')
+        rows[-1]['reqtop'] = ('eju' if rows[-1]['req'] == 'eju' else
+                              'eng' if rows[-1]['req'] == 'eng' else
+                              'unknown' if rows[-1]['req'] == 'unknown' else 'jlpt')
+        f = rows[-1]['fee']
+        amt = f.get('net') or None
+        rows[-1]['band'] = ('a' if amt and amt < 1000000 else
+                            'b' if amt and amt < 1200000 else
+                            'c' if amt else 'x')
     o = {'◎': 0, '⚠': 1, '✕': 2}
     rows.sort(key=lambda r: (o[r['v']], r['w'][0][1] if r['w'] else dt.date(2099, 1, 1)))
     return rows
@@ -285,9 +446,14 @@ def md(rows):
     return '\n'.join(L) + '\n'
 
 if __name__ == '__main__':
+    import os
+    import html_gen
     rows = build()
     open('README.md', 'w', encoding='utf-8').write(md(rows))
+    os.makedirs('docs', exist_ok=True)
+    open('docs/index.html', 'w', encoding='utf-8').write(
+        html_gen.render(rows, TODAY, ME, SRC, SHEET))
     p = excel(rows)
     C = Counter(r['v'] for r in rows)
     print(f'基準日 {TODAY} ｜ 全{len(rows)}校  ◎{C["◎"]}  ⚠{C["⚠"]}  ✕{C["✕"]}')
-    print(f'  → README.md, {p}')
+    print(f'  → docs/index.html, README.md, {p}')
