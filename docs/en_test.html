@@ -59,6 +59,7 @@ th:first-child,td:first-child{text-align:left}
   <div class="verdict" id="verdict"><span class="small">做完 65 题出最终判决；中途随时可看上面的分段正确率。</span></div>
   <div class="row">
     <button id="exp">导出结果</button>
+    <button id="redo3">只重做③打字段</button>
     <button id="reset">清空重来</button>
   </div>
 </div>
@@ -274,6 +275,12 @@ document.getElementById('exp').onclick=()=>{
   const blob=new Blob([JSON.stringify(S,null,1)],{type:'application/json'});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);
   a.download='en_feasibility_result.json';a.click();
+};
+document.getElementById('redo3').onclick=()=>{
+  if(confirm('清除③打字段的作答、保留①②，从③第1题重做？')){
+    S.answers=S.answers.filter(a=>a.sec!=='c3');
+    persist();render();report();
+  }
 };
 document.getElementById('reset').onclick=()=>{
   if(confirm('确定清空全部作答记录？此操作不可恢复')&&confirm('再确认一次：真的清空？')){
