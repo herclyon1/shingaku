@@ -397,6 +397,8 @@ def render(rows, TODAY, ME, src, sheet):
                   + f'／可信度 {e(fee.get("conf","—"))}・须核对</span></div>')
 
         why = f'<div class="warnbox">{e(r["why"])}</div>' if r['why'] else ''
+        if r['datefix']:
+            why += f'<div class="warnbox">{e(r["datefix"])}</div>'
         if r['n1gain']:
             why += f'<div class="n1box"><b>考出 N1 的话</b>：{e(r["n1gain"])}</div>'
         return (f'<article class="c {sev}" data-status="{v}" '
