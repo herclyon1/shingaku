@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>英语可行性下限检测</title>
+<style>
+:root{--bg:#faf9f7;--fg:#1a1a1a;--dim:#6b6b6b;--line:#e2e0dc;--card:#fff;
+      --ok:#1a7f4b;--ng:#b3261e;--acc:#2b5c9b;}
+@media (prefers-color-scheme:dark){
+ :root{--bg:#16181c;--fg:#e8e6e3;--dim:#9a9894;--line:#2e3238;--card:#1e2126;
+       --ok:#4ade80;--ng:#f87171;--acc:#7aa7e0;}}
+*{box-sizing:border-box}
+body{margin:0;padding:14px;background:var(--bg);color:var(--fg);
+     font:16px/1.75 system-ui,sans-serif;max-width:680px;margin-inline:auto}
+h1{font-size:18px;margin:0 0 2px}
+.sub{color:var(--dim);font-size:12.5px;margin-bottom:12px;line-height:1.6}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:12px}
+.sec{font-size:12px;color:#fff;background:var(--acc);border-radius:99px;padding:2px 10px;display:inline-block}
+.q{font:18px/1.9 Georgia,serif;margin:10px 0 4px}
+.q b{color:var(--acc);border-bottom:2px solid var(--acc);padding:0 2px}
+button{font:inherit;padding:10px 14px;border:1px solid var(--line);border-radius:10px;
+       background:var(--card);color:var(--fg);cursor:pointer;width:100%;text-align:left;margin-top:8px}
+button:active{border-color:var(--acc)}
+button.ok{background:color-mix(in srgb,var(--ok) 20%,transparent);border-color:var(--ok)}
+button.ng{background:color-mix(in srgb,var(--ng) 20%,transparent);border-color:var(--ng)}
+input[type=text]{font:18px Georgia,serif;padding:10px;border:1.5px solid var(--acc);border-radius:10px;
+      background:var(--bg);color:var(--fg);width:9em;margin-top:8px}
+.row{display:flex;gap:8px;margin-top:8px}
+.row button{width:auto;flex:1;text-align:center}
+.meta{color:var(--dim);font-size:12px;margin-top:10px;display:flex;justify-content:space-between}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+td,th{padding:7px 5px;border-bottom:1px solid var(--line);text-align:right}
+th:first-child,td:first-child{text-align:left}
+.bar{height:8px;border-radius:99px;background:var(--line);overflow:hidden;margin-top:3px}
+.bar>div{height:100%;background:var(--acc)}
+.verdict{font-size:14px;line-height:1.9;padding:12px;border-radius:10px;background:var(--bg);margin-top:10px}
+.small{font-size:12px;color:var(--dim)}
+.savestat{font-size:11px;color:var(--ok)}
+</style>
+</head>
+<body>
+<h1>英语可行性下限检测</h1>
+<div class="sub">
+目的：判断你是否<b>已弱到无望</b> DET100 / TOEIC800，不是测你多强。共 65 题约 25 分钟。<br>
+①词汇 30 题（四选一，选最接近的意思）→ ②补全 20 题（四选一）→ ③补全 15 题（自己打字）。<br>
+<b>每答一题自动保存</b>，中途关掉页面再打开会从断点继续。做完自动出判决。
+</div>
+
+<div class="card" id="qcard">
+  <span class="sec" id="secTag"></span>
+  <div class="q" id="qtext"></div>
+  <div id="opts"></div>
+  <div class="meta"><span id="prog"></span><span class="savestat" id="save"></span></div>
+</div>
+
+<div class="card">
+  <table id="tbl"></table>
+  <div class="verdict" id="verdict"><span class="small">做完 65 题出最终判决；中途随时可看上面的分段正确率。</span></div>
+  <div class="row">
+    <button id="exp">导出结果</button>
+    <button id="reset">清空重来</button>
+  </div>
+</div>
+
+<script>
+// ============ 题库（全部内嵌，零外部加载） ============
+const VOCAB=[ // [word, 正确义, 干扰1, 干扰2, 干扰3, band]  band:2/3/5/8 (千词频带)
+["improve","改善","购买","忘记","到达",2],
+["dangerous","危险的","昂贵的","安静的","干净的",2],
+["decide","决定","推迟","拒绝","描述",2],
+["weather","天气","皮革","羽毛","小麦",2],
+["borrow","借入","燃烧","打碎","埋葬",2],
+["expensive","昂贵的","宽阔的","过期的","明显的",2],
+["arrive","到达","逮捕","安排","争论",2],
+["quiet","安静的","快速的","相当的","彻底的",2],
+["purchase","购买","追赶","惩罚","延长",3],
+["injury","伤害","正义","旅程","珠宝",3],
+["avoid","避免","邀请","清空","发誓",3],
+["provide","提供","证明","分开","假装",3],
+["average","平均的","生气的","勇敢的","野蛮的",3],
+["describe","描述","订阅","规定","抛弃",3],
+["opportunity","机会","对手","手术","反对",3],
+["reduce","减少","重复","生产","引进",3],
+["estimate","估计","尊敬","建立","灭绝",5],
+["efficient","高效的","充足的","流利的","古老的",5],
+["curious","好奇的","愤怒的","弯曲的","当前的",5],
+["postpone","推迟","邮寄","假装","拥有",5],
+["expand","扩大","期待","解释","花费",5],
+["anxious","焦虑的","陈旧的","大量的","匿名的",5],
+["decline","下降；婉拒","宣布","依赖","定义",5],
+["urgent","紧急的","城市的","有用的","统一的",5],
+["deteriorate","恶化","决心","去除","绕行",8],
+["reluctant","不情愿的","发光的","相关的","多余的",8],
+["abundant","充足的","荒废的","顺从的","突然的",8],
+["negotiate","谈判","否定","导航","忽视",8],
+["subtle","微妙的","顽固的","潮湿的","崇高的",8],
+["inevitable","不可避免的","看不见的","无价的","无效的",8]
+];
+const C4=[ // [句前, 残词头, 正确尾, 干1, 干2, 干3, 句后]
+["I was so tired that I went to bed","ear","ly","th","ns","st","."],
+["Can you help me","car","ry","es","go","ed","these boxes?"],
+["The store was","clo","sed","uds","wn","thes","on Sunday."],
+["She","spe","nt","ak","ll","ed","two hours doing homework."],
+["We had lunch","toge","ther","thre","ttar","den","yesterday."],
+["He is","afr","aid","ica","ee","ont","of dogs."],
+["Don't","for","get","ce","ms","th","to bring your umbrella."],
+["The meeting will be held","ne","xt","ar","st","w","Monday."],
+["I","agr","ee","ess","ave","ount","with your opinion."],
+["It's","diffi","cult","dent","rent","ne","to learn a new language."],
+["She","recei","ved","pt","ces","ne","a letter from her friend."],
+["We should","prot","ect","ess","end","ain","the environment."],
+["Yesterday the train","arri","ved","val","ce","ked","ten minutes late."],
+["He","spea","ks","ch","rs","ms","three languages fluently."],
+["I'm","loo","king","sing","ping","ming","forward to seeing you."],
+["The restaurant serves","delic","ious","ial","ient","ory","food."],
+["Smoking is not","allo","wed","cated","ne","wn","in this building."],
+["She was","disappoi","nted","sed","led","red","with the test result."],
+["The company decided to","redu","ce","ct","se","il","costs."],
+["Thank you for your","kind","ness","ly","er","om","."]
+];
+const C3=[ // [句前, 残词头, 接受答案数组, 句后]
+["I usually drink a cup of","cof",["fee"],"in the morning."],
+["There are seven days in a","we",["ek"],"."],
+["My brother is two years","you",["nger"],"than me."],
+["Water boils at one","hun",["dred"],"degrees."],
+["Please write your name and","add",["ress"],"on this form."],
+["The opposite of 'easy' is","diffi",["cult"],"."],
+["I did my","home",["work"],"after dinner."],
+["She opened the","win",["dow"],"to get some fresh air."],
+["He was born in","Janu",["ary"],", the first month of the year."],
+["We watched a movie at the","cin",["ema"],"last night."],
+["The sun rises in the","ea",["st"],"."],
+["I bought some bread at the","supermar",["ket"],"."],
+["Could you speak more","slo",["wly"],", please?"],
+["It was raining, so I took my","umbr",["ella"],"."],
+["She smiled and said, 'Nice to","me",["et"],"you.'"]
+];
+// ============ 状态：每题即存 ============
+const KEY='en_feas_v1';
+let S={answers:[]}; // {sec, idx, pick, correct, ans}
+try{const raw=localStorage.getItem(KEY); if(raw) S=JSON.parse(raw);}catch(e){}
+function persist(){
+  try{localStorage.setItem(KEY,JSON.stringify(S));
+      document.getElementById('save').textContent='已保存 '+S.answers.length+'/65 ✓';}
+  catch(e){document.getElementById('save').textContent='⚠存储不可用，请截图记录';}
+}
+const N1=VOCAB.length,N2=C4.length,N3=C3.length,TOTAL=N1+N2+N3;
+const shuffled=a=>{const b=[...a];for(let i=b.length-1;i>0;i--){const j=(Math.random()*(i+1))|0;[b[i],b[j]]=[b[j],b[i]];}return b;};
+function cur(){return S.answers.length;}
+
+function render(){
+  const n=cur();
+  document.getElementById('prog').textContent=(n)+' / '+TOTAL;
+  const card=document.getElementById('qcard');
+  const opts=document.getElementById('opts'); opts.innerHTML='';
+  if(n>=TOTAL){
+    document.getElementById('secTag').textContent='完成';
+    document.getElementById('qtext').textContent='全部做完。判决在下方。';
+    report(); return;
+  }
+  if(n<N1){ // 词汇
+    const it=VOCAB[n];
+    document.getElementById('secTag').textContent='① 词汇 '+(n+1)+'/'+N1+'（'+it[5]+'000词频带）';
+    document.getElementById('qtext').innerHTML='<b>'+it[0]+'</b>　最接近的意思是？';
+    const choices=shuffled([[it[1],1],[it[2],0],[it[3],0],[it[4],0]]);
+    choices.forEach(c=>{
+      const b=document.createElement('button'); b.textContent=c[0];
+      b.onclick=()=>answer('v',n,c[0],c[1]===1,it[1],b);
+      opts.appendChild(b);
+    });
+  }else if(n<N1+N2){ // C-test 四选一
+    const i=n-N1, it=C4[i];
+    document.getElementById('secTag').textContent='② 补全·四选一 '+(i+1)+'/'+N2;
+    document.getElementById('qtext').innerHTML=it[0]+' <b>'+it[1]+'__</b> '+it[6];
+    const choices=shuffled([[it[2],1],[it[3],0],[it[4],0],[it[5],0]]);
+    choices.forEach(c=>{
+      const b=document.createElement('button'); b.textContent=it[1]+c[0];
+      b.onclick=()=>answer('c4',i,c[0],c[1]===1,it[1]+it[2],b);
+      opts.appendChild(b);
+    });
+  }else{ // C-test 自由
+    const i=n-N1-N2, it=C3[i];
+    document.getElementById('secTag').textContent='③ 补全·打字 '+(i+1)+'/'+N3+'（补完这个词）';
+    document.getElementById('qtext').innerHTML=it[0]+' <b>'+it[1]+'____</b> '+it[3];
+    const inp=document.createElement('input'); inp.type='text'; inp.autocapitalize='none';
+    inp.autocomplete='off'; inp.spellcheck=false; inp.placeholder='接着打完这个词';
+    const row=document.createElement('div'); row.className='row';
+    const go=document.createElement('button'); go.textContent='确定';
+    const skip=document.createElement('button'); skip.textContent='不会，跳过';
+    go.onclick=()=>{const t=(inp.value||'').trim().toLowerCase().replace(/[^a-z]/g,'');
+      const okk=it[2].some(a=>t===a); answer('c3',i,t||'(空)',okk,it[1]+it[2][0],null);};
+    skip.onclick=()=>answer('c3',i,'(跳过)',false,it[1]+it[2][0],null);
+    inp.addEventListener('keydown',e=>{if(e.key==='Enter')go.click();});
+    opts.appendChild(inp); row.appendChild(go); row.appendChild(skip); opts.appendChild(row);
+    setTimeout(()=>inp.focus(),50);
+  }
+}
+let lock=false;
+function answer(sec,idx,pick,correct,ans,btn){
+  if(S.answers.length>=TOTAL||lock)return;
+  lock=true; setTimeout(()=>{lock=false;}, correct?400:1250);
+  [...document.querySelectorAll('#opts button,#opts input')].forEach(el=>el.disabled=true);
+  S.answers.push({sec,idx,pick,correct,ts:Date.now()});
+  persist();
+  if(btn){[...document.querySelectorAll('#opts button')].forEach(b=>{
+    b.disabled=true;
+    if(b.textContent===ans||b.textContent===pick&&correct)b.classList.add('ok');
+    else if(b===btn&&!correct)b.classList.add('ng');
+  });
+  if(!correct){const hint=document.createElement('div');hint.className='small';
+    hint.textContent='答案：'+ans; document.getElementById('opts').appendChild(hint);}
+  setTimeout(()=>{render();report();}, correct?350:1200);
+  }else{
+    const o=document.getElementById('opts');
+    const fb=document.createElement('div'); fb.className='small';
+    fb.textContent=(correct?'✓ 正确':'✗ 答案：'+ans);
+    o.appendChild(fb);
+    setTimeout(()=>{render();report();}, correct?350:1200);
+  }
+  report();
+}
+function rate(f){const a=S.answers.filter(f);return a.length?a.filter(x=>x.correct).length/a.length:null;}
+function bandRate(b){return rate(x=>x.sec==='v'&&VOCAB[x.idx][5]===b);}
+function report(){
+  const v2=bandRate(2),v3=bandRate(3),v5=bandRate(5),v8=bandRate(8);
+  const c4=rate(x=>x.sec==='c4'), c3=rate(x=>x.sec==='c3');
+  const pct=v=>v==null?'—':Math.round(v*100)+'%';
+  const bar=v=>'<div class="bar"><div style="width:'+(v==null?0:v*100)+'%"></div></div>';
+  document.getElementById('tbl').innerHTML=
+   '<tr><th>分段</th><th style="width:34%">正确率</th></tr>'+
+   [['① 2000词带',v2],['① 3000词带',v3],['① 5000词带',v5],['① 8000词带',v8],
+    ['② 补全·四选一',c4],['③ 补全·打字',c3]]
+   .map(r=>'<tr><td>'+r[0]+'</td><td><b>'+pct(r[1])+'</b>'+bar(r[1])+'</td></tr>').join('');
+  if(S.answers.length<TOTAL)return;
+  // 词汇量粗估（带宽加权）
+  const est=Math.round(2000*(v2||0)+1000*(v3||0)+2000*(v5||0)+3000*(v8||0));
+  let v;
+  if((v2||0)<0.7||(c4||0)<0.5){
+    v='<b style="color:var(--ng)">判决：A 路线（下限确认，两条都别追）。</b><br>'+
+      '2000 基础词带 '+pct(v2)+' / 补全四选一 '+pct(c4)+'——正确答案摆在眼前也认不出，'+
+      '这不是产出技术问题，是储备本身不足。十周内 DET100 与 TOEIC800 都不现实。'+
+      '语言兴趣由推薦制承接（桃山国際教養：只要 N2）。英语作为入学后的长期工程重建，不作为出願筹码。';
+  }else if((c4||0)>=0.75&&(c3||0)>=0.5){
+    v='<b style="color:var(--ok)">判决：B-DET 活着。</b><br>'+
+      '储备在（②'+pct(c4)+'）、产出通道也基本在（③'+pct(c3)+'）。'+
+      '下一步：5 天只练 C-test 套路 → 打一次<b>完整</b>官方模拟拿分数区间 → 区间≥95 再花 $65 考真试。'+
+      '死线：追手門後期出願 11/17〜11/26。TOEIC 路线同样可行（词汇量约 '+est+'，3000带 '+pct(v3)+'）。';
+  }else if((c4||0)>=0.7&&(c3||0)<0.5){
+    v='<b style="color:var(--acc)">判决：储备在、掏不出——典型可训练缺口。</b><br>'+
+      '②四选一 '+pct(c4)+' 说明答案在你脑子里；③打字 '+pct(c3)+' 说明产出通道锈死。'+
+      '这正是 C-test 特训 2〜4 周见效的形态。同时你的受容优势（词汇量约 '+est+'）适配 <b>TOEIC L&R</b>（零产出题）。'+
+      '双轨走：5 天 C-test 特训后打完整官方模拟（验 DET）；同时查 9〜10 月 TOEIC 场次报一场。';
+  }else{
+    v='<b>判决：边缘区。</b><br>词汇量约 '+est+'，②'+pct(c4)+'/③'+pct(c3)+'。'+
+      '自制测试的分辨率到头了——直接打一次<b>完整</b>官方 DET 模拟（免费）拿分数区间，用区间定夺。'+
+      '区间 <85：转 A 路线；85〜95：只赌 TOEIC；≥95：DET 特训两周再考真试。';
+  }
+  document.getElementById('verdict').innerHTML=v+
+   '<br><span class="small">词汇量粗估 '+est+'（参考：DET100 约需 4000+，TOEIC800 约需 5000+ 受容词汇）</span>';
+}
+document.getElementById('exp').onclick=()=>{
+  const blob=new Blob([JSON.stringify(S,null,1)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='en_feasibility_result.json';a.click();
+};
+document.getElementById('reset').onclick=()=>{
+  if(confirm('确定清空全部作答记录？此操作不可恢复')&&confirm('再确认一次：真的清空？')){
+    localStorage.removeItem(KEY);S={answers:[]};render();report();
+    document.getElementById('verdict').innerHTML='<span class="small">已清空。</span>';
+  }
+};
+render();report();
+</script>
+</body>
+</html>
