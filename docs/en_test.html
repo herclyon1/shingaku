@@ -140,6 +140,15 @@ const C3=[ // [句前, 残词头, 接受答案数组, 句后]
 const KEY='en_feas_v1';
 let S={answers:[]}; // {sec, idx, pick, correct, ans}
 try{const raw=localStorage.getItem(KEY); if(raw) S=JSON.parse(raw);}catch(e){}
+// 迁移：修复旧版③误判（打完整单词被判错）——按存储的作答文本重判
+try{let fixed=0;
+S.answers.forEach(a=>{
+  if(a.sec==='c3'&&!a.correct&&a.pick&&a.pick!=='(空)'&&a.pick!=='(跳过)'){
+    const it=C3[a.idx], stem=it[1].toLowerCase();
+    if(it[2].some(x=>a.pick===x||a.pick===stem+x)){a.correct=true;fixed++;}
+  }});
+if(fixed){localStorage.setItem(KEY,JSON.stringify(S));}
+}catch(e){}
 function persist(){
   try{localStorage.setItem(KEY,JSON.stringify(S));
       document.getElementById('save').textContent='已保存 '+S.answers.length+'/65 ✓';}
@@ -189,7 +198,9 @@ function render(){
     const go=document.createElement('button'); go.textContent='确定';
     const skip=document.createElement('button'); skip.textContent='不会，跳过';
     go.onclick=()=>{const t=(inp.value||'').trim().toLowerCase().replace(/[^a-z]/g,'');
-      const okk=it[2].some(a=>t===a); answer('c3',i,t||'(空)',okk,it[1]+it[2][0],null);};
+      const stem=it[1].toLowerCase();
+      const okk=it[2].some(a=>t===a||t===stem+a);
+      answer('c3',i,t||'(空)',okk,it[1]+it[2][0],null);};
     skip.onclick=()=>answer('c3',i,'(跳过)',false,it[1]+it[2][0],null);
     inp.addEventListener('keydown',e=>{if(e.key==='Enter')go.click();});
     opts.appendChild(inp); row.appendChild(go); row.appendChild(skip); opts.appendChild(row);
