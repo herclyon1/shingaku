@@ -421,7 +421,12 @@ def render(rows, TODAY, ME, src, sheet):
                   + f'<b>已计入（自动适用）</b>：{e(fee.get("auto") or "无")}<br>'
                   + (f'<b>可争取（不计入实付）</b>：{e(fee["upside"])}<br>' if fee.get('upside') else '')
                   + (f'{e(fee["note"])}<br>' if fee.get('note') else '')
-                  + f'<span style="font-size:11.5px">来源：{e(fee.get("src",""))}，2026-09-01 核对</span></div>')
+                  + f'<span style="font-size:11.5px">来源：{e(fee.get("src",""))}，2026-09-01 核对'
+                  + (('<br>' + '　'.join(f'<a href="{H.escape(u)}" target="_blank" rel="noopener">🔗 {e(lab)}</a>'
+                                          for lab, u in fee['src_url'])) if fee.get('src_url') else '')
+                  + (f'<br><a href="{H.escape(fee["evidence"])}" target="_blank" rel="noopener">📷 官网页面存证截图（点开看原图）</a>'
+                     if fee.get('evidence') else '')
+                  + '</span></div>')
 
         why = f'<div class="warnbox">{e(r["why"])}</div>' if r['why'] else ''
         if r['datefix']:
