@@ -343,10 +343,8 @@ def render(rows, TODAY, ME, src, sheet):
         if net:
             cost = (f'<span class="was">{man(lst)}</span>' if lst and lst != net else '') + \
                    f'<span class="v net">{man(net)}</span><span class="k">第一年实付</span>'
-        elif lst:
-            cost = f'<span class="v">{man(lst)}</span><span class="k">定价・减免未定</span>'
         else:
-            cost = '<span class="v na">学费未查到</span>'
+            cost = ''
 
         chips = []
         if r['q']:
@@ -354,7 +352,9 @@ def render(rows, TODAY, ME, src, sheet):
         if r['sen']:
             chips.append('<span class="ch sen">专愿</span>')
         if fee.get('hit'):
-            chips.append('<span class="ch good">减免适用</span>')
+            chips.append('<span class="ch good">自动减免已计入</span>')
+        elif fee.get('upside'):
+            chips.append('<span class="ch w">有可争取减免</span>')
         if r['exam'] == 'oral':
             chips.append('<span class="ch">不考笔试</span>')
         if r['n1gain']:
@@ -387,14 +387,12 @@ def render(rows, TODAY, ME, src, sheet):
 
         fb = ''
         if fee:
-            big = (f'<span class="big">实付 {man(net)}日元（{net:,}）</span>' if net else
-                   '<span class="big">实付金额无法确定</span>')
-            fb = (f'<div class="feebox">{big}'
-                  + (f'定价第一年缴纳金 <b>{man(lst)}日元（{lst:,}）</b><br>' if lst else '')
-                  + (f'<b>减免</b>：{e(fee.get("reduction") or "—")}<br>' )
+            fb = (f'<div class="feebox"><span class="big">第一年实付 {man(net)}日元（{net:,}）</span>'
+                  + (f'定价 <b>{man(lst)}日元</b>，' if lst and lst != net else '')
+                  + f'<b>已计入（自动适用）</b>：{e(fee.get("auto") or "无")}<br>'
+                  + (f'<b>可争取（不计入实付）</b>：{e(fee["upside"])}<br>' if fee.get('upside') else '')
                   + (f'{e(fee["note"])}<br>' if fee.get('note') else '')
-                  + f'<span style="font-size:11.5px">来源：{e(fee.get("reduction_src",""))}'
-                  + f'／可信度 {e(fee.get("conf","—"))}・须核对</span></div>')
+                  + f'<span style="font-size:11.5px">来源：{e(fee.get("src",""))}，2026-09-01 核对</span></div>')
 
         why = f'<div class="warnbox">{e(r["why"])}</div>' if r['why'] else ''
         if r['datefix']:
@@ -476,18 +474,19 @@ def render(rows, TODAY, ME, src, sheet):
         {'kansai_other': '関西・其他', 'far': '要搬家（关西外）', 'overseas': '海外'}), N)
 
     # --- 学费 ---
-    F_BAND = chips('band', byfield('band', ['a', 'b', 'c', 'x'],
-        {'a': '～100 万', 'b': '100〜120 万', 'c': '120 万～', 'x': '未确定'}), N)
-    F_WV = chips('wv', byfield('wv', ['hit', 'maybe', 'no', 'none'],
-        {'hit': '减免适用', 'maybe': '减免额未定', 'no': '首年无减免', 'none': '未查到'}), N)
+    F_BAND = chips('band', byfield('band', ['a', 'b', 'c'],
+        {'a': '～100 万', 'b': '100〜120 万', 'c': '120 万～'}), N)
+    F_WV = chips('wv', byfield('wv', ['auto', 'try', 'no'],
+        {'auto': '自动减免·已计入', 'try': '可争取（评选制）', 'no': '首年无减免'}), N)
     F_WT = chips('wt', byfield('wt', ['w_adm', 'w_tui', 'w_att', 'w_gpa', 'w_inc'],
         {'w_adm': '免入学金', 'w_tui': '学费打折', 'w_att': '按出勤率',
          'w_gpa': '按成绩', 'w_inc': '按家庭收入'}), N)
 
     # --- 时间・其他 ---
     cv = Counter(r['v'] for r in rows)
-    F_STATUS = chips('status', [('ok', '可报', cv['◎'], ''), ('warn', '待确认', cv['⚠'], ''),
-                                ('ng', '不可报', cv['✕'], '')], N)
+    F_STATUS = chips('status', [(k, lab, cv[m], '') for k, lab, m in
+                                [('ok', '可报', '◎'), ('warn', '待确认', '⚠'), ('ng', '不可报', '✕')]
+                                if cv[m]], N)
     F_DL = chips('dl', [('d14', '14 天内', 0, ''), ('d30', '30 天内', 0, ''),
                         ('d60', '60 天内', 0, ''), ('d90', '60 天以上', 0, '')], N)
     n1n = sum(1 for r in rows if r['n1gain'])
@@ -525,7 +524,6 @@ def render(rows, TODAY, ME, src, sheet):
     <div class="counts">
       <div class="cnt"><div class="n">{len(rows)}</div><div class="l">名单收录</div></div>
       <div class="cnt a"><div class="n">{C['◎']}</div><div class="l">可报</div></div>
-      <div class="cnt"><div class="n">{C['⚠']}</div><div class="l">待确认</div></div>
       <div class="cnt"><div class="n">{C['✕']}</div><div class="l">不可报</div></div>
       <div class="cnt h"><div class="n">{sen_n}</div><div class="l">专愿</div></div>
       <div class="cnt"><div class="n">32</div><div class="l">专门学校</div></div>
@@ -568,7 +566,6 @@ def render(rows, TODAY, ME, src, sheet):
     <button data-s="fee"  aria-pressed="false">按学费</button>
   </div>
   {sec('◎ 可报', ok)}
-  {sec('⚠ 需要额外确认', [r for r in rows if r['v'] == '⚠'])}
   {sec('✕ 不可报', [r for r in rows if r['v'] == '✕'])}
   <p class="empty" id="empty" hidden>没有符合条件的学校。</p>
 

@@ -39,14 +39,15 @@ NG = {
  '大阪国際大学':   '必须有 EJU（日语200分）。不认 JLPT',
  '上海大学':      '要求中国籍以外，你不符合',
  '太成学院大学':   f'要求 N2 112 分以上，你 {ME["jlpt_score"]} 分差 1 分（EJU220／JPT525／J.TEST C级600 也可以替代）',
-}
-WARN = {
  '追手門学院大学（パートナー校制度）':
-    '募集要項原文は日语组と英语组それぞれに「いずれかを有する者」＝AND。日语 N3 你够，但**必须另有英语成绩**'
-    '（TOEIC800／IELTS5.5／TOEFL iBT74／Duolingo100 之一）。反面：英語能力に応じて最大100%の授業料免除あり',
- '城西国際大学':   '指定校名单上条件栏是空的、日程也未记载（名单标「編集中」）。学费は官网で確認済（138.7万）だが、'
-    '出願条件そのものが不明なので判定できない ← 学校の進路担当に確認が必要',
+    '募集要項为日语＋英语双条件（AND）：日语N3你够，但必须另持英语成绩证书'
+    '（TOEIC800／IELTS5.5／TOEFL iBT74／Duolingo100 之一），目前没有证书即不可出愿。'
+    '（若考出英语成绩则可报，且按英语能力最高100%学费免除；你1月自查时也已将其排除）',
+ '城西国際大学':
+    '学校指定校名单上该校条件栏为空、日程未记载（标注「編集中」）＝当前不存在可执行的出愿路径。'
+    '（大学官网2026定价138.7万可查，但指定校条件未发布前无法出愿）',
 }
+WARN = {}
 
 S = lambda x: '' if x is None else str(x).strip()
 
@@ -182,17 +183,17 @@ def exam_kind(sub):
 
 def waiver_kind(fee):
     if not fee:
-        return 'none', '未查到减免信息'
-    if fee.get('hit') is True:
-        return 'hit', '减免适用'
-    if fee.get('hit') is False:
-        return 'no', '第一年无减免'
-    return 'maybe', '减免额未定'
+        return 'na', '—'
+    if fee.get('hit'):
+        return 'auto', '自动减免·已计入'
+    if fee.get('upside'):
+        return 'try', '可争取（评选/条件制）'
+    return 'no', '首年无减免'
 
 
 def waiver_types(fee):
     """减免の中身を種類別に分ける（入学金/学费打折/出勤率/成绩）。"""
-    t = (fee or {}).get('reduction') or ''
+    t = ((fee or {}).get('auto') or '') + ((fee or {}).get('upside') or '')
     out = []
     if re.search(r'入学金', t):
         out.append('w_adm')
