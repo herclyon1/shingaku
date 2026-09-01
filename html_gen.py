@@ -156,6 +156,24 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
   padding:10px 12px;font-size:13px;color:var(--ink2);margin-top:12px}
 .c.ng .warnbox{background:var(--hot-bg);border-color:var(--hot)}
 
+/* rarity */
+.c.t-gold{border-top:3px solid #c9962a}
+.c.t-purple{border-top:3px solid #8b5cf6}
+.c.t-blue{border-top:3px solid #3b82f6}
+.ch.tg{background:linear-gradient(135deg,#f5d06f,#c9962a);color:#3a2c05;border-color:#c9962a;font-weight:700}
+.ch.tp{background:#8b5cf6;color:#fff;border-color:#8b5cf6;font-weight:700}
+.ch.tb{background:#3b82f6;color:#fff;border-color:#3b82f6;font-weight:700}
+.ch.tw{background:var(--sunk);color:var(--dim);border-color:var(--line2)}
+.tierbox{border-radius:7px;padding:9px 11px;margin-top:10px;font-size:12.5px;line-height:1.6;
+  border:1px solid var(--line2);color:var(--ink2);background:var(--sunk)}
+.binsec{margin-top:26px;border-top:1px solid var(--line);padding-top:8px}
+.binsec summary{cursor:pointer;font:600 13px/1.6 inherit;color:var(--dim);list-style:none;padding:8px 0}
+.binsec summary::before{content:"▸ ";font-size:11px}
+.binsec[open] summary::before{content:"▾ "}
+.binrow{display:flex;gap:10px;padding:7px 4px;font-size:13px;color:var(--dim);
+  border-bottom:1px dashed var(--line)}
+.binrow b{color:var(--ink2);font-weight:500}
+
 /* cost */
 .cost{text-align:right;flex:none;display:flex;flex-direction:column;gap:1px;align-items:flex-end}
 .cost .v{font:600 16px/1 ui-monospace,monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
@@ -285,6 +303,13 @@ function sortBy(mode){
         const fa=+a.dataset.fee||9e9, fb=+b.dataset.fee||9e9;
         if(fa!==fb) return fa-fb;
       }
+      if(mode==='tier'){
+        const R={gold:0,purple:1,blue:2,white:3};
+        const ta=R[a.dataset.tier]??9, tb=R[b.dataset.tier]??9;
+        if(ta!==tb) return ta-tb;
+        const fa=+a.dataset.fee||9e9, fb=+b.dataset.fee||9e9;
+        if(fa!==fb) return fa-fb;
+      }
       return (+a.dataset.left) - (+b.dataset.left);
     });
     cs.forEach(c=>list.appendChild(c));
@@ -321,6 +346,8 @@ def man(n):
 
 def render(rows, TODAY, ME, src, sheet):
     e = lambda s: H.escape(s or '')
+    binned = [r for r in rows if r.get('bin')]
+    rows = [r for r in rows if not r.get('bin')]
     C = Counter(r['v'] for r in rows)
     ok = [r for r in rows if r['v'] == '◎']
     sen_n = sum(1 for r in ok if r['sen'])
@@ -332,6 +359,7 @@ def render(rows, TODAY, ME, src, sheet):
         left = (dl - TODAY).days if dl else None
         sev = 'ng' if v == 'ng' else ('hot' if left is not None and left <= 14
               else 'warm' if left is not None and left <= 30 else 'cool')
+        sev += ' t-' + r['tier']
         num = str(left) if left is not None else '—'
         unit = '天' if left is not None else ('不可' if v == 'ng' else '未定')
         loc, fee = r['loc'], r['fee']
@@ -346,7 +374,8 @@ def render(rows, TODAY, ME, src, sheet):
         else:
             cost = ''
 
-        chips = []
+        chips = [f'<span class="ch t{ {"gold":"g","purple":"p","blue":"b","white":"w"}[r["tier"]] }">'
+                 f'{ {"gold":"金","purple":"紫","blue":"蓝","white":"白"}[r["tier"]] }</span>']
         if r['q']:
             chips.append(f'<span class="ch q">名额 {e(quota_short(r["q"]))}</span>')
         if r['sen']:
@@ -399,13 +428,15 @@ def render(rows, TODAY, ME, src, sheet):
             why += f'<div class="warnbox">{e(r["datefix"])}</div>'
         if r['n1gain']:
             why += f'<div class="n1box"><b>考出 N1 的话</b>：{e(r["n1gain"])}</div>'
+        why += (f'<div class="tierbox"><b>{ {"gold":"🟡 金卡","purple":"🟣 紫卡","blue":"🔵 蓝卡","white":"⚪ 白卡"}[r["tier"]] }</b>'
+                f'：{e(r["tier_why"])}</div>')
         return (f'<article class="c {sev}" data-status="{v}" '
                 f'data-form="{"sen" if r["sen"] else "free"}" '
                 f'data-reqtop="{r["reqtop"]}" data-req="{r["req"]}" data-ab="{r["ab"]}" '
                 f'data-exam="{r["exam"]}" data-qb="{r["qb"]}" data-zone="{e(r["zone"])}" '
                 f'data-chiho="{e(" ".join(r["chiho"]))}" data-prefs="{e(" ".join(r["prefs"]))}" '
                 f'data-band="{r["band"]}" data-wv="{r["wv"]}" data-wt="{" ".join(r["wt"])}" '
-                f'data-n1="{"y" if r["n1gain"] else "n"}" '
+                f'data-n1="{"y" if r["n1gain"] else "n"}" data-tier="{r["tier"]}" '
                 f'data-fee="{net or lst or 0}" '
                 f'data-left="{left if left is not None else 9999}"'
                 + (f' data-dl="{dl.isoformat()}"' if dl else '') + '>'
@@ -458,6 +489,8 @@ def render(rows, TODAY, ME, src, sheet):
          'split': '按学科不同', 'cefr': 'CEFR 判定'}, parent='reqtop'), N)
     F_ATT = chips('ab', byfield('ab', ['a80', 'a85', 'a90', 'a95', 'ax'],
         {'a80': '80%↑', 'a85': '85%↑', 'a90': '90%↑', 'a95': '95%↑', 'ax': '未记载'}), N)
+    TL = {'gold': '金', 'purple': '紫', 'blue': '蓝', 'white': '白'}
+    F_TIER = chips('tier', byfield('tier', ['gold', 'purple', 'blue', 'white'], TL), N)
     F_FORM = chips('form', [('sen', '专愿', sum(1 for r in rows if r['sen']), ''),
                             ('free', '可兼报', sum(1 for r in rows if not r['sen']), '')], N)
     F_EXAM = chips('exam', byfield('exam', ['oral', 'written', 'unknown'],
@@ -522,7 +555,7 @@ def render(rows, TODAY, ME, src, sheet):
       <span>更新 <b>{TODAY}</b></span>
     </div>
     <div class="counts">
-      <div class="cnt"><div class="n">{len(rows)}</div><div class="l">名单收录</div></div>
+      <div class="cnt"><div class="n">{len(rows)}</div><div class="l">纳入考虑</div></div>
       <div class="cnt a"><div class="n">{C['◎']}</div><div class="l">可报</div></div>
       <div class="cnt"><div class="n">{C['✕']}</div><div class="l">不可报</div></div>
       <div class="cnt h"><div class="n">{sen_n}</div><div class="l">专愿</div></div>
@@ -532,6 +565,7 @@ def render(rows, TODAY, ME, src, sheet):
   <div class="bar">
     <div class="facets">
       <details class="g" open><summary>申请条件<span class="badge" data-g="req"></span></summary>
+        <div class="fl"><span class="sublab">稀有度</span>{F_TIER}</div>
         <div class="fl"><span class="sublab">证书种类</span>{F_REQTOP}</div>
         <div class="fl"><span class="sublab">日语等级</span>{F_REQ}</div>
         <div class="fl"><span class="sublab">出勤率</span>{F_ATT}</div>
@@ -564,10 +598,15 @@ def render(rows, TODAY, ME, src, sheet):
   <div class="sortbar"><span>排序</span>
     <button data-s="date" aria-pressed="true">按截止日</button>
     <button data-s="fee"  aria-pressed="false">按学费</button>
+    <button data-s="tier" aria-pressed="false">按稀有度</button>
   </div>
   {sec('◎ 可报', ok)}
   {sec('✕ 不可报', [r for r in rows if r['v'] == '✕'])}
   <p class="empty" id="empty" hidden>没有符合条件的学校。</p>
+
+  <details class="binsec"><summary>🗑 已丢弃 {len(binned)} 所（短大・女大，按你的指令不予考虑，不参与筛选）</summary>
+    {''.join(f'<div class="binrow"><b>{e(r["n"])}</b><span>{e(r["why"])}</span></div>' for r in binned)}
+  </details>
 
   <div class="notes">
     <b>怎么看这张表</b>
