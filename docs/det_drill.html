@@ -94,6 +94,13 @@ a{color:var(--acc)}
       <div id="result"></div>
     </div>
 
+    <details class="card" id="ownbox">
+      <summary style="cursor:pointer;font-weight:700;font-size:14.5px;list-style:none">📋 用自己的文章练（题目无限）</summary>
+      <p class="meta" style="margin:9px 0">贴任意英文段落进来（新闻、教材、网上的练习题都行），自动变成同样格式的补全题。30〜120 词最合适。</p>
+      <textarea id="owntext" rows="5" placeholder="Paste any English paragraph here…" style="width:100%;border:1px solid var(--line);border-radius:9px;padding:9px;font:inherit;font-size:14px;background:var(--bg);color:var(--ink);resize:vertical"></textarea>
+      <div class="bar" style="margin:9px 0 0"><button class="btn pri" id="gen">生成题目</button><span class="meta" id="genmsg"></span></div>
+    </details>
+
     <div class="card">
       <div class="bar" style="margin:0"><b style="font-size:14.5px">错词本</b><button class="btn" id="clearwb" style="padding:4px 10px;font-size:13px">清空</button></div>
       <div class="wrongbook" id="wrongbook"></div>
@@ -159,11 +166,14 @@ function save(){ try{ localStorage.setItem(LS, JSON.stringify(S)); }catch(e){} }
 
 let cur=null, graded=false, timer=null, left=180;
 
-function render(){
-  const pi = S.order[S.pos % S.order.length];
-  cur = { pi, round:S.round, parts: build(PASSAGES[pi], S.round) };
+function render(customText){
+  let src, label;
+  if(customText){ src=customText; label='自定义文本'; }
+  else { const pi=S.order[S.pos%S.order.length]; src=PASSAGES[pi];
+         label=`第 ${S.pos%S.order.length+1} 篇 / 共 ${PASSAGES.length} 篇 · 第 ${S.round+1} 轮`; }
+  cur = { pi: customText? -1 : S.order[S.pos % S.order.length], round:S.round, parts: build(src, S.round), custom: !!customText };
   graded = false;
-  document.getElementById('pinfo').textContent = `第 ${S.pos%S.order.length+1} 篇 / 共 ${PASSAGES.length} 篇 · 第 ${S.round+1} 轮`;
+  document.getElementById('pinfo').textContent = label;
   document.getElementById('result').innerHTML='';
   document.getElementById('next').style.display='none';
   document.getElementById('submit').disabled=false;
@@ -252,6 +262,15 @@ function drawStats(){
     `共 ${n} 篇 · 总正确率 ${Math.round(rt/tot*100)}% · 最近 7 篇 ${l7p}%`;
 }
 
+document.getElementById('gen').onclick=()=>{
+  const t=document.getElementById('owntext').value.trim().replace(/\s+/g,' ');
+  const words=(t.match(/[A-Za-z']+/g)||[]).length;
+  const msg=document.getElementById('genmsg');
+  if(words<25){ msg.textContent='太短了，至少 25 个英文单词。'; msg.style.color='var(--bad)'; return; }
+  msg.textContent=`已生成（${words} 词）`; msg.style.color='var(--ok)';
+  clearInterval(timer); render(t);
+  document.getElementById('passage').scrollIntoView({behavior:'smooth',block:'start'});
+};
 document.getElementById('submit').onclick=grade;
 document.getElementById('next').onclick=()=>{
   S.pos++;
