@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>指定校 33 校 全序列</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Noto+Sans+SC:wght@400;500;700&family=IBM+Plex+Mono:wght@600&display=swap">
+<style>
+:root{
+  --bg:#F5F3EF;--panel:#FFFFFF;--ink:#191C22;--ink2:#61666F;--line:#E2DFD7;
+  --acc:#3B3A7A;--acc-soft:#E7E6F4;--gold:#9A7013;--gold-soft:#F7EEDA;
+  --warn:#A3521C;--warn-soft:#F8E9DD;--bad:#A93636;--bad-soft:#F7E3E1;--chip:#EDEAE4;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#15161A;--panel:#1E2026;--ink:#EDEEF1;--ink2:#9AA0AA;--line:#31343B;
+  --acc:#9A98E8;--acc-soft:#23234A;--gold:#E0BC6B;--gold-soft:#392E14;
+  --warn:#E0A272;--warn-soft:#3A2517;--bad:#E58C86;--bad-soft:#3B1F1E;--chip:#282B32;
+}}
+:root[data-theme="dark"]{
+  --bg:#15161A;--panel:#1E2026;--ink:#EDEEF1;--ink2:#9AA0AA;--line:#31343B;
+  --acc:#9A98E8;--acc-soft:#23234A;--gold:#E0BC6B;--gold-soft:#392E14;
+  --warn:#E0A272;--warn-soft:#3A2517;--bad:#E58C86;--bad-soft:#3B1F1E;--chip:#282B32;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans SC","Zen Kaku Gothic New",-apple-system,"PingFang SC",sans-serif;font-size:15px;line-height:1.7}
+.wrap{max-width:800px;margin:0 auto;padding:16px 12px 80px}
+h1{font-family:"Zen Kaku Gothic New","Noto Sans SC",sans-serif;font-weight:900;font-size:26px;letter-spacing:.01em;margin:8px 0 4px;text-wrap:balance}
+.lede{color:var(--ink2);font-size:13.5px;margin:0 0 6px}
+.caveat{background:var(--warn-soft);color:var(--warn);border-radius:10px;padding:10px 12px;font-size:13px;margin:14px 0 20px}
+h2{font-family:"Zen Kaku Gothic New","Noto Sans SC",sans-serif;font-size:15px;font-weight:900;margin:30px 0 4px;display:flex;align-items:center;gap:9px}
+.grade{display:inline-flex;width:29px;height:29px;align-items:center;justify-content:center;border-radius:8px;font-family:"IBM Plex Mono",monospace;font-size:16px;flex:none}
+.g-S{background:var(--gold-soft);color:var(--gold)}
+.g-A{background:var(--acc-soft);color:var(--acc)}
+.g-B{background:var(--chip);color:var(--ink)}
+.g-C{background:var(--chip);color:var(--ink2)}
+.g-D{background:var(--chip);color:var(--ink2)}
+.g-E{background:var(--bad-soft);color:var(--bad)}
+.tdesc{color:var(--ink2);font-size:12.5px;margin:0 0 12px;padding-left:38px}
+.row{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:13px 14px;margin-bottom:9px;display:flex;gap:13px}
+.rk{font-family:"IBM Plex Mono",monospace;font-size:22px;font-weight:600;color:var(--ink2);min-width:34px;text-align:right;line-height:1.25;font-variant-numeric:tabular-nums}
+.row.top .rk{color:var(--gold)}
+.main{flex:1;min-width:0}
+.nm{font-family:"Zen Kaku Gothic New","Noto Sans SC",sans-serif;font-weight:700;font-size:16.5px;line-height:1.35}
+.chips{display:flex;flex-wrap:wrap;gap:4px 6px;margin:6px 0 8px}
+.c{font-size:11.5px;padding:1px 8px;border-radius:99px;background:var(--chip);color:var(--ink2);white-space:nowrap}
+.c.grp{background:var(--acc-soft);color:var(--acc);font-weight:700}
+.c.red{background:var(--bad-soft);color:var(--bad);font-weight:700}
+.c.good{background:var(--gold-soft);color:var(--gold);font-weight:700}
+.say{font-size:14.5px;line-height:1.75}
+.say b{color:var(--acc)}
+.say .hi{background:linear-gradient(transparent 62%,var(--gold-soft) 62%);font-weight:700}
+.foot{margin-top:34px;font-size:12.5px;color:var(--ink2);line-height:1.6;border-top:1px solid var(--line);padding-top:14px}
+a{color:var(--acc)}
+@media (max-width:430px){.rk{font-size:19px;min-width:28px}.nm{font-size:15.5px}.say{font-size:14px}}
+</style>
+</head><body>
+<div class="wrap">
+  <h1>指定校 33 校 全序列</h1>
+  <p class="lede">ヒューマンアカデミー大阪校 指定校推薦リスト（大学・2026年度）の 33 校を、学校そのものの実力で並べたもの。<b>入試条件・学費は一切考慮していない。</b></p>
+  <div class="caveat">
+    <b>先说数据的毛病。</b>这个档次的偏差値不可靠：多数学校招不满，河合塾和 Benesse 两套标尺能差 7 个点，同一个网站给近畿大 54–68 也给太成学院 60。所以排名主要看<b>大学群归属、定员充足率、办学实体状况、就职品牌</b>，偏差値只当参考。定员充足率低于 80% 是经营警号，低于 70% 是红灯。
+  </div>
+  <div id="list"></div>
+  <div class="foot">
+    数据来源：河合塾／Benesse／みんなの大学情報 偏差値（2026・2027年度）、大学ポートレート（私学版）在籍者数、daigaku-compass 定员充足率（2025年度）、QS World University Rankings 2025、各校官网。<br>
+    排名是我的判断，不是官方序列。同一档内的先后差别不大，跨档才有意义。<br>
+    生成于 2026-09-05。
+  </div>
+</div>
+
+<script>
+const TIERS = [
+ ['S','别格 · 不在同一个坐标系里','一所是中国 211，一所是日本全国区。放进这份名单本身就有点违和。'],
+ ['A','関西中堅上位 · 外外経工佛','在産近甲龍之下、摂神追桃之上。关西企业认这个位置。'],
+ ['B','摂神追桃','关西中堅四强。名字连在一起念了几十年，实际差距比外界想的小。'],
+ ['C','不入群，但有规模、历史或不可替代的特色','没有集团光环，但每一所都有一个说得出口的东西。'],
+ ['D','小规模 · 地方 · 特化','偏差値 35 上下的区间。这里的差别主要不在学术，在"招不招得满"。'],
+ ['E','有明确警号','不是"偏差値低"的问题，是办学实体本身在响警报。'],
+];
+
+const DATA = [
+ ['S',1,'上海大学',['中国 211工程','双一流','QS 2025 世界 489 位'],
+  '放在这份名单里是<span class="hi">降维打击</span>。中国内地排第 32 位左右，另外 32 所日本学校加起来也没有一所进得了 QS 500。上海市重点建设，钱伟长从 1983 年当校长一直到 2010 年去世。唯一的问题是它写着"要求中国籍以外"——对中国学生来说，这是橱窗里的展品。'],
+ ['S',2,'近畿大学',['産近甲龍','偏差値 45–57.5','医学部あり'],
+  '整份名单里<span class="hi">唯一有全国知名度的日本大学</span>。报考人数常年霸占全国前列，完全养殖蓝鳍金枪鱼是日本产学研最出名的案例之一，医学部、药学部、农学部一应俱全。真正的综合大学，和后面 31 所不是一个物种。代价是门槛也最高：EJU 日语 300 分＋综合科目 100 分。'],
+
+ ['A',3,'大阪経済大学',['外外経工佛','就职支援 近畿私大 Top2（4年连续）','全国第 8 位'],
+  '它的强不在偏差値，在<span class="hi">关西企业真的认</span>。就职支援连续四年拿到近畿私大第二、全国第八，企业人事调查"毕业生活跃度"近畿第二。就职去向以中堅企业和大手子公司为主，不吹嘘大手一般职。一所很实在的学校。软肋是国際共創学部 2027 年才新设，一届毕业生都还没有。'],
+ ['A',4,'京都外国語大学',['外外経工佛','偏差値 37.5–47.5','1947年創立'],
+  '语言单科老校，在关西外语圈有真历史。缺点是所有外语单科大学的通病：<span class="hi">四年只学一件事，非语言方向没得转</span>。适合真的要吃语言这碗饭的人，不适合"先进去再说"。'],
+
+ ['B',5,'追手門学院大学',['摂神追桃','偏差値 42.5–52.5','心理学部 56','在籍 9,451'],
+  '摂神追桃里偏差値并列第一，心理学部是招牌。总持寺校区新，JR 総持寺步行 10 分，位置在四校里最好。对留学生设 <span class="hi">CEFR B2 英语门槛作为出願资格</span>——不是拿奖学金的条件，是能不能报名的条件。在日本私大里罕见地硬。'],
+ ['B',6,'神戸学院大学',['摂神追桃','偏差値 37.5–52.5','栄養 61 / 薬 59'],
+  '靠营养学部和药学部把上限撑起来，文系部分很普通。<span class="hi">神户本地就职强，出了兵库就一般</span>。典型的地域密着型中堅私大。'],
+ ['B',7,'桃山学院大学',['摂神追桃','偏差値 40.0–47.5','在籍 8,194','留学生 4.1%'],
+  '群内垫底，而且是四校里唯一没有药／护理／营养这类高偏差値学部帮忙拉平均的。但 1959 年建校的圣公会系有底子，留学生只占 4.1%，<span class="hi">生源结构健康、不畸形</span>，这在中下游私大里其实不常见。硬伤是位置：和泉市まなび野，南海高野线到泉ヶ丘还要转巴士。'],
+
+ ['C',8,'日本工業大学',['埼玉','1967年創立','実工学'],
+  '工科老校，"実工学"是它几十年的招牌，实习设备在私立工科里算舍得投钱的。<span class="hi">名字土，实力不土。</span>但它是纯工科，且要 EJU 加数学课程 2，文系学生连门都摸不到。'],
+ ['C',9,'ものつくり大学',['埼玉行田','2001年創立','偏差値 42'],
+  '梅原猛等人发起创办的"技能重视型"大学，四年里塞进大量实习时数，<span class="hi">就职实绩在同偏差値区间里明显偏好</span>。办学理念是这份名单里最清晰的之一。代价是专业极窄、完全不在关西，去了等于换个人生地图。'],
+ ['C',10,'天理大学',['奈良','充足率 79.1%','偏差値 35–42.5'],
+  '天理教办学。国際学部的外语教育（尤其小语种）和体育部（柔道・剣道出过奥运选手）是<span class="hi">货真价实的招牌</span>，不是宣传语。宗教色彩明显，能不能适应因人而异。充足率 79.1% 已经在警戒线上。'],
+ ['C',11,'名古屋経済大学',['愛知犬山','充足率 83.9%'],
+  '市邨学园系，历史不短但规模小。<span class="hi">名古屋圈外几乎没有知名度</span>，去了就是把人生绑在中京圈。充足率 83.9% 在这一档里算体面的。'],
+ ['C',12,'大阪産業大学',['大東市','経営 35–37.5','工学系较强'],
+  '万人规模，是这份名单里少数几所"大"的学校。<span class="hi">工学系明显强于文系</span>，文科生去了拿不到它最好的那部分。校区在生駒山脚下，通学要爬坡，这个坡是真的坡。'],
+ ['C',13,'大阪経済法科大学',['八尾','偏差値 37.5–40','国際学部 留学生 64%'],
+  '公务员考试对策是<span class="hi">真强项</span>，专设特修講座，警察、消防、市役所的出口很多——这一点在同档里几乎没有对手。代价也很实在：山上，公交 20 分钟，周边没有超市没有饭馆；国際学部留学生占到 64%，日本人同学不好找。'],
+ ['C',14,'流通科学大学',['神戸西区','1988年創立','中内㓛 創立'],
+  '大荣创始人中内㓛亲手办的学校，<span class="hi">"流通"这个定位在日本私大里独一份</span>，商学部有真的行业积累。问题是母体大荣早就没了，光环褪了不少，现在靠自己撑。神戸西区，从大阪通学是一场持久战。'],
+ ['C',15,'城西国際大学',['千葉東金','偏差値 35–37.5','留学生多'],
+  '媒体学部和观光学部是主力，留学生招得多。<span class="hi">名字里"国際"两个字比实际国际化程度响亮</span>。位置在千叶东金，离东京都心也远。'],
+
+ ['D',16,'大手前大学',['西宮夙川','偏差値 35–40','通信教育部'],
+  '真正的特色是<span class="hi">通信教育部</span>——做得早、规模大，在网络高等教育这块有先发优势。反倒是面授部分很平淡。2027 年新设情報学部（认可申请中），在试着转型。'],
+ ['D',17,'大阪国際大学',['守口','偏差値 37.5–40'],
+  '改名改组太频繁，从女子大系统一路转成共学综合，<span class="hi">导致它现在很难用一句话说清自己是什么</span>。定位模糊是它最大的问题，不是偏差値。'],
+ ['D',18,'関西国際大学',['尼崎・三木','偏差値 36'],
+  '教育和护理为主，<span class="hi">"国際"是名字不是内容</span>。校区分散在尼崎和三木两地是硬伤，学部之间几乎不见面。'],
+ ['D',19,'山梨学院大学',['甲府','偏差値 35–37.5','箱根駅伝常連'],
+  '全国知名度<span class="hi">几乎百分之百来自箱根驿传和体育部</span>，学术层面很普通。对关西学生来说，去甲府等于主动放弃整个关西的就职网络。'],
+ ['D',20,'駒沢女子大学',['東京稲城','偏差値 BF–40','在籍 1,590 / 定員 2,210'],
+  '曹洞宗系，护理学部是新支柱。<span class="hi">充足率约 72%</span>，东京西郊，通学不便。女子大在少子化里普遍难，它算撑得中规中矩的。'],
+ ['D',21,'太成学院大学',['大東市','偏差値 35–37.5','看護 37.5'],
+  '看护学部是上限。这所学校在这份名单里最特别的地方是——<span class="hi">它是唯一因为分数差 1 分把人挡在门外的</span>（要 N2 112，你 111）。规则严格到有点黑色幽默。'],
+ ['D',22,'神戸国際大学',['神戸東灘','偏差値 BF–37.5','経済 BF–35'],
+  '规模小，経済学部已经到 BF。<span class="hi">リハビリテーション学部是全校唯一还有门槛的地方</span>，其余基本来者不拒。'],
+ ['D',23,'育英館大学',['北海道稚内 ＋ 京都サテライト','偏差値 40'],
+  '本体在稚内，日本最北端的大学之一，京都只是卫星校区。<span class="hi">规模小到偏差値失去统计意义</span>。选它基本等于选那个京都的小教室，而不是选一所大学。'],
+ ['D',24,'羽衣国際大学',['堺','偏差値 35','充足率 98.9%'],
+  '偏差値不高，但<span class="hi">充足率 98.9%——这一档里唯一招满的</span>。说明本地招生盘很稳，经营上比很多偏差値更高的同行健康。全校靠一个现代社会学部撑着，抗风险能力有限。'],
+ ['D',25,'神戸医療未来大学',['姫路 ＋ 天王寺','偏差値 35'],
+  '<span class="hi">名字里"医療未来"四个字，比学部内容宏大得多</span>——主力是人間社会学部，不是医学系。2014 年由姫路獨協系改名而来，改名的动机比办学的变化更明显。'],
+ ['D',26,'大阪キリスト教短期大学',['短大','幼教・保育'],
+  '两年制。幼教保育定位清晰，在这条赛道上有口碑和就职通路。<span class="hi">短大和四年制不是同一个学位层级</span>，这是结构性的，不是好坏问题。'],
+ ['D',27,'中日本自動車短期大学',['岐阜坂祝町','短大','自動車特化'],
+  '日本少见的汽车专门短大，和丰田系有实务连接，<span class="hi">就职率非常高</span>。但极度专门化，转行成本大到接近不可逆，而且是两年制。'],
+
+ ['E',28,'大阪女学院大学',['玉造','偏差値 BF','充足率 70%','1884年創立'],
+  '英语教育有一百四十年传统，这是真的。但<span class="hi">大学部只剩一个国際・英語学部，招生规模 130 人，偏差値已经到 BF</span>。历史撑不住招生现实，这是日本小规模女子大的共同困境。'],
+ ['E',29,'園田学園大学',['尼崎','充足率 71.3%','2025年共学化'],
+  '2025 年 4 月刚从女子大改共学并改名，<span class="hi">整所学校正在转型的半途</span>。教学、生源结构、校风全都处在未定状态，现在进去等于赌它转型成功。'],
+ ['E',30,'芦屋大学',['芦屋','偏差値 35','極小規模'],
+  '名字借了芦屋这个日本顶级住宅区的光，<span class="hi">实体是一所开在山上的小型教育系大学</span>，和"芦屋"这两个字给人的想象没什么关系。规模极小。'],
+ ['E',31,'相愛大学',['大阪南港','偏差値 35','充足率 64.4%'],
+  '净土真宗系，音乐学部有历史，相愛オーケストラ在关西是有名字的。但<span class="hi">充足率 64.4%，是这份名单四年制大学里最低的一个</span>，经营压力最直接。历史和现状之间的落差很大。'],
+ ['E',32,'平安女学院大学',['京都・高槻','偏差値 BF–37.5','在籍 397 / 定員 680'],
+  '1875 年创立，历史比大多数日本私大都长。但现在<span class="hi">在籍只有 397 人，定员 680，充足率约 58%</span>——这是整份名单上最刺眼的数字之一。一所学校小到这个程度，学部能不能维持下去本身就是问题。'],
+ ['E',33,'大阪観光大学',['熊取','偏差値 35 / BF','留学生 80%','民事再生'],
+  '这一所不是"偏差値低"，是<span class="hi">办学实体本身出过事</span>。2019 年明浄学院事件，卖地定金 21 亿円被前理事长挪用，2020 年学校法人走民事再生。私学助成金 2019・2020 年<b>全额停发</b>，2021 年减 75%，2023 年减 50%。在籍 886 人里留学生 707 人＝<b>80%</b>，2023 年国際交流学部停招变成单科大学，一般入試连续三年倍率 1.0——报名就上。<br>作为一所学校，它排在最后不冤。'],
+];
+
+const html = TIERS.map(([g,title,desc])=>{
+  const rows = DATA.filter(d=>d[0]===g).map(([,rk,name,chips,say])=>`
+    <div class="row${rk<=2?' top':''}">
+      <div class="rk">${rk}</div>
+      <div class="main">
+        <div class="nm">${name}</div>
+        <div class="chips">${chips.map((c,i)=>`<span class="c${i===0&&/産近甲龍|外外経工佛|摂神追桃|211/.test(c)?' grp':''}${/充足率 (5|6|7)\d|民事再生|留学生 8|BF$/.test(c)?' red':''}${/98\.9%|Top2|QS/.test(c)?' good':''}">${c}</span>`).join('')}</div>
+        <div class="say">${say}</div>
+      </div>
+    </div>`).join('');
+  return `<h2><span class="grade g-${g}">${g}</span>${title}</h2><p class="tdesc">${desc}</p>${rows}`;
+}).join('');
+document.getElementById('list').innerHTML = html;
+</script>
+</body></html>

@@ -565,6 +565,8 @@ def render(rows, TODAY, ME, src, sheet):
       <a class="golink" href="momoyama_docs.html">🍑 桃山推薦 出願材料チェック →</a>
       <span>·</span>
       <a class="golink" href="det_drill.html">🔤 DET 补全训练 →</a>
+      <span>·</span>
+      <a class="golink" href="ranking.html">🏆 33 校 全序列锐评 →</a>
     </div>
     <div class="counts">
       <div class="cnt"><div class="n">{len(rows)}</div><div class="l">纳入考虑</div></div>
