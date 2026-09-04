@@ -1,0 +1,17 @@
+{
+  "name": "桃山推薦 出願材料",
+  "short_name": "桃山推薦",
+  "description": "桃山学院大学 経営学部 指定校推薦の出願材料チェックリスト",
+  "lang": "zh-CN",
+  "start_url": "./momoyama_docs.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F6F5F1",
+  "theme_color": "#C4405F",
+  "icons": [
+    { "src": "./momoyama-icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./momoyama-icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./momoyama-icon-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

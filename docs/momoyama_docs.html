@@ -1,6 +1,14 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>桃山推薦 出願材料</title>
+<link rel="manifest" href="momoyama.webmanifest">
+<meta name="theme-color" content="#C4405F">
+<link rel="apple-touch-icon" href="momoyama-apple-touch.png">
+<link rel="icon" href="momoyama-icon-192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="桃山推薦">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Noto+Sans+SC:wght@400;500;700&display=swap">
 <style>
@@ -349,5 +357,11 @@ document.getElementById('exp').onclick=async()=>{const all=await idbAll()||[];co
 const impIn=document.createElement('input');impIn.type='file';impIn.accept='application/json';impIn.hidden=true;document.body.appendChild(impIn);
 document.getElementById('imp').onclick=()=>impIn.click();
 impIn.onchange=async()=>{const f=impIn.files[0];if(!f)return;try{const j=JSON.parse(await f.text());if(j.state){state={checks:j.state.checks||{},notes:j.state.notes||{},open:{}};localStorage.setItem(LS,JSON.stringify(state));}for(const p of (j.photos||[]))await idbPut(p);await loadPhotos();setSync('已导入 '+f.name);}catch(e){setSync('导入失败：'+e.message,true);}impIn.value='';};
+// PWA: 注册 service worker（离线也能看清单）
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('momoyama-sw.js').catch(e => console.warn('sw', e));
+  });
+}
 </script>
 </body></html>
