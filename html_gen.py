@@ -44,6 +44,8 @@ body{margin:0;background:var(--bg);color:var(--ink);
 header{background:var(--surf);border-bottom:1px solid var(--line);padding:18px 0 0}
 .ttl{font:600 21px/1.25 "Hiragino Mincho ProN","Yu Mincho",serif;letter-spacing:.01em;margin:0}
 .sub{color:var(--dim);font-size:12.5px;margin-top:5px;display:flex;flex-wrap:wrap;gap:4px 10px}
+.golink{color:#C4405F;font-weight:700;text-decoration:none;border-bottom:1px solid currentColor}
+.golink:hover{opacity:.75}
 .sub b{color:var(--ink2);font-weight:600}
 .counts{display:flex;gap:7px;margin:14px 0 0;overflow-x:auto;padding-bottom:2px;
   scrollbar-width:none}
@@ -559,6 +561,8 @@ def render(rows, TODAY, ME, src, sheet):
       <span>出勤率 <b>{ME['attendance']}%</b></span><span>·</span>
       <span>JLPT <b>{ME['jlpt']} {ME['jlpt_score']}点</b></span><span>·</span>
       <span>更新 <b>{TODAY}</b></span>
+      <span>·</span>
+      <a class="golink" href="momoyama_docs.html">🍑 桃山推薦 出願材料チェック →</a>
     </div>
     <div class="counts">
       <div class="cnt"><div class="n">{len(rows)}</div><div class="l">纳入考虑</div></div>
