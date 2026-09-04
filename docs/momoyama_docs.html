@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>桃山推薦 出願材料</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Noto+Sans+SC:wght@400;500;700&display=swap">
+</head><body>
+<style>
+:root{
+  --bg:#F6F5F1;--panel:#FFFFFF;--ink:#1E2433;--ink2:#5B6272;--line:#E2E0D8;
+  --momo:#C4405F;--momo-soft:#FBE9EE;--ok:#2F7D4F;--ok-soft:#E6F3EA;--warn:#A8690F;--warn-soft:#FBF0DC;
+  --chip:#EEEDE7;--focus:#2B6CB0;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#15171C;--panel:#1E2128;--ink:#ECEDF0;--ink2:#A3A8B4;--line:#33373F;
+    --momo:#E9738E;--momo-soft:#3A2129;--ok:#6CC08B;--ok-soft:#1E3327;--warn:#E3B05A;--warn-soft:#3A2F17;
+    --chip:#2A2E36;--focus:#79A8E8;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15171C;--panel:#1E2128;--ink:#ECEDF0;--ink2:#A3A8B4;--line:#33373F;
+  --momo:#E9738E;--momo-soft:#3A2129;--ok:#6CC08B;--ok-soft:#1E3327;--warn:#E3B05A;--warn-soft:#3A2F17;
+  --chip:#2A2E36;--focus:#79A8E8;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans SC","Zen Kaku Gothic New",-apple-system,"PingFang SC","Hiragino Sans",sans-serif;font-size:15px;line-height:1.6}
+.wrap{max-width:720px;margin:0 auto;padding:14px 12px 80px}
+h1{font-family:"Zen Kaku Gothic New","Noto Sans SC",sans-serif;font-weight:900;font-size:24px;margin:6px 0 2px;letter-spacing:.01em;text-wrap:balance}
+.sub{color:var(--ink2);font-size:13px;margin:0 0 12px}
+.hero{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 14px 12px;margin-bottom:12px}
+.prog{display:flex;align-items:center;gap:10px;margin-top:8px}
+.bar{flex:1;height:10px;background:var(--chip);border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--momo);width:0;transition:width .3s}
+.pct{font-variant-numeric:tabular-nums;font-weight:700;min-width:64px;text-align:right}
+.dates{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:6px;margin-top:10px}
+.d{background:var(--chip);border-radius:9px;padding:6px 8px;font-size:12.5px}
+.d b{display:block;font-size:14px;font-variant-numeric:tabular-nums}
+.d.now{background:var(--momo-soft);color:var(--momo)}
+.sync{font-size:12px;color:var(--ink2);margin-top:8px}
+.sync.err{color:var(--warn)}
+.legend{font-size:12.5px;color:var(--ink2);margin:0 0 10px}
+h2{font-family:"Zen Kaku Gothic New","Noto Sans SC",sans-serif;font-weight:700;font-size:16px;margin:20px 0 8px;display:flex;align-items:baseline;gap:8px}
+h2 small{font-weight:500;color:var(--ink2);font-size:12.5px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;overflow:hidden}
+.card.done{border-color:var(--ok)}
+.head{display:flex;gap:10px;padding:12px 12px 10px;align-items:flex-start}
+.head input[type=checkbox]{width:24px;height:24px;margin:2px 0 0;accent-color:var(--ok);flex:none}
+.ttl{flex:1;min-width:0}
+.ttl .t{font-weight:700;font-size:15.5px;line-height:1.35}
+.card.done .ttl .t{text-decoration:line-through;color:var(--ink2)}
+.meta{display:flex;flex-wrap:wrap;gap:4px 6px;margin-top:5px}
+.tag{font-size:11.5px;padding:1px 7px;border-radius:99px;background:var(--chip);color:var(--ink2)}
+.tag.who{background:var(--momo-soft);color:var(--momo)}
+.tag.time{background:var(--warn-soft);color:var(--warn)}
+.tag.ok{background:var(--ok-soft);color:var(--ok)}
+.tog{flex:none;border:0;background:transparent;color:var(--focus);font-size:13px;padding:4px 2px;cursor:pointer;font-family:inherit}
+.body{display:none;padding:0 12px 12px;border-top:1px dashed var(--line)}
+.card.open .body{display:block}
+.body h4{margin:10px 0 4px;font-size:13px;color:var(--ink2);font-weight:700;letter-spacing:.04em}
+.body ol{margin:0;padding-left:22px}
+.body ol li{margin:3px 0}
+.trap{background:var(--warn-soft);border-radius:9px;padding:8px 10px;margin-top:8px;font-size:14px}
+.trap b{color:var(--warn)}
+.why{font-size:13.5px;color:var(--ink2)}
+.photos{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.ph{position:relative;width:88px;height:88px;border-radius:9px;overflow:hidden;border:1px solid var(--line);background:var(--chip)}
+.ph img{width:100%;height:100%;object-fit:cover;display:block;cursor:zoom-in}
+.ph button{position:absolute;top:2px;right:2px;width:22px;height:22px;border-radius:50%;border:0;background:rgba(0,0,0,.6);color:#fff;font-size:13px;line-height:22px;padding:0;cursor:pointer}
+.up{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.btn{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:9px;padding:7px 12px;font-size:14px;cursor:pointer;font-family:inherit}
+.btn.pri{background:var(--momo);border-color:var(--momo);color:#fff}
+.btn:disabled{opacity:.5}
+.note{width:100%;margin-top:8px;border:1px solid var(--line);border-radius:9px;padding:7px 9px;font:inherit;font-size:14px;background:var(--bg);color:var(--ink);resize:vertical;min-height:38px}
+a{color:var(--focus)}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.lb{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;z-index:9;padding:10px}
+.lb.on{display:flex}
+.lb img{max-width:100%;max-height:100%;object-fit:contain}
+.foot{font-size:12px;color:var(--ink2);margin-top:24px;line-height:1.5}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+
+<div class="wrap">
+  <h1>桃山学院大学 指定校推薦 出願材料</h1>
+  <p class="sub">経営学部 経営学科 ／ 専願 ／ 出願 2026-12-1(火)〜12-10(木) 当日消印有效</p>
+
+  <div class="hero">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap">
+      <div><b id="doneN">0</b> / <b id="allN">0</b> 项完成</div>
+      <div class="sub" style="margin:0">距 12/10 截止还有 <b id="left">–</b> 天</div>
+    </div>
+    <div class="prog"><div class="bar"><i id="bar"></i></div><span class="pct" id="pct">0%</span></div>
+    <div class="dates">
+      <div class="d" data-d="2026-12-01"><b>12/1〜12/10</b>出願（邮寄）</div>
+      <div class="d" data-d="2026-12-11"><b>12/11 13:00</b>検定料 3万 截止</div>
+      <div class="d" data-d="2026-12-19"><b>12/19(土)</b>小論文＋面接 和泉</div>
+      <div class="d" data-d="2026-12-24"><b>12/24(木) 13:00</b>合格発表 LeySer</div>
+      <div class="d" data-d="2027-02-12"><b>2/12 15:00</b>入学手続・纳费</div>
+    </div>
+    <div class="sync" id="sync">读取本机进度…</div>
+    <div class="up"><button class="btn" id="exp">⬇ 导出进度（发给我核对）</button><button class="btn" id="imp">⬆ 导入进度</button></div>
+  </div>
+
+  <p class="legend">每一项：打勾＝已办好；「拍照」把原件拍上来存着，方便你和我核对；「备注」随便记。进度和照片存在这台设备的浏览器里；换设备用下面「导出进度」→「导入」。</p>
+
+  <div id="list"></div>
+
+  <div class="foot">
+    <b>清单依据</b>：桃山学院大学 2026年度 外国人留学生選抜 入学試験要項「出願書類」＋ 2027年度 入試ガイド p.8「指定校推薦（専願）」（你在進路室拍的）＋ HAJL 進路室 資料索引 的证明书栏目＋ 李老师 9/4 当面说明（証明書归事務局）。<br>
+    2027 年度纸质要項在進路室 8F，官网只能 <a href="https://entry.s-axol.jp/andrew/step1?enq=94" target="_blank" rel="noopener">資料請求</a>。拿到 2027 要項后，把「出願書類」那页拍进第 5 项，若和本页有出入，以要項为准。
+  </div>
+</div>
+
+<div class="lb" id="lb" onclick="this.classList.remove('on')"><img id="lbimg" alt="放大查看"></div>
+
+<script>
+const ITEMS = [
+ {g:'A',id:'jlpt',t:'JLPT N2「認定結果及び成績に関する証明書」原本 ×3',who:'你自己·网上',time:'今天就办（到手 1〜2 周）',cost:'3,500 円',
+  why:'桃山明文要「日本語能力試験N2成績証明書」。你手里那张「合否結果通知書」不是它，得向 JEES 另开。3 份＝桃山 1＋兜底校 2。',
+  steps:['手机浏览器打开 info.jees-jlpt.jp → 「MyJLPT IDをお持ちの方」→ ログイン','左侧菜单 →「受験結果・証明書発行」','2026年第1回 N2 那一行最右边「申込み」打勾 → 绿色「申し込む」','注意事项页最底下 →「同意する」','填表页：「日本国内に郵送する」已选；勾「速達・特定記録郵便を希望する」(+500円)；核对地址 577-0005 東大阪市七軒家 19番6号202号室、HE HELIANG、电话','住所1 输入框正下方那个小方框必须勾（不勾会红字报错）','最下面「発行部数」填 3 →「手数料を支払う」→ 选支付方式 → 内容確認 → 完了','到货后：拆封检查姓名·级别·分数，拍照传到这里，原件夹进文件袋'],
+  traps:['申请后不能取消、不能改寄送方式；一次填对','别开成 2 份，兜底校也要原本','MyJLPT 不要同时在手机和电脑上开着'],photo:true},
+ {g:'A',id:'hs_grad',t:'高中 卒業証明書（原本）',who:'家里·你的高中',time:'今天确认在不在手上',cost:'国内开证明一般免费，EMS 寄日本约 150〜200 元',
+  why:'桃山要高中毕业证明原本。当年办在留时交出去的那份可能没退回来，先翻箱底。',
+  steps:['先在家里/语校档案里找：有没有「毕业证明书」原件（不是毕业证书本本的复印件）','没有 → 让家里去你高中教务处开「毕业证明」，盖学校公章，写明入学·毕业年月、姓名（和护照一致）','让家里同时开第 3 项的成绩证明，一起 EMS 寄过来（写你在日本的地址和电话）','收到后拍照传这里，原件放文件袋'],
+  traps:['只有毕业证书本本没有「证明书」的话，先问進路室能不能用「证书复印件＋原本証明印」代替——别自己决定','姓名、出生日期和护照有一个字不一样就要公证处开同一人证明，很慢，早查'],photo:true},
+ {g:'A',id:'hs_score',t:'高中 成績証明書（原本）',who:'家里·你的高中',time:'和第 2 项一起办',cost:'同上',
+  why:'桃山出願書類要高中成绩证明。要高中三年各学期各科成绩，学校盖章。',
+  steps:['和毕业证明一起找/一起开','要求教务处按学期列出各科成绩，盖公章，有骑缝章更好','让家里先拍照发你确认没错再寄','收到后拍照传这里'],
+  traps:['只有一页"平均分"或"综合评定"的不算成绩证明，要逐科','如果高中只出中文版，第 4 项翻译就是必做'],photo:true},
+ {g:'A',id:'trans',t:'卒業・成績証明書 日文译文 ＋ 翻訳証明印',who:'你翻译 → 進路室盖印',time:'原件到手后 1 周内',cost:'免费',
+  why:'外国语证明必须附日文（或英文）译文，并由翻译者/学校证明与原件相符。HAJL 進路室有「翻訳等証明印」。',
+  steps:['照着原件格式逐项翻成日文：学校名、姓名（护照拼音＋汉字）、年月日、科目名、分数，一项不漏','用电脑打出来（A4），不要手写，不要涂改','译文末尾留一行「翻訳者：氏名／日付」','带原件＋译文去進路室，请老师核对后盖翻訳証明印','盖好章拍照传这里'],
+  traps:['译文和原件顺序、数字必须一一对应，面接官会对着看','中文科目名不确定怎么翻的，列出来问我，别瞎猜'],photo:true},
+ {g:'A',id:'register',t:'去進路室登记：桃山学院大学 経営学部 経営学科 指定校推薦',who:'你本人·進路室',time:'本周去',cost:'免费',
+  why:'校内先到先得、零申报（9/2 确认）。登记后名额锁死、不可改校。学校長推薦書的用纸和 2027 纸质要項都在進路室。',
+  steps:['对老师说清楚：桃山学院大学 経営学部 経営学科 指定校推薦，専願','领：指定校推薦 所定「推薦書」用纸 ＋ 2027年度 入学試験要項（8F 有资料）','把要項「出願書類」那一页、「入学志願書」样式那一页拍照传到这里，我来对照本清单','问清楚：推薦書由谁填、几号能拿到；入学志願書是不是要項附带的所定用纸'],
+  traps:['推薦一人一校，报了就不能换成大経大或追手门','要項说 2027 年度最终以官网入学試験要項为准（p.9 黄框），所以要拿 2027 版，不要拿去年的'],photo:true},
+
+ {g:'B',id:'suisen',t:'学校長推薦書（桃山所定用紙）',who:'HAJL 進路室 填写·校长盖章',time:'11 月中申请，12/1 前拿到',cost:'免费',
+  why:'指定校推薦的核心文件，「日本語学校長が責任を持って推薦する者」。你只负责把用纸交上去、按老师要求提供志望理由。',
+  steps:['第 5 项登记时领到的用纸交给進路室','老师若要你写志望理由/自己PR 草稿，用日语写好交上去（我可以帮你改）','拿到盖章成品后拍照传这里，原件不要折，放硬夹'],
+  traps:['推薦書有日期，通常要在出願期内或前 1〜2 周，别 10 月就催着开','千万不要自己在推薦書上写任何字'],photo:true},
+ {g:'B',id:'sotsu',t:'卒業見込証明書（HAJL）',who:'HAJL 事務局',time:'11 月中申请',cost:'按学校规定（几百円）',
+  why:'证明你 2027/3/31 前从语校毕业。証明書类归事務局，不归進路室（李老师 9/4 说的）。',
+  steps:['去事務局窗口说：桃山学院大学出願用に、卒業見込証明書・成績証明書・出席状況証明書を各 3 通ください','填申请单、交费、问几天能出','拿到后核对姓名·生年月日·在籍期间，拍照传这里'],
+  traps:['证明书一般要求发行 3 个月以内，9 月开的到 12 月可能作废——11 月中再开','三种一次开齐，多开 2 份留给兜底校（流通科学Ⅲ期/羽衣）'],photo:true},
+ {g:'B',id:'seiseki',t:'成績証明書（HAJL）',who:'HAJL 事務局',time:'和第 7 项一起',cost:'几百円',
+  why:'语校成绩单。',steps:['和第 7 项一起申请','拿到后拍照传这里'],traps:['同上，3 个月有效期'],photo:true},
+ {g:'B',id:'shusseki',t:'出席状況証明書（HAJL）',who:'HAJL 事務局',time:'和第 7 项一起',cost:'几百円',
+  why:'你的王牌：出席率 100%。面接时主动提。',steps:['和第 7 项一起申请','拿到后确认上面写的是总出席率，拍照传这里'],traps:['如果学校说不出这份、由推薦書内记载，就让進路室在推薦書上写出席率'],photo:true},
+
+ {g:'C',id:'juminhyo',t:'住民票',who:'你自己·東大阪市役所／便利店',time:'11 月中旬开（出願前 3 个月内有效）',cost:'300 円',
+  why:'证明你现住址和在留资格。太早开会过期。',
+  steps:['有マイナンバーカード：去便利店多功能复印机 → 行政サービス → 住民票，按提示操作','没有：去東大阪市役所或就近的行政サービスセンター窗口，填「住民票の写し 交付申請書」','勾选：本人のみ／国籍・在留資格・在留期間 要记载／マイナンバー 不记载','开 2 通（1 通给桃山，1 通备用），拍照传这里'],
+  traps:['一定要「国籍・在留資格・在留期間」记载版，普通版大学不收','不要选「マイナンバー記載」，很多学校拒收'],photo:true},
+ {g:'C',id:'photo',t:'証明写真（数据，Web 出願上传）',who:'你自己',time:'11 月',cost:'照相机 800〜1,000 円 或 app 免费',
+  why:'桃山 Web 出願（LeySer）要上传照片数据，不邮寄纸质照片。',
+  steps:['3 个月内拍摄；正脸、无帽、白/淡色背景、和护照/在留卡同一张脸','便利店旁的证件照机选「データ取得」，或手机 app（履歴書カメラ等）导出 JPG','把 JPG 存到手机，出願时上传；顺手洗 2 张 4×3cm 纸质备用','把照片传到这里我看一眼合不合规'],
+  traps:['不能自拍美颜、不能戴眼镜反光、不能用去年在留卡那张旧照'],photo:true},
+ {g:'C',id:'passport',t:'パスポート写し',who:'你自己',time:'出願前复印',cost:'10 円',
+  why:'要护照身份页（照片、姓名、护照号）的复印件。',steps:['便利店复印身份页，A4 彩色或黑白都行','检查有效期在 2027/4 之后','拍照传这里'],traps:['护照快到期的话先去领事馆换'],photo:true},
+ {g:'C',id:'zairyu',t:'在留カード写し（正反面）',who:'你自己',time:'出願前复印',cost:'10 円',
+  why:'证明在留资格「留学」。',steps:['正反两面复印到同一张 A4','检查在留期限：若在 2027/4 前到期，先去入管更新，用新卡复印','拍照传这里'],traps:['更新中没有新卡的话，出願前一定告诉進路室'],photo:true},
+
+ {g:'D',id:'leyser',t:'LeySer Web 出願登録 ＋ 入学検定料 30,000 円',who:'你自己·网上',time:'12/1 开放，12/11 13:00 前付完',cost:'30,000 円＋手续费',
+  why:'桃山外国人留学生選抜用 LeySer 系统网上登录信息、付検定料、打印出願書类和宛名ラベル。',
+  steps:['12/1 起在桃山入試サイト →「出願：LeySer」注册账号','选：外国人留学生選抜 → 指定校推薦 → 経営学部 経営学科；上传第 11 项照片','按页面付検定料（便利店/信用卡/网银），保留付款凭证截图','打印系统生成的「志願票」「宛名ラベル」等全部 PDF','把志願票、付款完成页截图传到这里'],
+  traps:['12/11 13:00 是硬截止，12/10 邮寄前先付完','打印出来的每一页都要装进信封'],photo:true},
+ {g:'D',id:'gansho',t:'入学志願書（桃山所定用紙・本人自筆）',who:'你自己手写',time:'12/1〜12/8 写完',cost:'免费',
+  why:'要項规定所定用纸、本人自笔。',
+  steps:['用黑色水笔，姓名按护照罗马字＋汉字，出生日期、住址和住民票一致','学部学科写：経営学部 経営学科','写错不要涂改液，换一张新纸重写（先复印一张练习）','写完拍照传这里，我对照检查'],
+  traps:['所定用纸在 2027 要項里或 LeySer 打印，第 5 项时问清','日期写投递当天'],photo:true},
+ {g:'D',id:'envelope',t:'出願封筒：角 2 号 ＋ 簡易書留・速達',who:'你自己·邮局窗口',time:'12/1〜12/10（当日消印有效），建议 12/7 前寄',cost:'角2 信封 ~30 円＋邮资约 1,000 円',
+  why:'要項要求角 2 封筒、貼桃山宛名ラベル、必须簡易書留＋速達从邮局窗口寄。',
+  steps:['按本页顺序把所有原件＋复印件＋志願票理成一摞，逐项打勾核对','装入角 2 信封，贴 LeySer 打印的宛名ラベル','邮局窗口说「簡易書留・速達で」，拿到控え（受领证）','拍下控え和信封传这里；控え留到收到受験票'],
+  traps:['不能投邮筒，必须窗口','12/10 消印有效但别赌最后一天'],photo:true},
+ {g:'D',id:'jukenhyo',t:'受験票（12/18 起 LeySer 下载）',who:'你自己',time:'12/18',cost:'免费',
+  why:'考试当天必带。',steps:['12/18 登录 LeySer 下载受験票 PDF 打印','截图传这里'],traps:['没出来就打桃山入試課电话，别等到 12/19 早上'],photo:true},
+
+ {g:'E',id:'essay',t:'小論文 准备',who:'你',time:'11〜12 月',cost:'—',
+  why:'12/19 上午小論文。留学生选拔常见题：为什么选経営、来日理由、毕业后打算、社会话题看法。',
+  steps:['先写一篇「経営学部を志望する理由」600〜800 字，发我改','再写「卒業後の進路」「留学で学んだこと」各一篇','按 60 分钟计时手写练 3 次','把手写稿拍照传这里'],traps:['不要背模板，面接会追问小論文内容'],photo:true},
+ {g:'E',id:'interview',t:'面接 准备',who:'你',time:'12 月',cost:'—',
+  why:'面接＋书类审查决定合格。',
+  steps:['准备日语回答：志望理由、为什么桃山、経営学科想学什么、毕业后计划、出席率 100% 的说明、経費支弁（谁出钱）','对着手机录 3 遍，发我听','考前一天准备好正装、路线（南海 泉ヶ丘駅→巴士→桃山学院大学）'],traps:['被问到兜底校/併願时按専願回答：桃山合格就一定入学'],photo:false},
+ {g:'E',id:'dayof',t:'12/19 当天携带',who:'你',time:'12/19',cost:'—',
+  why:'—',steps:['受験票、在留卡、护照','黑色笔 2 支、手表','要項/受験票上写的集合时间提前 40 分钟到'],traps:['手机考场关机'],photo:false},
+
+ {g:'F',id:'tetsuzuki',t:'合格后 入学手続（2/12 15:00 前）',who:'你＋家里汇款',time:'12/24 放榜 → 2/12',cost:'2026 要項値 774,500 円（入学金＋前期分）；2027 以要項为准',
+  why:'延納不可。年学费 1,319,000，4 年约 4,586,000。',
+  steps:['12/24 13:00 LeySer 看结果','按合格通知里的「入学手続要項」付款、上传/邮寄手续文件','付款凭证截图传这里'],traps:['金额请在拿到 2027 要項后核对，我这里的 774,500 是 2026 年度数字'],photo:true},
+];
+const GROUPS = {
+ A:['现在就动（最慢的先办）','9 月内'],
+ B:['语校（HAJL）给你开的','11 月中申请'],
+ C:['自己去办的','11 月中，别太早'],
+ D:['出願本体','12/1〜12/10'],
+ E:['考试准备','12/19 和泉キャンパス'],
+ F:['合格之后','12/24 → 2/12'],
+};
+
+let state = {checks:{}, notes:{}, open:{}};
+let photos = {}; // id -> [{id, item, dataUrl, ts}]
+const LS = 'momo_docs_v1';
+
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+
+function render(){
+  const list = document.getElementById('list');
+  let html = '';
+  let n = 0;
+  for (const g of Object.keys(GROUPS)){
+    const items = ITEMS.filter(i=>i.g===g);
+    html += `<h2>${esc(GROUPS[g][0])} <small>${esc(GROUPS[g][1])}</small></h2>`;
+    for (const it of items){
+      n++;
+      const done = !!state.checks[it.id];
+      const open = !!state.open[it.id];
+      const ph = photos[it.id]||[];
+      html += `<div class="card ${done?'done':''} ${open?'open':''}" id="c_${it.id}">
+        <div class="head">
+          <input type="checkbox" ${done?'checked':''} data-chk="${it.id}" aria-label="完成">
+          <div class="ttl">
+            <div class="t">${n}. ${esc(it.t)}</div>
+            <div class="meta"><span class="tag who">${esc(it.who)}</span><span class="tag time">${esc(it.time)}</span>${it.cost&&it.cost!=='—'?`<span class="tag">${esc(it.cost)}</span>`:''}${ph.length?`<span class="tag ok">📷 ${ph.length}</span>`:''}</div>
+          </div>
+          <button class="tog" data-tog="${it.id}">${open?'收起':'攻略'}</button>
+        </div>
+        <div class="body">
+          ${it.why&&it.why!=='—'?`<h4>为什么要</h4><div class="why">${esc(it.why)}</div>`:''}
+          <h4>怎么办（照着做）</h4>
+          <ol>${it.steps.map(s=>`<li>${esc(s)}</li>`).join('')}</ol>
+          ${it.traps&&it.traps.length?`<div class="trap"><b>坑：</b>${it.traps.map(esc).join('；')}</div>`:''}
+          ${it.photo?`<h4>拍照存档</h4>
+            <div class="photos" id="ph_${it.id}">${ph.map(p=>`<div class="ph"><img src="${p.dataUrl}" alt="照片" data-view="${p.id}"><button data-del="${p.id}" aria-label="删除">×</button></div>`).join('')}</div>
+            <div class="up">
+              <button class="btn pri" data-cam="${it.id}">📷 拍照</button>
+              <button class="btn" data-pick="${it.id}">🖼 相册</button>
+            </div>`:''}
+          <h4>备注</h4>
+          <textarea class="note" data-note="${it.id}" placeholder="记一下：办到哪一步、谁在办、还差什么">${esc(state.notes[it.id]||'')}</textarea>
+        </div>
+      </div>`;
+    }
+  }
+  list.innerHTML = html;
+  const done = ITEMS.filter(i=>state.checks[i.id]).length;
+  document.getElementById('doneN').textContent = done;
+  document.getElementById('allN').textContent = ITEMS.length;
+  const pct = Math.round(done/ITEMS.length*100);
+  document.getElementById('bar').style.width = pct+'%';
+  document.getElementById('pct').textContent = pct+'%';
+}
+
+function saveState(){
+  try{localStorage.setItem(LS, JSON.stringify(state)); setSync('已存在本机 · '+new Date().toLocaleTimeString());}catch(e){setSync('本机存储失败：'+e.message,true)}
+}
+function setSync(msg, err){const el=document.getElementById('sync'); el.textContent=msg; el.className='sync'+(err?' err':'')}
+
+// image compress -> dataURL under ~220 KB
+function compress(file){
+  return new Promise((res,rej)=>{
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = ()=>{
+      URL.revokeObjectURL(url);
+      let max = 1200, q = 0.8, out;
+      for (let i=0;i<8;i++){
+        const r = Math.min(1, max/Math.max(img.width,img.height));
+        const w = Math.round(img.width*r), h = Math.round(img.height*r);
+        const c = document.createElement('canvas'); c.width=w; c.height=h;
+        c.getContext('2d').drawImage(img,0,0,w,h);
+        out = c.toDataURL('image/jpeg', q);
+        if (out.length < 220*1024) break;
+        if (q > 0.55) q -= 0.1; else max = Math.round(max*0.8);
+      }
+      res(out);
+    };
+    img.onerror = ()=>rej(new Error('图片读取失败'));
+    img.src = url;
+  });
+}
+
+async function addPhotos(itemId, files){
+  for (const f of files){
+    if (!f.type.startsWith('image/')) continue;
+    setSync('正在压缩…');
+    let dataUrl;
+    try{ dataUrl = await compress(f); }catch(e){ setSync(e.message,true); continue; }
+    const id = itemId+'-'+Date.now()+'-'+Math.floor(Math.random()*1000);
+    const doc = {id, item:itemId, dataUrl, ts:Date.now()};
+    try{ await idbPut(doc); }catch(e){ setSync('照片保存失败：'+e.message, true); continue; }
+    (photos[itemId] ||= []).push(doc); render(); setSync('照片已存到本机 '+new Date().toLocaleTimeString());
+  }
+}
+async function delPhoto(pid){
+  if (!confirm('删除这张照片？')) return;
+  try{ await idbDel(pid); }catch(e){ setSync('删除失败：'+e.message,true); return; }
+  for (const k of Object.keys(photos)) photos[k] = photos[k].filter(p=>p.id!==pid);
+  render();
+}
+
+// events
+const fileIn = document.createElement('input'); fileIn.type='file'; fileIn.accept='image/*'; fileIn.multiple=true; fileIn.hidden=true; document.body.appendChild(fileIn);
+const camIn = document.createElement('input'); camIn.type='file'; camIn.accept='image/*'; camIn.setAttribute('capture','environment'); camIn.hidden=true; document.body.appendChild(camIn);
+let target = null;
+fileIn.onchange = ()=>{ if(target) addPhotos(target, [...fileIn.files]); fileIn.value=''; };
+camIn.onchange = ()=>{ if(target) addPhotos(target, [...camIn.files]); camIn.value=''; };
+
+document.getElementById('list').addEventListener('click', e=>{
+  const b = e.target.closest('button,img');
+  if (!b) return;
+  if (b.dataset.tog){ state.open[b.dataset.tog] = !state.open[b.dataset.tog]; render(); saveState(); }
+  else if (b.dataset.cam){ target=b.dataset.cam; camIn.click(); }
+  else if (b.dataset.pick){ target=b.dataset.pick; fileIn.click(); }
+  else if (b.dataset.del){ delPhoto(b.dataset.del); }
+  else if (b.dataset.view){ document.getElementById('lbimg').src = b.src; document.getElementById('lb').classList.add('on'); }
+});
+document.getElementById('list').addEventListener('change', e=>{
+  if (e.target.dataset.chk){ state.checks[e.target.dataset.chk] = e.target.checked; render(); saveState(); }
+});
+let noteT;
+document.getElementById('list').addEventListener('input', e=>{
+  if (e.target.dataset.note){ state.notes[e.target.dataset.note] = e.target.value; clearTimeout(noteT); noteT=setTimeout(saveState, 600); }
+});
+
+// countdown + date highlight
+(function(){
+  const now = new Date(); const dl = new Date('2026-12-10T23:59:59+09:00');
+  document.getElementById('left').textContent = Math.max(0, Math.ceil((dl-now)/86400000));
+  let next=null;
+  document.querySelectorAll('.d').forEach(d=>{ const t=new Date(d.dataset.d+'T00:00:00+09:00'); if(!next && t>=now){ next=d; d.classList.add('now'); } });
+})();
+
+// boot: local first
+try{ const s = JSON.parse(localStorage.getItem(LS)||'null'); if (s) state = {checks:{},notes:{},open:{},...s}; }catch(e){}
+render();
+
+// ---- local persistence: localStorage (state) + IndexedDB (photos) ----
+function idb(){return new Promise((res,rej)=>{const r=indexedDB.open('momo_docs',1);r.onupgradeneeded=()=>r.result.createObjectStore('photos',{keyPath:'id'});r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);});}
+async function idbAll(){try{const d=await idb();return await new Promise((res,rej)=>{const q=d.transaction('photos').objectStore('photos').getAll();q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error);});}catch(e){return null}}
+async function idbPut(doc){const d=await idb();return new Promise((res,rej)=>{const q=d.transaction('photos','readwrite').objectStore('photos').put(doc);q.onsuccess=()=>res();q.onerror=()=>rej(q.error);});}
+async function idbDel(id){const d=await idb();return new Promise((res,rej)=>{const q=d.transaction('photos','readwrite').objectStore('photos').delete(id);q.onsuccess=()=>res();q.onerror=()=>rej(q.error);});}
+async function loadPhotos(){const all=await idbAll();if(all===null){setSync('这个浏览器不支持本地照片存储（隐私模式？）',true);return;}photos={};for(const d of all)(photos[d.item] ||= []).push(d);for(const k of Object.keys(photos))photos[k].sort((a,b)=>a.ts-b.ts);render();setSync('已存在本机 · 照片 '+all.length+' 张 · '+new Date().toLocaleString());}
+loadPhotos();
+// export / import
+document.getElementById('exp').onclick=async()=>{const all=await idbAll()||[];const blob=new Blob([JSON.stringify({v:1,state,photos:all,exported:new Date().toISOString()})],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='momoyama_progress_'+new Date().toISOString().slice(0,10)+'.json';a.click();};
+const impIn=document.createElement('input');impIn.type='file';impIn.accept='application/json';impIn.hidden=true;document.body.appendChild(impIn);
+document.getElementById('imp').onclick=()=>impIn.click();
+impIn.onchange=async()=>{const f=impIn.files[0];if(!f)return;try{const j=JSON.parse(await f.text());if(j.state){state={checks:j.state.checks||{},notes:j.state.notes||{},open:{}};localStorage.setItem(LS,JSON.stringify(state));}for(const p of (j.photos||[]))await idbPut(p);await loadPhotos();setSync('已导入 '+f.name);}catch(e){setSync('导入失败：'+e.message,true);}impIn.value='';};
+</script>
+</body></html>
