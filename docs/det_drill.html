@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DET 补全训练</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Noto+Sans+SC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --bg:#F4F3EE;--panel:#FFFFFF;--ink:#1C2127;--ink2:#5D6570;--line:#E0DED6;
+  --acc:#0F766E;--acc-soft:#DCF2EF;--ok:#2F7D4F;--ok-soft:#E4F1E9;--bad:#B23A3A;--bad-soft:#F8E5E3;
+  --warn:#9A6510;--warn-soft:#F9EFDB;--chip:#ECEAE3;--focus:#0F766E;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#14171B;--panel:#1D2126;--ink:#ECEEF1;--ink2:#9BA3AE;--line:#31363D;
+  --acc:#5EC8BC;--acc-soft:#12332F;--ok:#6CC08B;--ok-soft:#1B3125;--bad:#E98B84;--bad-soft:#3A211F;
+  --warn:#E0AE5D;--warn-soft:#372C16;--chip:#282D34;--focus:#5EC8BC;
+}}
+:root[data-theme="dark"]{
+  --bg:#14171B;--panel:#1D2126;--ink:#ECEEF1;--ink2:#9BA3AE;--line:#31363D;
+  --acc:#5EC8BC;--acc-soft:#12332F;--ok:#6CC08B;--ok-soft:#1B3125;--bad:#E98B84;--bad-soft:#3A211F;
+  --warn:#E0AE5D;--warn-soft:#372C16;--chip:#282D34;--focus:#5EC8BC;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans SC","Zen Kaku Gothic New",-apple-system,"PingFang SC",sans-serif;font-size:15px;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:14px 12px 70px}
+h1{font-family:"Zen Kaku Gothic New","Noto Sans SC",sans-serif;font-weight:900;font-size:23px;margin:6px 0 3px;text-wrap:balance}
+.lede{color:var(--ink2);font-size:13.5px;margin:0 0 14px}
+.tabs{display:flex;gap:6px;margin-bottom:14px;border-bottom:1px solid var(--line)}
+.tabs button{border:0;background:none;font:inherit;font-weight:700;font-size:14.5px;color:var(--ink2);padding:9px 12px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tabs button[aria-selected="true"]{color:var(--acc);border-bottom-color:var(--acc)}
+.pane{display:none}.pane.on{display:block}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:14px;margin-bottom:12px}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.meta{font-size:13px;color:var(--ink2)}
+.clock{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:19px;font-variant-numeric:tabular-nums;padding:2px 9px;border-radius:8px;background:var(--chip)}
+.clock.low{background:var(--bad-soft);color:var(--bad)}
+.btn{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:9px;padding:8px 14px;font:inherit;font-size:14.5px;cursor:pointer}
+.btn.pri{background:var(--acc);border-color:var(--acc);color:#fff;font-weight:700}
+.btn:disabled{opacity:.45;cursor:default}
+.passage{font-family:"IBM Plex Mono",monospace;font-size:16.5px;line-height:2.5;letter-spacing:.01em;word-spacing:.06em}
+.gap{display:inline-block;white-space:nowrap}
+.gap .pre{font-weight:600}
+.gap input{width:1.05em;height:1.75em;text-align:center;font:inherit;font-size:16.5px;padding:0;margin:0 .5px;border:0;border-bottom:2px solid var(--ink2);background:transparent;color:var(--ink);border-radius:0;caret-color:var(--acc)}
+.gap input:focus{outline:0;border-bottom-color:var(--acc);background:var(--acc-soft)}
+.gap.right .pre,.gap.right input{color:var(--ok)}
+.gap.right input{border-bottom-color:var(--ok)}
+.gap.wrong .pre,.gap.wrong input{color:var(--bad)}
+.gap.wrong input{border-bottom-color:var(--bad)}
+.gap .fix{color:var(--ok);font-weight:600;margin-left:.35em;font-size:14px}
+.score{display:flex;gap:14px;flex-wrap:wrap;align-items:baseline;margin:4px 0 8px}
+.score b{font-size:27px;font-variant-numeric:tabular-nums}
+.hint{background:var(--warn-soft);color:var(--warn);border-radius:9px;padding:9px 11px;font-size:13.5px;margin-top:10px}
+.wrongbook{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.wb{background:var(--bad-soft);color:var(--bad);border-radius:7px;padding:3px 9px;font-family:"IBM Plex Mono",monospace;font-size:13.5px}
+.hist{font-size:13.5px;color:var(--ink2)}
+.hist ol{margin:6px 0 0;padding-left:20px}
+.spark{display:flex;align-items:flex-end;gap:3px;height:44px;margin-top:8px}
+.spark i{flex:1;max-width:16px;background:var(--acc);border-radius:2px 2px 0 0;min-height:2px}
+.qt{border:1px solid var(--line);border-radius:11px;margin-bottom:8px;overflow:hidden;background:var(--panel)}
+.qt>summary{cursor:pointer;padding:11px 13px;font-weight:700;font-size:14.5px;list-style:none;display:flex;gap:9px;align-items:baseline}
+.qt>summary::-webkit-details-marker{display:none}
+.qt .en{color:var(--ink2);font-weight:500;font-size:12.5px}
+.qt .body{padding:0 13px 13px;border-top:1px dashed var(--line);font-size:14px}
+.qt .body p{margin:9px 0 0}
+.qt .body b{color:var(--acc)}
+.tagrow{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
+.tag{font-size:11.5px;padding:1px 8px;border-radius:99px;background:var(--chip);color:var(--ink2)}
+.tag.hi{background:var(--acc-soft);color:var(--acc);font-weight:700}
+a{color:var(--acc)}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+@media (max-width:480px){.passage{font-size:15.5px;line-height:2.6}.gap input{font-size:15.5px}}
+</style>
+</head><body>
+<div class="wrap">
+  <h1>DET 补全训练</h1>
+  <p class="lede">Read and Complete 专项。你的四选一版本 19/20，缺口只在「拼得出」这一层，这是全套题型里最便宜的一块分。每天 20 分钟，两个 passage。</p>
+
+  <div class="tabs" role="tablist">
+    <button role="tab" aria-selected="true" data-p="drill">练习</button>
+    <button role="tab" aria-selected="false" data-p="types">题型速查</button>
+  </div>
+
+  <div class="pane on" id="p-drill">
+    <div class="card">
+      <div class="bar">
+        <div class="meta" id="pinfo">第 1 篇 / 共 12 篇</div>
+        <div class="clock" id="clock">3:00</div>
+      </div>
+      <div class="passage" id="passage"></div>
+      <div class="bar" style="margin:14px 0 0">
+        <button class="btn pri" id="submit">提交</button>
+        <button class="btn" id="next" style="display:none">下一篇</button>
+        <button class="btn" id="skip">换一篇</button>
+      </div>
+      <div id="result"></div>
+    </div>
+
+    <div class="card">
+      <div class="bar" style="margin:0"><b style="font-size:14.5px">错词本</b><button class="btn" id="clearwb" style="padding:4px 10px;font-size:13px">清空</button></div>
+      <div class="wrongbook" id="wrongbook"></div>
+      <div class="hint" id="wbempty" style="display:none">还没有错词。做完一篇，拼错的词会自动收进来。</div>
+    </div>
+
+    <div class="card">
+      <b style="font-size:14.5px">记录</b>
+      <div class="spark" id="spark"></div>
+      <div class="hist" id="hist"></div>
+    </div>
+  </div>
+
+  <div class="pane" id="p-types">
+    <p class="lede">DET 一共 13 种题型。昨晚"全是没见过的"，看完这一页就不会再被伏击。<b>看懂题型本身就值大约 10 分。</b></p>
+    <div id="types"></div>
+  </div>
+</div>
+
+<script>
+// ---------------- passages (原创 B1 短文) ----------------
+const PASSAGES = [
+"Many people start their morning with a cup of coffee. The smell alone is enough to wake them up. Some prefer it black, while others add milk and sugar. Coffee shops have become popular places to meet friends or finish work. A quiet corner and a warm drink can make a difficult task feel easier.",
+"Living in a large city has clear advantages. Buses and trains run often, so you rarely need a car. Museums, parks and restaurants are only a short ride away. However, rent is usually high, and finding a quiet apartment can take months. Many residents accept the noise in exchange for convenience.",
+"Recycling is simple once it becomes a habit. Paper, glass and plastic should be separated before collection day. Food containers need to be rinsed, because dirty items are often thrown away instead. Small actions matter, since every household that recycles one more bottle each week creates an enormous total effect.",
+"Learning a new language takes patience more than talent. Most students improve quickly at first and then feel stuck for months. This stage is normal and does not mean that progress has stopped. Speaking with native speakers, even for ten minutes a day, builds confidence faster than reading grammar rules alone.",
+"Working from home suits some people better than others. Without a commute, the day feels longer and calmer. Yet the line between work and rest can disappear completely. Experts suggest keeping regular hours and leaving the house at least once, so the mind understands that the working day has ended.",
+"The local library offers much more than books. Students use its quiet rooms to prepare for exams, and parents bring young children to weekend reading events. Anyone can borrow films, magazines and even tools. Membership costs nothing, yet many residents have never walked through the front door.",
+"Regular exercise improves both the body and the mind. Doctors recommend thirty minutes of activity on most days, but the type matters less than the habit. Walking, swimming and cycling all help. People who exercise with a friend are far more likely to continue after the first difficult weeks.",
+"Online shopping has changed the way we buy almost everything. Prices are easy to compare, and deliveries often arrive within a single day. Still, customers cannot touch the product before paying, so returns are common. Some shops now open small spaces where items can be examined but not purchased.",
+"Travel plans depend heavily on the weather. A sudden storm can delay flights for hours and leave passengers sleeping in airports. Experienced travellers check the forecast before booking and avoid the last flight of the day. Insurance costs very little and covers the expense when everything goes wrong.",
+"A part-time job teaches lessons that classrooms cannot. Students learn to arrive on time, deal with difficult customers and manage their own money. The work is often tiring and poorly paid. Even so, employers value the experience, because it shows that a candidate can accept real responsibility.",
+"Sleep affects memory far more than most people realise. During the night, the brain organises what was learned during the day and removes whatever seems unnecessary. Students who study late and sleep little often perform worse than those who rest properly. Seven to nine hours suits most adults.",
+"Cooking at home saves money and improves health. Restaurant meals usually contain more salt and oil than we expect. Preparing food takes time, but simple dishes need only a few ingredients. Buying vegetables in season keeps costs low, and cooking larger amounts means lunch is ready for tomorrow."
+];
+
+// ---------------- damage algorithm (DET Read and Complete 风格) ----------------
+function build(text, round){
+  const toks = text.match(/[A-Za-z']+|[^A-Za-z']+/g) || [];
+  const wordIdx = [];
+  toks.forEach((t,i)=>{ if(/^[A-Za-z']+$/.test(t)) wordIdx.push(i); });
+  const startAt = Math.floor(wordIdx.length * 0.38);   // 前 38% 保持完整
+  const out = []; let n = 0;
+  toks.forEach((t,i)=>{
+    const isWord = /^[A-Za-z']+$/.test(t);
+    if(!isWord){ out.push({t:'txt', s:t}); return; }
+    const rank = wordIdx.indexOf(i);
+    const eligible = rank >= startAt && t.length >= 3;
+    if(eligible && ((rank + round) % 2 === 0)){
+      const shown = Math.ceil(t.length/2);
+      out.push({t:'gap', pre:t.slice(0,shown), miss:t.slice(shown), full:t, id:n++});
+    } else out.push({t:'txt', s:t});
+  });
+  return out;
+}
+
+// ---------------- state ----------------
+const LS='det_drill_v1';
+let S={done:[], wrong:[], order:null, pos:0, round:0};
+try{ const s=JSON.parse(localStorage.getItem(LS)||'null'); if(s) S={...S,...s}; }catch(e){}
+if(!S.order || S.order.length!==PASSAGES.length){ S.order = PASSAGES.map((_,i)=>i).sort(()=>Math.random()-0.5); S.pos=0; }
+function save(){ try{ localStorage.setItem(LS, JSON.stringify(S)); }catch(e){} }
+
+let cur=null, graded=false, timer=null, left=180;
+
+function render(){
+  const pi = S.order[S.pos % S.order.length];
+  cur = { pi, round:S.round, parts: build(PASSAGES[pi], S.round) };
+  graded = false;
+  document.getElementById('pinfo').textContent = `第 ${S.pos%S.order.length+1} 篇 / 共 ${PASSAGES.length} 篇 · 第 ${S.round+1} 轮`;
+  document.getElementById('result').innerHTML='';
+  document.getElementById('next').style.display='none';
+  document.getElementById('submit').disabled=false;
+  const el = document.getElementById('passage');
+  el.innerHTML = cur.parts.map(p=>{
+    if(p.t==='txt') return escapeHtml(p.s);
+    const boxes = [...p.miss].map((_,k)=>`<input inputmode="latin" autocapitalize="off" autocomplete="off" spellcheck="false" maxlength="1" data-g="${p.id}" data-k="${k}">`).join('');
+    return `<span class="gap" id="g${p.id}"><span class="pre">${escapeHtml(p.pre)}</span>${boxes}</span>`;
+  }).join('');
+  el.querySelectorAll('input').forEach(inp=>{
+    inp.addEventListener('input',e=>{
+      const v=e.target.value.replace(/[^A-Za-z']/g,'');
+      e.target.value=v.slice(-1);
+      if(e.target.value) focusStep(e.target,1);
+    });
+    inp.addEventListener('keydown',e=>{
+      if(e.key==='Backspace' && !e.target.value){ e.preventDefault(); const p=focusStep(e.target,-1); if(p) p.value=''; }
+      if(e.key==='ArrowRight') focusStep(e.target,1);
+      if(e.key==='ArrowLeft') focusStep(e.target,-1);
+      if(e.key==='Enter'){ e.preventDefault(); grade(); }
+    });
+  });
+  const first = el.querySelector('input'); if(first) first.focus();
+  startTimer();
+}
+function focusStep(node,dir){
+  const all=[...document.getElementById('passage').querySelectorAll('input')];
+  const i=all.indexOf(node)+dir;
+  if(i>=0 && i<all.length){ all[i].focus(); all[i].select&&all[i].select(); return all[i]; }
+  return null;
+}
+function escapeHtml(s){ return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+function startTimer(){
+  clearInterval(timer); left=180; paint();
+  timer=setInterval(()=>{ left--; paint(); if(left<=0){ clearInterval(timer); grade(); } },1000);
+}
+function paint(){
+  const c=document.getElementById('clock');
+  c.textContent = Math.floor(left/60)+':'+String(left%60).padStart(2,'0');
+  c.className = 'clock'+(left<=30?' low':'');
+}
+
+function grade(){
+  if(graded) return; graded=true; clearInterval(timer);
+  document.getElementById('submit').disabled=true;
+  let right=0, total=0; const missed=[];
+  cur.parts.filter(p=>p.t==='gap').forEach(p=>{
+    total++;
+    const boxes=[...document.querySelectorAll(`input[data-g="${p.id}"]`)];
+    const typed=boxes.map(b=>b.value).join('');
+    const ok = typed.toLowerCase()===p.miss.toLowerCase();
+    const g=document.getElementById('g'+p.id);
+    g.classList.add(ok?'right':'wrong');
+    boxes.forEach(b=>b.disabled=true);
+    if(ok) right++; else { missed.push(p.full); g.insertAdjacentHTML('beforeend', `<span class="fix">${escapeHtml(p.full)}</span>`); }
+  });
+  const pct = total? Math.round(right/total*100) : 0;
+  S.done.push({ts:Date.now(), pi:cur.pi, r:right, t:total});
+  missed.forEach(w=>{ if(!S.wrong.includes(w.toLowerCase())) S.wrong.push(w.toLowerCase()); });
+  save();
+  let msg='';
+  if(pct>=85) msg='这个水平已经够 DET 100 的要求了。保持每天两篇。';
+  else if(pct>=65) msg='正常区间。错的基本是拼写不是词义，把错词本里的词抄三遍，明天再来。';
+  else msg='别急。先看错词本：如果错的词你其实认识，那就是纯拼写问题，两周能补上。';
+  document.getElementById('result').innerHTML =
+    `<div class="score"><b>${right}/${total}</b><span class="meta">正确率 ${pct}%</span></div><div class="hint">${msg}</div>`;
+  document.getElementById('next').style.display='';
+  drawStats();
+}
+
+function drawStats(){
+  const wb=document.getElementById('wrongbook');
+  wb.innerHTML = S.wrong.slice(-60).map(w=>`<span class="wb">${escapeHtml(w)}</span>`).join('');
+  document.getElementById('wbempty').style.display = S.wrong.length? 'none':'';
+  const last = S.done.slice(-20);
+  document.getElementById('spark').innerHTML = last.map(d=>{
+    const p = d.t? d.r/d.t : 0;
+    return `<i style="height:${Math.max(4, p*44)}px" title="${d.r}/${d.t}"></i>`;
+  }).join('');
+  const n=S.done.length;
+  if(!n){ document.getElementById('hist').textContent='还没有记录。'; return; }
+  const tot=S.done.reduce((a,d)=>a+d.t,0), rt=S.done.reduce((a,d)=>a+d.r,0);
+  const l7=S.done.slice(-7), l7p=l7.reduce((a,d)=>a+d.t,0)?Math.round(l7.reduce((a,d)=>a+d.r,0)/l7.reduce((a,d)=>a+d.t,0)*100):0;
+  document.getElementById('hist').innerHTML =
+    `共 ${n} 篇 · 总正确率 ${Math.round(rt/tot*100)}% · 最近 7 篇 ${l7p}%`;
+}
+
+document.getElementById('submit').onclick=grade;
+document.getElementById('next').onclick=()=>{
+  S.pos++;
+  if(S.pos % S.order.length === 0){ S.round=(S.round+1)%2; S.order.sort(()=>Math.random()-0.5); }
+  save(); render();
+};
+document.getElementById('skip').onclick=()=>{ clearInterval(timer); S.pos++; save(); render(); };
+document.getElementById('clearwb').onclick=()=>{ if(confirm('清空错词本？')){ S.wrong=[]; save(); drawStats(); } };
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.tabs button').forEach(x=>x.setAttribute('aria-selected', x===b));
+  document.querySelectorAll('.pane').forEach(p=>p.classList.toggle('on', p.id==='p-'+b.dataset.p));
+});
+
+// ---------------- 题型速查 ----------------
+const TYPES=[
+ ['Read and Complete','补全单词','读','一段短文，后半部分很多词被砍掉后一半字母，你打字补全。3 分钟。','这是你现在唯一在练的。词义你有，缺的是拼写。补不出来就跳过，别卡死在一个词上耗掉整段时间。',true],
+ ['Read and Select','挑真词（读）','读','屏幕上一批单词，选出真正的英文词，其余是编造的假词。每批 1 分钟。','看着简单，但假词长得很像真词。策略是宁可少选：选错一个假词的扣分比漏选一个真词更重。'],
+ ['Listen and Select','挑真词（听）','听','同上，但是听发音判断真假。','听不清就跳过。这题权重不高，别为它焦虑。'],
+ ['Listen and Type','听写整句','听','听一句话，打出来。可以重听一次。','DET 里最像"硬功夫"的一题。练法是每天听写 5 句，不追求全对，追求把听到的都拼对——它和补全单词训练的是同一块肌肉。'],
+ ['Read Aloud','朗读句子','说','屏幕给一句话，你读出来录音。','不要求好听，要求读完整、不停顿太久。看到不认识的词也要念下去，沉默比念错扣分多。'],
+ ['Write About the Photo','看图写一句','写','给一张照片，1 分钟写一句或几句描述。','用固定框架：主语 + 动作 + 地点 + 一个细节。"A woman is sitting at a table in a café, reading a book." 够了。'],
+ ['Speak About the Photo','看图说','说','给一张照片，说约 30–90 秒。','同样用框架，说满时间比说得漂亮重要。官方规则要求开放式口语至少说满 30 秒，不够会判不认证。'],
+ ['Read, Then Write','读题后写作','写','给一个题目，写 5 分钟的短文。','结构固定：观点 + 两个理由（各配一个例子）+ 结论。字数比文采重要。'],
+ ['Read, Then Speak','读题后说','说','给一个题目，准备 20 秒，说 90 秒。','同上的结构，说出来就行。'],
+ ['Listen, Then Speak','听后说','说','听一个问题，然后回答。','先复述问题争取思考时间，这是合法的拖延技巧。'],
+ ['Interactive Reading','交互阅读','读','一篇长文拆成 5 个小任务：补句、补段、划出答案句、判断主旨、选标题。整组 7–8 分钟。','权重高的一块。时间是整组共用的，所以前面几个小题别磨蹭。'],
+ ['Interactive Listening','交互听力','听','一段对话，中途要选你该说的话，最后写一段总结。','总结那部分是写作，不是听力。听的时候记关键词，最后照着关键词写。'],
+ ['Writing / Speaking Sample','写作与视频面试','—','最后的写作样本和视频回答。<b>不计入分数</b>，但会连同成绩单一起发给大学。','追手門会看到这段视频。而且国際学部的面接是日语＋英语 20 分钟，所以这里说的话要和你面试时的水平一致。']
+];
+document.getElementById('types').innerHTML = TYPES.map(t=>`
+ <details class="qt"${t[5]?' open':''}>
+   <summary><span>${t[1]}</span><span class="en">${t[0]}</span></summary>
+   <div class="body">
+     <p>${t[3]}</p>
+     <p><b>打法：</b>${t[4]}</p>
+     <div class="tagrow"><span class="tag">${t[2]}</span>${t[5]?'<span class="tag hi">你正在练这个</span>':''}</div>
+   </div>
+ </details>`).join('');
+
+render(); drawStats();
+</script>
+</body></html>
