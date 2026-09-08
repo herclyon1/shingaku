@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>桃山推薦 出願材料</title>
+<title>指定校推薦 出願材料</title>
 <link rel="manifest" href="momoyama.webmanifest">
 <meta name="theme-color" content="#C4405F">
 <link rel="apple-touch-icon" href="momoyama-apple-touch.png">
@@ -45,6 +45,11 @@ h1{font-family:"Zen Kaku Gothic New","Noto Sans SC",sans-serif;font-weight:900;f
 .d.now{background:var(--momo-soft);color:var(--momo)}
 .sync{font-size:12px;color:var(--ink2);margin-top:8px}
 .sync.err{color:var(--warn)}
+.tabs{display:flex;gap:6px;margin:2px 0 10px}
+.tab{flex:1;border:1px solid var(--line);background:var(--panel);color:var(--ink2);border-radius:11px;padding:9px 8px;font:inherit;font-size:14px;font-weight:700;cursor:pointer;text-align:center;line-height:1.3}
+.tab small{display:block;font-weight:500;font-size:11.5px;margin-top:2px;font-variant-numeric:tabular-nums}
+.tab[aria-selected=true]{background:var(--momo);border-color:var(--momo);color:#fff}
+.tab[aria-selected=true] small{color:#fff;opacity:.85}
 .legend{font-size:12.5px;color:var(--ink2);margin:0 0 10px}
 h2{font-family:"Zen Kaku Gothic New","Noto Sans SC",sans-serif;font-weight:700;font-size:16px;margin:20px 0 8px;display:flex;align-items:baseline;gap:8px}
 h2 small{font-weight:500;color:var(--ink2);font-size:12.5px}
@@ -90,40 +95,32 @@ a{color:var(--focus)}
 
 
 <div class="wrap">
-  <h1>桃山学院大学 指定校推薦 出願材料</h1>
-  <p class="sub">経営学部 経営学科 ／ 専願 ／ 出願 2026-12-1(火)〜12-10(木) 当日消印有效</p>
+  <div class="tabs" id="tabs"></div>
+  <h1 id="h1"></h1>
+  <p class="sub" id="sub"></p>
 
   <div class="hero">
     <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap">
       <div><b id="doneN">0</b> / <b id="allN">0</b> 项完成</div>
-      <div class="sub" style="margin:0">距 12/10 截止还有 <b id="left">–</b> 天</div>
+      <div class="sub" style="margin:0">距 <span id="dlLabel">–</span> 截止还有 <b id="left">–</b> 天</div>
     </div>
     <div class="prog"><div class="bar"><i id="bar"></i></div><span class="pct" id="pct">0%</span></div>
-    <div class="dates">
-      <div class="d" data-d="2026-12-01"><b>12/1〜12/10</b>出願（邮寄）</div>
-      <div class="d" data-d="2026-12-11"><b>12/11 13:00</b>検定料 3万 截止</div>
-      <div class="d" data-d="2026-12-19"><b>12/19(土)</b>小論文＋面接 和泉</div>
-      <div class="d" data-d="2026-12-24"><b>12/24(木) 13:00</b>合格発表 LeySer</div>
-      <div class="d" data-d="2027-02-12"><b>2/12 15:00</b>入学手続・纳费</div>
-    </div>
+    <div class="dates" id="dates"></div>
     <div class="sync" id="sync">读取本机进度…</div>
     <div class="up"><button class="btn" id="exp">⬇ 导出进度（发给我核对）</button><button class="btn" id="imp">⬆ 导入进度</button></div>
   </div>
 
-  <p class="legend">每一项：打勾＝已办好；「拍照」把原件拍上来存着，方便你和我核对；「备注」随便记。进度和照片存在这台设备的浏览器里；换设备用下面「导出进度」→「导入」。</p>
+  <p class="legend">两所学校的清单各自独立：打勾、备注、照片互不影响。推薦一人一校，最后只会用其中一张。进度存在这台设备的浏览器里；换设备用「导出进度」→「导入」。</p>
 
   <div id="list"></div>
 
-  <div class="foot">
-    <b>清单依据</b>：桃山学院大学 2026年度 外国人留学生選抜 入学試験要項「出願書類」＋ 2027年度 入試ガイド p.8「指定校推薦（専願）」（你在進路室拍的）＋ HAJL 進路室 資料索引 的证明书栏目＋ 李老师 9/4 当面说明（証明書归事務局）。<br>
-    2027 年度纸质要項在進路室 8F，官网只能 <a href="https://entry.s-axol.jp/andrew/step1?enq=94" target="_blank" rel="noopener">資料請求</a>。拿到 2027 要項后，把「出願書類」那页拍进第 5 项，若和本页有出入，以要項为准。
-  </div>
+  <div class="foot" id="foot"></div>
 </div>
 
 <div class="lb" id="lb" onclick="this.classList.remove('on')"><img id="lbimg" alt="放大查看"></div>
 
 <script>
-const ITEMS = [
+const MOMO_ITEMS = [
  {g:'A',id:'jlpt',t:'JLPT N2「認定結果及び成績に関する証明書」原本 ×3',who:'你自己·网上',time:'今天就办（到手 1〜2 周）',cost:'3,500 円',
   why:'桃山明文要「日本語能力試験N2成績証明書」。你手里那张「合否結果通知書」不是它，得向 JEES 另开。3 份＝桃山 1＋兜底校 2。',
   steps:['手机浏览器打开 info.jees-jlpt.jp → 「MyJLPT IDをお持ちの方」→ ログイン','左侧菜单 →「受験結果・証明書発行」','2026年第1回 N2 那一行最右边「申込み」打勾 → 绿色「申し込む」','注意事项页最底下 →「同意する」','填表页：「日本国内に郵送する」已选；勾「速達・特定記録郵便を希望する」(+500円)；核对预填的邮编·地址·姓名·电话是否正确（页面已带出来，不用重打）','住所1 输入框正下方那个小方框必须勾（不勾会红字报错）','最下面「発行部数」填 3 →「手数料を支払う」→ 选支付方式 → 内容確認 → 完了','到货后：拆封检查姓名·级别·分数，拍照传到这里，原件夹进文件袋'],
@@ -199,7 +196,7 @@ const ITEMS = [
   why:'延納不可。年学费 1,319,000，4 年约 4,586,000。',
   steps:['12/24 13:00 LeySer 看结果','按合格通知里的「入学手続要項」付款、上传/邮寄手续文件','付款凭证截图传这里'],traps:['金额请在拿到 2027 要項后核对，我这里的 774,500 是 2026 年度数字'],photo:true},
 ];
-const GROUPS = {
+const MOMO_GROUPS = {
  A:['现在就动（最慢的先办）','9 月内'],
  B:['语校（HAJL）给你开的','11 月中申请'],
  C:['自己去办的','11 月中，别太早'],
@@ -208,9 +205,114 @@ const GROUPS = {
  F:['合格之后','12/24 → 2/12'],
 };
 
+const OUE_ITEMS = [
+ {g:'A',id:'o_register',t:'去進路室登记：大阪経済大学 国際共創学部 指定校推薦（枠 1 名）',who:'你本人·進路室',time:'今天／本周（先到先得）',cost:'免费',
+  why:'大経大的枠只有 1 名，而且只限国際共創学部（学校共享表原文）。校内先到先得、零申报，登记后名额锁死、不可改校。2024 年度、2025 年度都是 1 名满枠。',
+  steps:['对老师说：大阪経済大学 国際共創学部 国際共創学科 指定校推薦','领 2027 年度 指定校推薦 要項 ＋ 所定「推薦書」用纸','把要項的「出願書類」「日程」两页拍照传到这里，我按要項重排整张清单','当场问清五件事：出願期間、選考方法（面接／小論文の有無）、試験日、合格発表日、入学手続締切、検定料金額'],
+  traps:['本清单的日期来自語校「進路関連表」，那张表上大経大的「2027年度 募集要項 確認」还是 FALSE，等于語校自己也没核对过，一切以要項为准','推薦一人一校，报了就不能再换桃山'],photo:true},
+ {g:'A',id:'o_jlpt',t:'JLPT N2「認定結果及び成績に関する証明書」原本',who:'你自己·网上',time:'桃山那批 3 份到手就直接抽 1 份',cost:'3,500 円（已办过则 0）',
+  why:'出願資格⑤＝JLPT N2 以上。你 2026 年 7 月 N2 合格、111 点。',
+  steps:['先看桃山清单第 1 项订的 3 份原本到了没有','到了：抽 1 份给大経大，剩下 2 份留给保底校','没到：info.jees-jlpt.jp → MyJLPT → 受験結果・証明書発行 → 発行部数 3'],
+  traps:['「合否結果通知書」不是「認定結果及び成績に関する証明書」，大学要的是后者'],photo:true},
+ {g:'A',id:'o_hs_grad',t:'高中 卒業証明書（原本）',who:'家里·你的高中',time:'今天确认在不在手上',cost:'国内开一般免费，EMS 约 150〜200 元',
+  why:'出願資格①＝外国において 12 年の課程を修了。要高中毕业证明原本。',
+  steps:['先在家里/语校档案里翻有没有「毕业证明书」原件','没有 → 让家里去高中教务处开，盖公章，写明入学·毕业年月和姓名（和护照一致）','和成绩证明一起 EMS 寄到你日本的地址','收到后拍照传这里'],
+  traps:['姓名、出生日期和护照有一个字不一样，就要公证处开同一人证明，很慢','桃山和大経大只会用其中一所，原本只有一份，别两边都寄'],photo:true},
+ {g:'A',id:'o_hs_score',t:'高中 成績証明書（原本）',who:'家里·你的高中',time:'和上一项一起办',cost:'同上',
+  why:'指定校推薦一般都要高中三年各科成绩，学校盖章。',
+  steps:['和毕业证明一起开','要求按学期逐科列出成绩，盖公章','让家里先拍照发你确认再寄','收到后拍照传这里'],
+  traps:['只有「平均分」「综合评定」一页的不算，要逐科'],photo:true},
+ {g:'A',id:'o_trans',t:'卒業・成績証明書 日文译文 ＋ 翻訳証明印',who:'你翻译 → 進路室盖印',time:'原件到手后 1 周内',cost:'免费',
+  why:'外文证明要附日文译文，并由学校证明与原件相符。HAJL 進路室有「翻訳等証明印」。',
+  steps:['照原件格式逐项翻成日文，一项不漏','电脑打印 A4，末尾留「翻訳者：氏名／日付」','带原件＋译文去進路室盖印','拍照传这里'],
+  traps:['译文和原件的顺序、数字要一一对应，面接官会对着看'],photo:true},
+
+ {g:'B',id:'o_suisen',t:'学校長推薦書（大経大所定用紙）',who:'HAJL 進路室 填写·校长盖章',time:'10 月上旬申请，10/25 前拿到',cost:'免费',
+  why:'出願資格⑥＝本学が推薦を依頼する日本語学校に在学し、その日本語学校学校長が責任をもって推薦する者。这是指定校推薦的核心文件。',
+  steps:['把第 1 项领到的所定用纸交给進路室','老师若要志望理由/自己PR 草稿，用日语写好交上去（我帮你改）','拿到盖章成品后拍照传这里，原件不要折'],
+  traps:['大経大的出願比桃山早一个月，推薦書要提前一个月申请','千万不要自己在推薦書上写任何字'],photo:true},
+ {g:'B',id:'o_sotsu',t:'卒業見込証明書（HAJL）',who:'HAJL 事務局',time:'10 月上旬申请',cost:'几百円',
+  why:'出願資格③＝2027 年 3 月 31 日までに日本語学校を卒業（修了）見込み。証明書归事務局，不归進路室。',
+  steps:['去事務局窗口说：大阪経済大学出願用に、卒業見込証明書・成績証明書・出席状況証明書を各 3 通ください','填申请单、交费、问几天能出','拿到后核对姓名·生年月日·在籍期间，拍照传这里'],
+  traps:['证明书一般要求発行 3 个月以内，按 11 月上旬出願倒推，9 月开的还有效，但最稳是 10 月上旬开','三种一次开齐，多开 2 份留给保底校'],photo:true},
+ {g:'B',id:'o_seiseki',t:'成績証明書（HAJL）',who:'HAJL 事務局',time:'和上一项一起',cost:'几百円',
+  why:'语校成绩单。',steps:['和上一项一起申请','拿到后拍照传这里'],traps:['同上，3 个月有效期'],photo:true},
+ {g:'B',id:'o_shusseki',t:'出席状況証明書（HAJL）',who:'HAJL 事務局',time:'和上一项一起',cost:'几百円',
+  why:'你的王牌：出席率 100%。面接时主动提。',steps:['和上一项一起申请','确认上面写的是总出席率','拍照传这里'],traps:['如果学校说不单独出这份、由推薦書内记载，就让進路室在推薦書上写出席率'],photo:true},
+
+ {g:'C',id:'o_juminhyo',t:'住民票（国籍・在留資格・在留期間 記載）',who:'你自己·東大阪市役所／便利店',time:'10 月中旬开',cost:'300 円',
+  why:'证明现住址和在留资格。太早开会过期（一般要求発行 3 个月以内）。',
+  steps:['有マイナンバーカード：便利店多功能复印机 → 行政サービス → 住民票','没有：市役所或行政サービスセンター窗口填「住民票の写し 交付申請書」','勾：本人のみ／国籍・在留資格・在留期間 記載／マイナンバー 不記載','开 2 通，拍照传这里'],
+  traps:['一定要「国籍・在留資格・在留期間」记载版，普通版大学不收','不要选「マイナンバー記載」'],photo:true},
+ {g:'C',id:'o_photo',t:'証明写真',who:'你自己',time:'10 月上旬',cost:'800〜1,000 円',
+  why:'出願用。纸质还是上传，看要項。',
+  steps:['3 个月内拍摄，正脸、无帽、白/淡色背景','便利店证件照机选「データ取得」，同时洗 4×3cm 纸质 4 张','传到这里我看一眼合不合规'],
+  traps:['不能自拍美颜、不能戴反光眼镜、不能用旧照'],photo:true},
+ {g:'C',id:'o_passport',t:'パスポート写し',who:'你自己',time:'出願前复印',cost:'10 円',
+  why:'身份页复印件。出願資格③要证明来日 6 个月以上，入国日看这里。',
+  steps:['便利店复印身份页 A4','检查有效期在 2027/4 之后','拍照传这里'],traps:['护照快到期先去领事馆换'],photo:true},
+ {g:'C',id:'o_zairyu',t:'在留カード写し（正反面）',who:'你自己',time:'出願前复印',cost:'10 円',
+  why:'出願資格④＝「留学」の在留資格を取得または更新できる者。',
+  steps:['正反两面复印到同一张 A4','检查在留期限：2027/4 前到期的先去入管更新','拍照传这里'],traps:['更新中没有新卡的话，出願前一定告诉進路室'],photo:true},
+
+ {g:'D',id:'o_web',t:'出願登録 ＋ 入学検定料',who:'你自己',time:'出願開始日〜（金額・方式 要確認）',cost:'要確認',
+  why:'大経大的一般国際留学生入試是 1 次選考 10,000 円・2 次選考 25,000 円（2027 入試ガイド）。指定校推薦的检定料和是否走 Web 出願，要項上确认。',
+  steps:['拿到要項后确认：是纸质出願还是 Web 出願、检定料多少、怎么付','按要項注册／填表、付款，保留付款凭证截图','把要項那一页和付款完成页拍照传这里'],
+  traps:['先付款再寄材料，很多系统要付完才能打印志願票'],photo:true},
+ {g:'D',id:'o_gansho',t:'入学願書・志望理由書（所定用紙）',who:'你自己手写',time:'出願前 1 周写完',cost:'免费',
+  why:'所定用紙、本人自笔。出願資格⑦＝第 1 志望、合格すれば必ず入学。志望理由写国際共創的必修ゼミ・卒論・ハワイ、日语英语都必修。',
+  steps:['黑色水笔，姓名按护照罗马字＋汉字，住址和住民票一致','学部学科写：国際共創学部 国際共創学科','写错不用涂改液，换新纸重写（先复印一张练习）','写完拍照传这里，我对照检查'],
+  traps:['日期写投递当天','志望理由和面接说的要一致'],photo:true},
+ {g:'D',id:'o_envelope',t:'出願封筒 ＋ 簡易書留・速達',who:'你自己·邮局窗口',time:'2026/11/1〜11/10（語校表的值·要確認）',cost:'约 1,000 円',
+  why:'指定校推薦一般要求角 2 封筒、簡易書留、邮局窗口寄。',
+  steps:['按本页顺序把所有材料理成一摞，逐项打勾核对','装角 2 信封，贴要項附的宛名ラベル','邮局窗口说「簡易書留・速達で」，拿控え','拍下控え和信封传这里'],
+  traps:['不能投邮筒，必须窗口','11/10 如果是消印有效也别赌最后一天，11/6 前寄','这个日期是語校表上的，要項到手第一件事就是核对'],photo:true},
+ {g:'D',id:'o_jukenhyo',t:'受験票',who:'你自己',time:'要項指定日',cost:'免费',
+  why:'考试当天必带。',steps:['按要項的方式领取或下载','拍照传这里'],traps:['到日子没收到就打大経大入試部电话，别等到考试当天'],photo:true},
+
+ {g:'E',id:'o_interview',t:'面接・小論文 準備（選考方法 要確認）',who:'你',time:'拿到要項后立刻开始',cost:'—',
+  why:'大経大的指定校推薦选考方法要項上才有。按最坏情况准备面接＋小論文。',
+  steps:['日语回答准备：为什么大経大、为什么国際共創、四个領域里想选哪个、毕业后计划、出席率 100%、経費支弁（谁出钱）','写一篇「国際共創学部を志望する理由」600〜800 字，发我改','对着手机录 3 遍发我听','考前一天准备正装、路线（阪急上新庄 or 大阪メトロ瑞光四丁目 徒歩圏）'],
+  traps:['被问到併願时按専願回答：合格すれば必ず入学します','别把桃山说成第一志愿'],photo:false},
+ {g:'E',id:'o_dayof',t:'試験当日 携帯品',who:'你',time:'試験日',cost:'—',
+  why:'—',steps:['受験票、在留カード、パスポート','黑色笔 2 支、手表','提前 40 分钟到'],traps:['手机考场关机'],photo:false},
+
+ {g:'F',id:'o_tetsuzuki',t:'合格后 入学手続・納付',who:'你＋家里汇款',time:'要項指定日',cost:'入学手続時 752,000 円／初年度合計 1,313,000 円',
+  why:'2027 学費表：入学金 190,000＋春学期 授業料 405,000＋施設設備資金 100,000＋教育充実費 50,000＋諸会費 7,000＝752,000。初年度合计 1,313,000。减免没通过时 4 年 5,283,000。',
+  steps:['按合格通知里的「入学手続要項」付款','付款凭证截图传这里'],traps:['金额以 2027 要項为准，本页数字来自 2027 学費等納付金表','教育充実費里含 1 年级末的夏威夷 3 周研修费，不另收'],photo:true},
+ {g:'F',id:'o_genmen',t:'入学後：私費外国人留学生 授業料減免 申請',who:'你本人·国際交流課',time:'入学后立刻',cost:'—',
+  why:'年間授業料の半額 405,000 円。全员对象、无定员、每年申请、成績と出席率と経済状況の総合判断（9/4 国際交流課 邮件回复）。通过则从秋学期学费里扣。4 年全通 = 3,663,000。',
+  steps:['入学后向国際交流課要申请书','每年申请一次，别忘','保持出席率和成绩，这两项是审查内容'],
+  traps:['这是审查型，不是自动的，没通过就按原价 528.3 万','入学手续时要先交全额 752,000，减免是秋学期才扣'],photo:true},
+];
+const OUE_GROUPS = {
+ A:['现在就动（枠只有 1 个）','9 月内'],
+ B:['语校（HAJL）给你开的','10 月上旬申请'],
+ C:['自己去办的','10 月中旬'],
+ D:['出願本体','11/1〜11/10（要確認）'],
+ E:['考试准备','日程要確認'],
+ F:['合格之后','入学手続 → 減免申請'],
+};
+
+const SCHOOLS = {
+ momo:{key:'momo',tab:'桃山 経営',h1:'桃山学院大学 指定校推薦 出願材料',
+  sub:'経営学部 経営学科 ／ 専願 ／ 出願 2026-12-1(火)〜12-10(木) 当日消印有效',
+  ls:'momo_docs_v1',dl:'2026-12-10T23:59:59+09:00',dlLabel:'12/10',
+  items:MOMO_ITEMS,groups:MOMO_GROUPS,
+  dates:[['2026-12-01','12/1〜12/10','出願（邮寄）'],['2026-12-11','12/11 13:00','検定料 3万 締切（先付后寄）'],['2026-12-19','12/19(土)','小論文＋面接 和泉'],['2026-12-24','12/24(木) 13:00','合格発表 LeySer'],['2027-02-12','2/12 15:00','入学手続・纳费']],
+  foot:'<b>清单依据</b>：桃山学院大学 2026年度 外国人留学生選抜 入学試験要項「出願書類」＋ 2027年度 入試ガイド p.8「指定校推薦（専願）」（你在進路室拍的）＋ 語校共享表「指定校推薦リスト（大学・2026年度）」＋ 語校「進路関連表」。<br>日期已核对星期：12/1 火・12/10 木・12/19 土・12/24 木・2/12 金，全部对得上。<br><b>要項到手后重点核对三样</b>：経費支弁関係書類、健康診断書、志望理由書——这三样本清单没有，因为 2026 要項和 2027 ガイド 上都没写，但别的学校常要。'},
+ oue:{key:'oue',tab:'大経大 国際共創',h1:'大阪経済大学 指定校推薦 出願材料',
+  sub:'国際共創学部 国際共創学科 ／ 専願・枠 1 名 ／ 出願 2026-11-1〜11-10（語校表·要確認）',
+  ls:'oue_docs_v1',dl:'2026-11-10T23:59:59+09:00',dlLabel:'11/10',
+  items:OUE_ITEMS,groups:OUE_GROUPS,
+  dates:[['2026-11-01','11/1〜11/10','出願（語校表·要確認）'],['','試験日','要項で確認'],['','合格発表','要項で確認'],['','入学手続','要項で確認'],['','入学後','授業料減免 申請']],
+  foot:'<b>清单依据</b>：語校共享表「指定校推薦リスト（大学・2026年度）」的大経大 出願資格原文（①〜⑦）＋ 語校「進路関連表」的出願開始 11/1・出願終了 11/10 ＋ 大阪経済大学 2027 学費等納付金表 ＋ 国際交流課 2026-09-04 邮件回复（減免）。<br><b>注意</b>：語校表上大経大的「2027年度 募集要項 確認」是 FALSE，8F 也没登记有资料，等于这张清单的日程和書類都还没有要項背书。<b>第 1 项拿到要項之前，本页的日期只当参考。</b><br>推薦は一人一校。这张清单和桃山那张最后只会用一张，另一张作废。'},
+};
+
 let state = {checks:{}, notes:{}, open:{}};
 let photos = {}; // id -> [{id, item, dataUrl, ts}]
-const LS = 'momo_docs_v1';
+let SC = SCHOOLS[localStorage.getItem('docs_school')||'momo'] || SCHOOLS.momo;
+let LS = SC.ls;
 
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 
@@ -218,9 +320,9 @@ function render(){
   const list = document.getElementById('list');
   let html = '';
   let n = 0;
-  for (const g of Object.keys(GROUPS)){
-    const items = ITEMS.filter(i=>i.g===g);
-    html += `<h2>${esc(GROUPS[g][0])} <small>${esc(GROUPS[g][1])}</small></h2>`;
+  for (const g of Object.keys(SC.groups)){
+    const items = SC.items.filter(i=>i.g===g);
+    html += `<h2>${esc(SC.groups[g][0])} <small>${esc(SC.groups[g][1])}</small></h2>`;
     for (const it of items){
       n++;
       const done = !!state.checks[it.id];
@@ -253,12 +355,13 @@ function render(){
     }
   }
   list.innerHTML = html;
-  const done = ITEMS.filter(i=>state.checks[i.id]).length;
+  const done = SC.items.filter(i=>state.checks[i.id]).length;
   document.getElementById('doneN').textContent = done;
-  document.getElementById('allN').textContent = ITEMS.length;
-  const pct = Math.round(done/ITEMS.length*100);
+  document.getElementById('allN').textContent = SC.items.length;
+  const pct = SC.items.length?Math.round(done/SC.items.length*100):0;
   document.getElementById('bar').style.width = pct+'%';
   document.getElementById('pct').textContent = pct+'%';
+  renderTabs();
 }
 
 function saveState(){
@@ -333,16 +436,47 @@ document.getElementById('list').addEventListener('input', e=>{
   if (e.target.dataset.note){ state.notes[e.target.dataset.note] = e.target.value; clearTimeout(noteT); noteT=setTimeout(saveState, 600); }
 });
 
-// countdown + date highlight
-(function(){
-  const now = new Date(); const dl = new Date('2026-12-10T23:59:59+09:00');
+// ---- school switch / hero / tabs ----
+function renderHero(){
+  document.title = SC.key==='momo' ? '桃山推薦 出願材料' : '大経大推薦 出願材料';
+  document.getElementById('h1').textContent = SC.h1;
+  document.getElementById('sub').textContent = SC.sub;
+  document.getElementById('dlLabel').textContent = SC.dlLabel;
+  document.getElementById('foot').innerHTML = SC.foot;
+  const now = new Date(); const dl = new Date(SC.dl);
   document.getElementById('left').textContent = Math.max(0, Math.ceil((dl-now)/86400000));
   let next=null;
-  document.querySelectorAll('.d').forEach(d=>{ const t=new Date(d.dataset.d+'T00:00:00+09:00'); if(!next && t>=now){ next=d; d.classList.add('now'); } });
-})();
+  document.getElementById('dates').innerHTML = SC.dates.map(d=>{
+    let cls='d';
+    if (d[0] && !next && new Date(d[0]+'T00:00:00+09:00')>=now){ next=1; cls='d now'; }
+    if (!d[0]) cls='d';
+    return `<div class="${cls}"><b>${esc(d[1])}</b>${esc(d[2])}</div>`;
+  }).join('');
+}
+function renderTabs(){
+  const t = document.getElementById('tabs');
+  t.innerHTML = Object.values(SCHOOLS).map(x=>{
+    let st={checks:{}}; try{ st = JSON.parse(localStorage.getItem(x.ls)||'null') || {checks:{}}; }catch(e){}
+    const d = x.items.filter(i=>st.checks&&st.checks[i.id]).length;
+    return `<button class="tab" role="tab" aria-selected="${x.key===SC.key}" data-school="${x.key}">${esc(x.tab)}<small>${d} / ${x.items.length}</small></button>`;
+  }).join('');
+}
+function switchSchool(k){
+  if (!SCHOOLS[k] || k===SC.key) return;
+  SC = SCHOOLS[k]; LS = SC.ls;
+  localStorage.setItem('docs_school', k);
+  state = {checks:{},notes:{},open:{}};
+  try{ const j = JSON.parse(localStorage.getItem(LS)||'null'); if (j) state = {checks:{},notes:{},open:{},...j}; }catch(e){}
+  renderHero(); render(); window.scrollTo(0,0);
+  setSync('已切换到 '+SC.tab);
+}
+document.getElementById('tabs').addEventListener('click', e=>{
+  const b = e.target.closest('button[data-school]'); if (b) switchSchool(b.dataset.school);
+});
 
 // boot: local first
 try{ const s = JSON.parse(localStorage.getItem(LS)||'null'); if (s) state = {checks:{},notes:{},open:{},...s}; }catch(e){}
+renderHero();
 render();
 
 // ---- local persistence: localStorage (state) + IndexedDB (photos) ----
@@ -353,10 +487,10 @@ async function idbDel(id){const d=await idb();return new Promise((res,rej)=>{con
 async function loadPhotos(){const all=await idbAll();if(all===null){setSync('这个浏览器不支持本地照片存储（隐私模式？）',true);return;}photos={};for(const d of all)(photos[d.item] ||= []).push(d);for(const k of Object.keys(photos))photos[k].sort((a,b)=>a.ts-b.ts);render();setSync('已存在本机 · 照片 '+all.length+' 张 · '+new Date().toLocaleString());}
 loadPhotos();
 // export / import
-document.getElementById('exp').onclick=async()=>{const all=await idbAll()||[];const blob=new Blob([JSON.stringify({v:1,state,photos:all,exported:new Date().toISOString()})],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='momoyama_progress_'+new Date().toISOString().slice(0,10)+'.json';a.click();};
+document.getElementById('exp').onclick=async()=>{const all=await idbAll()||[];const mine=all.filter(p=>SC.items.some(i=>i.id===p.item));const blob=new Blob([JSON.stringify({v:2,school:SC.key,state,photos:mine,exported:new Date().toISOString()})],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=SC.key+'_progress_'+new Date().toISOString().slice(0,10)+'.json';a.click();};
 const impIn=document.createElement('input');impIn.type='file';impIn.accept='application/json';impIn.hidden=true;document.body.appendChild(impIn);
 document.getElementById('imp').onclick=()=>impIn.click();
-impIn.onchange=async()=>{const f=impIn.files[0];if(!f)return;try{const j=JSON.parse(await f.text());if(j.state){state={checks:j.state.checks||{},notes:j.state.notes||{},open:{}};localStorage.setItem(LS,JSON.stringify(state));}for(const p of (j.photos||[]))await idbPut(p);await loadPhotos();setSync('已导入 '+f.name);}catch(e){setSync('导入失败：'+e.message,true);}impIn.value='';};
+impIn.onchange=async()=>{const f=impIn.files[0];if(!f)return;try{const j=JSON.parse(await f.text());if(j.school&&j.school!==SC.key&&!confirm('这份进度是「'+(SCHOOLS[j.school]?SCHOOLS[j.school].tab:j.school)+'」的，现在打开的是「'+SC.tab+'」。仍要导入吗？')){impIn.value='';return;}if(j.state){state={checks:j.state.checks||{},notes:j.state.notes||{},open:{}};localStorage.setItem(LS,JSON.stringify(state));}for(const p of (j.photos||[]))await idbPut(p);await loadPhotos();setSync('已导入 '+f.name);}catch(e){setSync('导入失败：'+e.message,true);}impIn.value='';};
 // PWA: 注册 service worker（离线也能看清单）
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
