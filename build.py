@@ -16,7 +16,7 @@ from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 
 # ── 本人の条件 ───────────────────────────────────────────
-ME = {'attendance': 100, 'jlpt': 'N2', 'jlpt_score': 111, 'eju': None}
+ME = {'attendance': 99, 'jlpt': 'N2', 'jlpt_score': 111, 'eju': None}
 
 SRC   = sorted(glob.glob('data/指定校推薦リスト*.xlsx'))[-1]
 CAMPUS = {k: v for k, v in json.load(open('data/campus.json', encoding='utf-8')).items()
