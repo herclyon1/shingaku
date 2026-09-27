@@ -1,293 +1,106 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="ja">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>面接 問答練習</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>面接の単語</title>
 <style>
-:root{--bg:#f6f5f2;--card:#fff;--ink:#1d1d1f;--sub:#6b6b70;--line:#e3e1dc;--acc:#1f5eff;--acc-ink:#fff;
---ok:#1a7f37;--okbg:#e6f4ea;--mid:#8a5a00;--midbg:#fff1cc;--ng:#c62828;--ngbg:#fdecea;--mark:#dff0e3}
-@media (prefers-color-scheme: dark){:root{--bg:#141416;--card:#1e1e21;--ink:#ececef;--sub:#a0a0a8;--line:#303036;
---acc:#6f9bff;--acc-ink:#0b1020;--ok:#5cc47a;--okbg:#16301f;--mid:#e6b64f;--midbg:#352a12;--ng:#ff7b72;--ngbg:#3a1a1a;--mark:#1f3a27}}
+:root{--bg:#f7f6f2;--fg:#1d1d1f;--mute:#6e6e73;--line:#e2dfd7;--card:#fff;--mark:#ffe9a8;--rt:#b3261e;--accent:#2f5d8a;--dot:#aaa59a}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#161618;--fg:#ececef;--mute:#9a9aa2;--line:#2c2c31;--card:#1f1f23;--mark:#5c4a10;--rt:#ff9a8f;--accent:#8fb8e8;--dot:#5c5c63}}
 *{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--ink)}
-body{font:17px/1.65 -apple-system,BlinkMacSystemFont,"Hiragino Sans","PingFang SC","Noto Sans JP",sans-serif;-webkit-text-size-adjust:100%}
-main{max-width:640px;margin:0 auto;padding:16px 16px 56px}
-h1{font-size:21px;margin:6px 0 2px}
-.sub{color:var(--sub);font-size:14px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:12px 0}
-button{font:inherit;border:0;border-radius:12px;padding:13px 16px;background:var(--acc);color:var(--acc-ink);cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
-button.ghost{background:transparent;color:var(--acc);border:1px solid var(--line)}
-button:disabled{opacity:.4;cursor:default}
-.col{display:flex;flex-direction:column;gap:10px}
-.row{display:flex;gap:10px}
-.row>button{flex:1}
-.big{display:block;width:100%;padding:16px;font-size:18px;margin-top:12px}
-.menu button{text-align:left;display:flex;justify-content:space-between;align-items:center}
-.menu .n{font-size:14px;opacity:.85}
-textarea{display:block;width:100%;min-height:160px;font:inherit;font-size:18px;line-height:1.6;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);resize:vertical}
-textarea:focus{outline:2px solid var(--acc);outline-offset:1px}
-.top{display:flex;justify-content:space-between;align-items:center;font-size:14px;color:var(--sub)}
-.top button{padding:6px 10px;font-size:14px}
-.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin:8px 0 4px}
-.bar>i{display:block;height:100%;background:var(--acc);transition:width .2s}
-.listen{text-align:center;padding:22px 16px}
-.listen .hint{color:var(--sub);font-size:14px;margin-top:6px}
-.q{font-size:19px;font-weight:600;margin:2px 0}
-.label{font-size:13px;color:var(--sub);margin:14px 0 4px}
-.chunk{border-radius:10px;padding:10px 12px;margin:8px 0}
-.chunk .tag{display:inline-block;font-size:13px;font-weight:700;margin-right:8px}
-.chunk .t{font-size:18px}
-.c-ok{background:var(--okbg)} .c-ok .tag{color:var(--ok)}
-.c-mid{background:var(--midbg)} .c-mid .tag{color:var(--mid)}
-.c-ng{background:var(--ngbg)} .c-ng .tag{color:var(--ng)}
-.yours{font-size:14px;color:var(--sub);margin-top:2px}
-.model{font-size:17px}
-.model b{background:var(--mark);font-weight:600;border-radius:4px;padding:0 2px}
-.mine{white-space:pre-wrap;font-size:16px}
-.verdict{font-size:19px;font-weight:700;margin:0 0 4px}
-.v-ok{color:var(--ok)} .v-ng{color:var(--ng)}
-.small{font-size:13px;color:var(--sub)}
-ul.wrong{margin:6px 0 0;padding-left:20px}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 -apple-system,"Hiragino Sans","Noto Sans JP","PingFang SC",sans-serif}
+header{position:sticky;top:0;z-index:2;background:var(--bg);border-bottom:1px solid var(--line)}
+.wrap{max-width:720px;margin:0 auto;padding:0 16px}
+.top{display:flex;align-items:center;gap:8px;padding-top:10px;padding-bottom:10px}
+h1{font-size:17px;margin:0;flex:1}
+.tabs button,.tools button{font:inherit;font-size:14px;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:5px 12px;cursor:pointer}
+.tabs button[aria-pressed=true]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.hint{font-size:13px;color:var(--mute);margin:12px 0 4px}
+h2{font-size:14px;color:var(--mute);font-weight:600;margin:22px 0 8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:0 0 10px}
+.qh{display:flex;gap:8px;align-items:baseline}
+.no{font-size:13px;color:var(--accent);font-weight:700;min-width:1.6em}
+.qj{font-weight:700;font-size:17px;line-height:2.3}
+.zh{font-size:13px;color:var(--mute);margin:0 0 4px 2.1em}
+ul.a{margin:4px 0 0;padding:0 0 0 2.1em;list-style:none}
+ul.a li{font-size:17px;line-height:2.3;position:relative}
+ul.a li::before{content:"";position:absolute;left:-14px;top:1.05em;width:5px;height:5px;border-radius:50%;background:var(--dot)}
+.w{position:relative;white-space:nowrap;cursor:pointer;border-bottom:1px dotted var(--dot);border-radius:3px;-webkit-tap-highlight-color:transparent}
+.w.on{background:var(--mark);border-bottom-color:transparent}
+.w.on::after{content:attr(data-y);position:absolute;left:50%;transform:translateX(-50%);top:-1.3em;font-size:.55em;line-height:1;color:var(--rt);font-weight:600;white-space:nowrap;pointer-events:none}
+.tools{display:flex;gap:8px;margin:14px 0 10px}
+ol.list{list-style:none;margin:0;padding:0}
+ol.list li{display:flex;align-items:baseline;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:0 0 8px;cursor:pointer}
+.lw{font-size:20px;font-weight:700}
+.lr{font-size:16px;color:var(--rt);flex:1}
+.ln{font-size:12px;color:var(--mute);white-space:nowrap}
+.hide .lr{color:transparent;background:var(--line);border-radius:4px}
+.hide li.peek .lr{color:var(--rt);background:none}
+.empty{color:var(--mute);font-size:14px;padding:24px 0}
+footer{font-size:12px;color:var(--mute);padding:24px 0 40px}
+[hidden]{display:none!important}
 </style>
 </head>
 <body>
-<main id="app"></main>
+<header><div class="wrap top">
+  <h1>面接の単語</h1>
+  <div class="tabs"><button id="t-qa" aria-pressed="true">问答</button> <button id="t-list" aria-pressed="false">要记的词 <span id="cnt">0</span></button></div>
+</div></header>
+<div class="wrap">
+  <main id="qa"><p class="hint">点带虚线的词 → 标上假名，收进「要记的词」。再点一下就取消。</p></main>
+  <main id="list" hidden>
+    <div class="tools"><button id="b-hide" aria-pressed="false">遮住假名</button><button id="b-clear">清空</button></div>
+    <ol class="list" id="ol"></ol>
+    <p class="empty" id="empty">还没有标记的词。在「问答」里点词，就会出现在这里。</p>
+  </main>
+  <footer>标记只存在这台设备的浏览器里 · 更新 <span id="built"></span></footer>
+</div>
 <script>
-const DATA = {"items": [{"id": "3c4c5fbe", "g": "must", "q": "自己紹介をしてください。", "html": "へ へリオンと申します。B園田1クラスです。中国から来ました。<b>出席率は99%で</b>、<b>N2に合格しました</b>。<b>大阪経済大学の国際共創学部を志望しています</b>。よろしくお願いいたします。", "chunks": ["出席率は99%で", "N2に合格しました", "大阪経済大学の国際共創学部を志望しています"]}, {"id": "6589b59e", "g": "must", "q": "どうして大阪経済大学ですか。", "html": "理由は二つあります。一つ目は、<b>就職支援が強いことです</b>。<b>大阪で就職したい私にとって</b>、<b>一番大事なことです</b>。二つ目は、<b>「人間的実学」という考えです</b>。<b>社会で役に立つ力をつけられるので</b>、<b>私に合っていると思いました</b>。", "chunks": ["就職支援が強いことです", "大阪で就職したい私にとって", "一番大事なことです", "「人間的実学」という考えです", "社会で役に立つ力をつけられるので", "私に合っていると思いました"]}, {"id": "5af23027", "g": "must", "q": "どうして国際共創学部ですか。", "html": "<b>一年生から四年生まで毎年ゼミがあって</b>、<b>一つのテーマを深く勉強できるからです</b>。一年生の終わりに、<b>ハワイ大学で英語を勉強できるのも魅力です</b>。", "chunks": ["一年生から四年生まで毎年ゼミがあって", "一つのテーマを深く勉強できるからです", "ハワイ大学で英語を勉強できるのも魅力です"]}, {"id": "65e9549c", "g": "must", "q": "大学で何を勉強したいですか。", "html": "<b>経済学と社会学の基礎を勉強して</b>、<b>ゼミでは日本と中国の貿易について調べたいです</b>。", "chunks": ["経済学と社会学の基礎を勉強して", "ゼミでは日本と中国の貿易について調べたいです"]}, {"id": "27d959cd", "g": "must", "q": "オープンキャンパスには行きましたか。", "html": "まだですが、<b>10月4日のオープンキャンパスに申し込みました</b>。ホームページで、ゼミやハワイの留学について調べました。当日は、<b>キャンパスを自分の目で見てきます</b>。", "chunks": ["10月4日のオープンキャンパスに申し込みました", "キャンパスを自分の目で見てきます"]}, {"id": "70cff1e6", "g": "must", "q": "卒業したら、どうしたいですか。", "html": "<b>大阪で就職して</b>、長く働きたいです。<b>日本語と中国語と英語を使って</b>、<b>日本と中国の会社をつなぐ仕事がしたいです</b>。", "chunks": ["大阪で就職して", "日本語と中国語と英語を使って", "日本と中国の会社をつなぐ仕事がしたいです"]}, {"id": "3c6ac3a2", "g": "must", "q": "学費は大丈夫ですか。", "html": "はい、確認しました。<b>学費は両親が払ってくれます</b>。生活費は、勉強に影響がない範囲でアルバイトをして、自分で補います。", "chunks": ["学費は両親が払ってくれます"]}, {"id": "68fbad43", "g": "must", "q": "どうしてあなたを推薦すべきですか。", "html": "<b>この学校に毎日まじめに通って</b>、<b>N2にも合格できました</b>。推薦していただけたら、<b>必ず入学して</b>、<b>後輩のためにも</b>、四年間しっかり勉強します。", "chunks": ["この学校に毎日まじめに通って", "N2にも合格できました", "必ず入学して", "後輩のためにも"]}, {"id": "3d445a46", "g": "must", "q": "長所と短所を教えてください。", "html": "長所は、<b>毎日コツコツ続けられることです</b>。短所は、<b>心配性なところです</b>。でも、<b>そのぶん準備をしっかりします</b>。<b>今日の面接も</b>、<b>しっかり準備してきました</b>。", "chunks": ["毎日コツコツ続けられることです", "心配性なところです", "そのぶん準備をしっかりします", "今日の面接も", "しっかり準備してきました"]}, {"id": "1427d36b", "g": "must", "q": "最後に何かありますか。", "html": "<b>先生方のおかげで</b>、大学を目指せるところまで来ました。推薦をいただけましたら、<b>この学校の代表として</b>、<b>必ず入学して</b>、<b>四年間で卒業します</b>。よろしくお願いいたします。", "chunks": ["先生方のおかげで", "この学校の代表として", "必ず入学して", "四年間で卒業します"]}, {"id": "c7d3975e", "g": "maybe", "q": "就職に強いって、どこで知りましたか。", "html": "<b>大学のホームページで見ました</b>。就職支援が、<b>近畿の私立大学で一番だそうです</b>。", "chunks": ["大学のホームページで見ました", "近畿の私立大学で一番だそうです"]}, {"id": "72cb75e9", "g": "maybe", "q": "「人間的実学」って何ですか。", "html": "<b>人として成長することと</b>、<b>社会で役に立つ力をつけることを</b>、<b>両方大事にする考えです</b>。", "chunks": ["人として成長することと", "社会で役に立つ力をつけることを", "両方大事にする考えです"]}, {"id": "c6353e8a", "g": "maybe", "q": "ハワイには、いつ、どのくらい行くんですか。", "html": "<b>一年生の春休みに</b>、<b>三週間です</b>。", "chunks": ["一年生の春休みに", "三週間です"]}, {"id": "07f75f86", "g": "maybe", "q": "申込書には、大阪市内や減免のことも書いてありますね。", "html": "はい、それも理由です。でも、<b>一番の理由は就職支援です</b>。", "chunks": ["一番の理由は就職支援です"]}, {"id": "3c6c3752", "g": "maybe", "q": "減免が通らなかったら、どうしますか。", "html": "減免がなくても、<b>両親が払ってくれます</b>。心配はありません。", "chunks": ["両親が払ってくれます"]}, {"id": "5a9d84d8", "g": "maybe", "q": "英語は大丈夫ですか。", "html": "<b>英語も使えるようになりたいので</b>、<b>入学まで毎日勉強します</b>。", "chunks": ["英語も使えるようになりたいので", "入学まで毎日勉強します"]}, {"id": "4838f982", "g": "maybe", "q": "計画を立てるのが苦手だと書いてありますが。", "html": "はい、まだ得意ではありません。だから、<b>毎年ゼミがあって</b>、<b>卒業論文まで書く国際共創学部で</b>、<b>その力をつけたいです</b>。", "chunks": ["毎年ゼミがあって", "卒業論文まで書く国際共創学部で", "その力をつけたいです"]}, {"id": "983144d2", "g": "maybe", "q": "どうして、まだオープンキャンパスに行っていないんですか。", "html": "大阪経済大学に決めてから、<b>一番早いのが10月4日でした</b>。<b>必ず行きます</b>。", "chunks": ["一番早いのが10月4日でした", "必ず行きます"]}, {"id": "280c2868", "g": "maybe", "q": "ほかの大学とも迷いましたか。", "html": "はい、学校の説明会で聞いた大学とも比べました。最後は、<b>就職支援で大阪経済大学に決めました</b>。", "chunks": ["就職支援で大阪経済大学に決めました"]}, {"id": "4c56741c", "g": "maybe", "q": "推薦がもらえなかったら、どうしますか。", "html": "先生と相談します。でも、<b>大阪経済大学に行くつもりで準備してきました</b>。", "chunks": ["大阪経済大学に行くつもりで準備してきました"]}, {"id": "3c00afd3", "g": "maybe", "q": "アルバイトはしていますか。", "html": "<b>週20時間ぐらいです</b>。<b>学校の勉強が第一です</b>。", "chunks": ["週20時間ぐらいです", "学校の勉強が第一です"]}, {"id": "acbcf870", "g": "maybe", "q": "家から大学まで遠くないですか。", "html": "入学したら、<b>大学に通いやすいところに引っ越します</b>。", "chunks": ["大学に通いやすいところに引っ越します"]}, {"id": "c711a328", "g": "maybe", "q": "高校を卒業してから、日本に来るまでは何をしていましたか。", "html": "進路をよく考えて、<b>日本で働くことを目標に決めました</b>。それから、日本語の勉強と留学の準備をしました。", "chunks": ["日本で働くことを目標に決めました"]}, {"id": "1a96e0ad", "g": "maybe", "q": "大学には行きましたか。", "html": "はい、<b>中国の大学に一年通いました</b>。専攻が自分のやりたいことと違ったので、<b>日本で働く道を選びました</b>。今回は目標から選んだので、<b>必ず卒業します</b>。", "chunks": ["中国の大学に一年通いました", "日本で働く道を選びました", "必ず卒業します"]}, {"id": "50dbca65", "g": "maybe", "q": "どうして日本に来たんですか。", "html": "<b>日本で就職して</b>、<b>長く生活したいと思ったからです</b>。", "chunks": ["日本で就職して", "長く生活したいと思ったからです"]}], "yomi": [["申し込み", "もうしこみ"], ["引っ越し", "ひっこし"], ["春休み", "はるやすみ"], ["使える", "つかえる"], ["出席", "しゅっせき"], ["合格", "ごうかく"], ["大阪", "おおさか"], ["経済", "けいざい"], ["大学", "だいがく"], ["国際", "こくさい"], ["共創", "きょうそう"], ["志望", "しぼう"], ["就職", "しゅうしょく"], ["支援", "しえん"], ["強い", "つよい"], ["一番", "いちばん"], ["大事", "だいじ"], ["人間", "にんげん"], ["実学", "じつがく"], ["考え", "かんがえ"], ["社会", "しゃかい"], ["立つ", "たつ"], ["合っ", "あっ"], ["思い", "おもい"], ["毎年", "まいとし"], ["深く", "ふかく"], ["勉強", "べんきょう"], ["英語", "えいご"], ["魅力", "みりょく"], ["基礎", "きそ"], ["日本", "にほん"], ["中国", "ちゅうごく"], ["貿易", "ぼうえき"], ["調べ", "しらべ"], ["自分", "じぶん"], ["使っ", "つかっ"], ["会社", "かいしゃ"], ["仕事", "しごと"], ["学費", "がくひ"], ["両親", "りょうしん"], ["払っ", "はらっ"], ["学校", "がっこう"], ["毎日", "まいにち"], ["通っ", "かよっ"], ["必ず", "かならず"], ["入学", "にゅうがく"], ["後輩", "こうはい"], ["続け", "つづけ"], ["心配", "しんぱい"], ["準備", "じゅんび"], ["今日", "きょう"], ["面接", "めんせつ"], ["先生", "せんせい"], ["代表", "だいひょう"], ["年間", "ねんかん"], ["卒業", "そつぎょう"], ["近畿", "きんき"], ["私立", "しりつ"], ["成長", "せいちょう"], ["両方", "りょうほう"], ["週間", "しゅうかん"], ["理由", "りゆう"], ["論文", "ろんぶん"], ["書く", "かく"], ["早い", "はやい"], ["行き", "いき"], ["決め", "きめ"], ["行く", "いく"], ["時間", "じかん"], ["通い", "かよい"], ["働く", "はたらく"], ["目標", "もくひょう"], ["選び", "えらび"], ["長く", "ながく"], ["生活", "せいかつ"], ["思っ", "おもっ"], ["率", "りつ"], ["私", "わたし"], ["的", "てき"], ["役", "やく"], ["力", "ちから"], ["年", "ねん"], ["生", "せい"], ["目", "め"], ["見", "み"], ["人", "ひと"], ["週", "しゅう"], ["第", "だい"], ["道", "みち"]], "alt": [["来ました", "きました"], ["真面目", "まじめ"], ["積もり", "つもり"], ["来ます", "きます"], ["くらい", "ぐらい"], ["宜しく", "よろしく"], ["お陰", "おかげ"], ["御蔭", "おかげ"], ["出来", "でき"], ["致し", "いたし"], ["様に", "ように"], ["様な", "ような"], ["申込", "もうしこ"], ["引越", "ひっこ"], ["繋", "つな"], ["頂", "いただ"], ["戴", "いただ"], ["為", "ため"]], "alt2": [["事", "こと"], ["所", "ところ"]], "built": "9/27 22:08"};
-const KEY = 'mensetsu_qa_v1';
-let store = {};
-try { store = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { store = {}; }
-function save() { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {} }
-const byId = Object.fromEntries(DATA.items.map(it => [it.id, it]));
-const $ = s => document.querySelector(s);
-const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-
-/* ---------- 朗读 ---------- */
-const canSpeak = 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
-let jaVoice = null;
-function pickVoice() {
-  try {
-    const vs = speechSynthesis.getVoices().filter(v => /^ja/i.test(v.lang));
-    jaVoice = vs.find(v => /Kyoko|O-?ren|Otoya|Hattori|Google/i.test(v.name)) || vs[0] || null;
-  } catch (e) {}
+const D={"items": [{"n": 1, "g": "must", "zh": "请做一下自我介绍。", "q": [["自己紹介", "じこしょうかい"], ["を", ""], ["し", ""], ["て", ""], ["ください", ""], ["。", ""]], "a": [[["へ", ""], [" ", ""], ["へ", ""], ["リオン", ""], ["と", ""], ["申し", "もうし"], ["ます", ""]], [["B", ""], ["園田", "そのだ"], ["1", ""], ["クラス", ""]], [["中国", "ちゅうごく"], ["から", ""], ["来", "き"], ["まし", ""], ["た", ""]], [["二十一歳", "にじゅういっさい"]], [["大阪経済大学", "おおさかけいざいだいがく"], ["の", ""], ["国際共創学部", "こくさいきょうそうがくぶ"], ["を", ""], ["志望", "しぼう"], ["し", ""], ["て", ""], ["い", ""], ["ます", ""]], [["よろしく", ""], ["お", ""], ["願い", "ねがい"], ["いたし", ""], ["ます", ""]]]}, {"n": 2, "g": "must", "zh": "为什么来日本？", "q": [["どう", ""], ["し", ""], ["て", ""], ["日本", "にほん"], ["に", ""], ["来", "き"], ["た", ""], ["ん", ""], ["です", ""], ["か", ""], ["。", ""]], "a": [[["中国", "ちゅうごく"], ["と", ""], ["日本", "にほん"], ["は", ""], ["経済", "けいざい"], ["の", ""], ["つながり", ""], ["が", ""], ["強い", "つよい"]], [["中国語", "ちゅうごくご"], ["と", ""], ["日本語", "にほんご"], ["の", ""], ["両方", "りょうほう"], ["が", ""], ["できる", ""], ["人", "ひと"], ["は", ""], ["、", ""], ["日本", "にほん"], ["の", ""], ["会社", "かいしゃ"], ["で", ""], ["必要", "ひつよう"], ["と", ""], ["さ", ""], ["れ", ""], ["て", ""], ["いる", ""]], [["日本", "にほん"], ["で", ""], ["就職", "しゅうしょく"], ["し", ""], ["て", ""], ["、", ""], ["長く", "ながく"], ["働こう", "はたらこう"], ["と", ""], ["決め", "きめ"], ["た", ""]]]}, {"n": 3, "g": "must", "zh": "为什么是大阪？", "q": [["どう", ""], ["し", ""], ["て", ""], ["大阪", "おおさか"], ["な", ""], ["ん", ""], ["です", ""], ["か", ""], ["。", ""]], "a": [[["中国", "ちゅうごく"], ["と", ""], ["取引", "とりひき"], ["を", ""], ["し", ""], ["て", ""], ["いる", ""], ["会社", "かいしゃ"], ["が", ""], ["たくさん", ""], ["ある", ""]], [["中国語", "ちゅうごくご"], ["と", ""], ["日本語", "にほんご"], ["を", ""], ["一番", "いちばん"], ["生かせる", "いかせる"], ["場所", "ばしょ"]], [["大阪", "おおさか"], ["で", ""], ["生活", "せいかつ"], ["し", ""], ["て", ""], ["み", ""], ["て", ""], ["、", ""], ["ずっと", ""], ["暮らし", "くらし"], ["たい", ""], ["と", ""], ["思っ", "おもっ"], ["た", ""]]]}, {"n": 4, "g": "must", "zh": "为什么选大阪经济大学？", "q": [["どう", ""], ["し", ""], ["て", ""], ["大阪経済大学", "おおさかけいざいだいがく"], ["です", ""], ["か", ""], ["。", ""]], "a": [[["理由", "りゆう"], ["は", ""], ["二つ", "ふたつ"]], [["一つ目", "ひとつめ"], ["は", ""], ["、", ""], ["就職", "しゅうしょく"], ["の", ""], ["サポート", ""], ["が", ""], ["手厚い", "てあつい"]], [["キャリア支援課", "キャリアしえんか"], ["の", ""], ["専任", "せんにん"], ["スタッフ", ""], ["に", ""], ["何度", "なんど"], ["で", ""], ["も", ""], ["相談", "そうだん"], ["できる", ""]], [["先生", "せんせい"], ["と", ""], ["職員", "しょくいん"], ["が", ""], ["チーム", ""], ["で", ""], ["サポート", ""]], [["大阪", "おおさか"], ["で", ""], ["就職", "しゅうしょく"], ["し", ""], ["たい", ""], ["私", "わたし"], ["に", ""], ["合っ", "あっ"], ["て", ""], ["いる", ""]], [["二つ目", "ふたつめ"], ["は", ""], ["、", ""], ["「", ""], ["人間的実学", "にんげんてきじつがく"], ["」", ""]], [["人", "ひと"], ["と", ""], ["し", ""], ["て", ""], ["成長", "せいちょう"], ["する", ""], ["こと", ""], ["、", ""], ["社会", "しゃかい"], ["で", ""], ["役に立つ", "やくにたつ"], ["力", "ちから"], ["を", ""], ["つける", ""], ["こと", ""], ["、", ""], ["両方", "りょうほう"], ["を", ""], ["大事", "だいじ"], ["に", ""], ["する", ""]]]}, {"n": 5, "g": "must", "zh": "为什么选国际共创学部？", "q": [["どう", ""], ["し", ""], ["て", ""], ["国際共創学部", "こくさいきょうそうがくぶ"], ["です", ""], ["か", ""], ["。", ""]], "a": [[["経済", "けいざい"], ["・", ""], ["経営", "けいえい"], ["と", ""], ["、", ""], ["国際的", "こくさいてき"], ["な", ""], ["社会", "しゃかい"], ["や", ""], ["文化", "ぶんか"], ["を", ""], ["、", ""], ["両方", "りょうほう"], ["学べる", "まなべる"]], [["一年生", "いちねんせい"], ["から", ""], ["四年生", "よねんせい"], ["ま", ""], ["で", ""], ["毎年", "まいとし"], ["ゼミ", ""]], [["一年生", "いちねんせい"], ["の", ""], ["春休み", "はるやすみ"], ["に", ""], ["、", ""], ["三週間", "さんしゅうかん"], ["ハワイ大学", "ハワイだいがく"], ["で", ""], ["英語", "えいご"]], [["中国語", "ちゅうごくご"], ["と", ""], ["英語", "えいご"], ["を", ""], ["使っ", "つかっ"], ["て", ""], ["、", ""], ["海外", "かいがい"], ["と", ""], ["取引", "とりひき"], ["を", ""], ["する", ""], ["仕事", "しごと"], ["が", ""], ["し", ""], ["たい", ""]]]}, {"n": 6, "g": "must", "zh": "你在大学想学什么？", "q": [["大学", "だいがく"], ["で", ""], ["何", "なに"], ["を", ""], ["勉強", "べんきょう"], ["し", ""], ["たい", ""], ["です", ""], ["か", ""], ["。", ""]], "a": [[["経済学概論", "けいざいがくがいろん"], ["・", ""], ["社会学概論", "しゃかいがくがいろん"], ["で", ""], ["基礎", "きそ"]], [["国際経済論", "こくさいけいざいろん"], ["・", ""], ["アジア経済論", "アジアけいざいろん"], ["で", ""], ["、", ""], ["日本", "にほん"], ["と", ""], ["中国", "ちゅうごく"], ["の", ""], ["貿易", "ぼうえき"]], [["ゼミ", ""], ["で", ""], ["も", ""], ["貿易", "ぼうえき"], ["を", ""], ["研究", "けんきゅう"], ["し", ""], ["たい", ""]]]}, {"n": 7, "g": "must", "zh": "去过开放日吗？", "q": [["オープン", ""], ["キャンパス", ""], ["に", ""], ["は", ""], ["行き", "いき"], ["まし", ""], ["た", ""], ["か", ""], ["。", ""]], "a": [[["まだ", ""], ["です", ""]], [["10月4日", "じゅうがつよっか"], ["の", ""], ["オープン", ""], ["キャンパス", ""], ["に", ""], ["申し込み", "もうしこみ"], ["まし", ""], ["た", ""]], [["ゼミ", ""], ["は", ""], ["少人数", "しょうにんずう"], ["、", ""], ["就職活動", "しゅうしょくかつどう"], ["まで", ""], ["サポート", ""]], [["ハワイ大学マノア校", "ハワイだいがくマノアこう"], ["の", ""], ["留学", "りゅうがく"], ["は", ""], ["全員", "ぜんいん"], ["、", ""], ["費用", "ひよう"], ["は", ""], ["学費", "がくひ"], ["に", ""], ["入っ", "はいっ"], ["て", ""], ["いる", ""]], [["キャンパス", ""], ["を", ""], ["自分", "じぶん"], ["の", ""], ["目", "め"], ["で", ""], ["見", "み"], ["て", ""], ["き", ""], ["ます", ""]]]}, {"n": 8, "g": "must", "zh": "毕业以后想做什么？", "q": [["卒業", "そつぎょう"], ["し", ""], ["たら", ""], ["、", ""], ["どう", ""], ["し", ""], ["たい", ""], ["です", ""], ["か", ""], ["。", ""]], "a": [[["大阪", "おおさか"], ["で", ""], ["就職", "しゅうしょく"], ["し", ""], ["て", ""], ["、", ""], ["長く", "ながく"], ["働き", "はたらき"], ["たい", ""]], [["海外", "かいがい"], ["と", ""], ["取引", "とりひき"], ["が", ""], ["ある", ""], ["会社", "かいしゃ"], ["で", ""], ["、", ""], ["貿易", "ぼうえき"], ["事務", "じむ"], ["や", ""], ["営業", "えいぎょう"], ["の", ""], ["サポート", ""]], [["中国", "ちゅうごく"], ["の", ""], ["会社", "かいしゃ"], ["と", ""], ["は", ""], ["中国語", "ちゅうごくご"], ["、", ""], ["ほか", ""], ["の", ""], ["国", "くに"], ["の", ""], ["会社", "かいしゃ"], ["と", ""], ["は", ""], ["英語", "えいご"]], [["日本", "にほん"], ["と", ""], ["海外", "かいがい"], ["を", ""], ["つなぐ", ""], ["仕事", "しごと"]]]}, {"n": 9, "g": "must", "zh": "有没有也考虑过别的大学？", "q": [["ほか", ""], ["の", ""], ["大学", "だいがく"], ["と", ""], ["も", ""], ["迷い", "まよい"], ["まし", ""], ["た", ""], ["か", ""], ["。", ""]], "a": [[["学校", "がっこう"], ["の", ""], ["説明会", "せつめいかい"], ["で", ""], ["聞い", "きい"], ["た", ""], ["大学", "だいがく"], ["と", ""], ["も", ""], ["比べ", "くらべ"], ["まし", ""], ["た", ""]], [["私", "わたし"], ["の", ""], ["目標", "もくひょう"], ["に", ""], ["一番", "いちばん"], ["合っ", "あっ"], ["て", ""], ["い", ""], ["た", ""]], [["大阪", "おおさか"], ["で", ""], ["、", ""], ["経済", "けいざい"], ["と", ""], ["英語", "えいご"], ["を", ""], ["両方", "りょうほう"], ["しっかり", ""], ["学べる", "まなべる"]], [["四年間", "よねんかん"], ["ずっと", ""], ["少人数", "しょうにんずう"], ["の", ""], ["ゼミ", ""]]]}, {"n": 10, "g": "must", "zh": "学费没问题吗？", "q": [["学費", "がくひ"], ["は", ""], ["大丈夫", "だいじょうぶ"], ["です", ""], ["か", ""], ["。", ""]], "a": [[["確認", "かくにん"], ["し", ""], ["まし", ""], ["た", ""]], [["一年目", "いちねんめ"], ["は", ""], ["131万3千円", "ひゃくさんじゅういちまんさんぜんえん"], ["、", ""], ["四年間", "よねんかん"], ["で", ""], ["528万3千円", "ごひゃくにじゅうはちまんさんぜんえん"]], [["両親", "りょうしん"], ["と", ""], ["よく", ""], ["相談", "そうだん"], ["し", ""], ["た", ""]], [["学費", "がくひ"], ["は", ""], ["両親", "りょうしん"], ["が", ""], ["払っ", "はらっ"], ["て", ""], ["くれ", ""], ["ます", ""]], [["生活費", "せいかつひ"], ["は", ""], ["、", ""], ["勉強", "べんきょう"], ["に", ""], ["影響", "えいきょう"], ["が", ""], ["ない", ""], ["範囲", "はんい"], ["で", ""], ["アルバイト", ""]]]}, {"n": 11, "g": "must", "zh": "为什么应该推荐你？", "q": [["どう", ""], ["し", ""], ["て", ""], ["あなた", ""], ["を", ""], ["推薦", "すいせん"], ["す", ""], ["べき", ""], ["です", ""], ["か", ""], ["。", ""]], "a": [[["大阪経済大学", "おおさかけいざいだいがく"], ["一本", "いっぽん"], ["で", ""], ["準備", "じゅんび"], ["し", ""], ["て", ""], ["き", ""], ["た", ""]], [["何", "なに"], ["を", ""], ["学ぶ", "まなぶ"], ["か", ""], ["、", ""], ["卒業後", "そつぎょうご"], ["どう", ""], ["する", ""], ["か", ""], ["、", ""], ["学費", "がくひ"], ["の", ""], ["こと", ""], ["まで", ""], ["、", ""], ["全部", "ぜんぶ"], ["決め", "きめ"], ["て", ""], ["いる", ""]], [["私", "わたし"], ["が", ""], ["大学", "だいがく"], ["で", ""], ["しっかり", ""], ["勉強", "べんきょう"], ["する", ""], ["こと", ""], ["が", ""], ["、", ""], ["後輩", "こうはい"], ["の", ""], ["推薦", "すいせん"], ["に", ""], ["つながる", ""]], [["四年間", "よねんかん"], ["、", ""], ["一日", "いちにち"], ["も", ""], ["気を抜かずに", "きをぬかずに"], ["頑張り", "がんばり"], ["ます", ""]]]}, {"n": 12, "g": "must", "zh": "说说你的优点和缺点。", "q": [["長所", "ちょうしょ"], ["と", ""], ["短所", "たんしょ"], ["を", ""], ["教え", "おしえ"], ["て", ""], ["ください", ""], ["。", ""]], "a": [[["長所", "ちょうしょ"], ["は", ""], ["、", ""], ["毎日", "まいにち"], ["休ま", "やすま"], ["ず", ""], ["に", ""], ["勉強", "べんきょう"], ["を", ""], ["続け", "つづけ"], ["られる", ""], ["こと", ""]], [["アルバイト", ""], ["を", ""], ["し", ""], ["ながら", ""], ["、", ""], ["出席率", "しゅっせきりつ"], ["99", ""], ["%", ""]], [["短所", "たんしょ"], ["は", ""], ["、", ""], ["自分", "じぶん"], ["を", ""], ["うまく", ""], ["表現", "ひょうげん"], ["する", ""], ["の", ""], ["が", ""], ["苦手", "にがて"], ["な", ""], ["ところ", ""]], [["何", "なに"], ["を", ""], ["する", ""], ["べき", ""], ["か", ""], ["、", ""], ["どう", ""], ["話す", "はなす"], ["べき", ""], ["か", ""], ["分かっ", "わかっ"], ["て", ""], ["い", ""], ["て", ""], ["も", ""], ["、", ""], ["思っ", "おもっ"], ["た", ""], ["とおり", ""], ["に", ""], ["でき", ""], ["ない", ""]]]}, {"n": 13, "g": "must", "zh": "最后还有什么要说的吗？", "q": [["最後", "さいご"], ["に", ""], ["何", "なに"], ["か", ""], ["あり", ""], ["ます", ""], ["か", ""], ["。", ""]], "a": [[["先生方", "せんせいがた"], ["の", ""], ["おかげ", ""], ["で", ""], ["、", ""], ["大学", "だいがく"], ["を", ""], ["目指せる", "めざせる"], ["ところ", ""], ["まで", ""], ["来", "き"], ["まし", ""], ["た", ""]], [["この", ""], ["学校", "がっこう"], ["の", ""], ["代表", "だいひょう"], ["と", ""], ["し", ""], ["て", ""], ["、", ""], ["必ず", "かならず"], ["入学", "にゅうがく"], ["し", ""], ["て", ""], ["、", ""], ["四年間", "よねんかん"], ["で", ""], ["卒業", "そつぎょう"], ["し", ""], ["ます", ""]], [["よろしく", ""], ["お", ""], ["願い", "ねがい"], ["いたし", ""], ["ます", ""]]]}, {"n": 14, "g": "maybe", "zh": "申请书上还写了学校在大阪市内、有学费减免，对吧？", "q": [["申込書", "もうしこみしょ"], ["に", ""], ["は", ""], ["、", ""], ["大阪市内", "おおさかしない"], ["や", ""], ["減免", "げんめん"], ["の", ""], ["こと", ""], ["も", ""], ["書い", "かい"], ["て", ""], ["あり", ""], ["ます", ""], ["ね", ""], ["。", ""]], "a": [[["それ", ""], ["も", ""], ["理由", "りゆう"], ["です", ""]], [["で", ""], ["も", ""], ["一番", "いちばん"], ["の", ""], ["理由", "りゆう"], ["は", ""], ["、", ""], ["就職", "しゅうしょく"], ["の", ""], ["サポート", ""], ["が", ""], ["手厚い", "てあつい"], ["こと", ""]]]}, {"n": 15, "g": "maybe", "zh": "如果减免没批下来怎么办？", "q": [["減免", "げんめん"], ["が", ""], ["通ら", "とおら"], ["なかっ", ""], ["たら", ""], ["、", ""], ["どう", ""], ["し", ""], ["ます", ""], ["か", ""], ["。", ""]], "a": [[["減免", "げんめん"], ["が", ""], ["なく", ""], ["て", ""], ["も", ""], ["、", ""], ["両親", "りょうしん"], ["が", ""], ["払っ", "はらっ"], ["て", ""], ["くれ", ""], ["ます", ""]], [["心配", "しんぱい"], ["は", ""], ["あり", ""], ["ませ", ""], ["ん", ""]]]}, {"n": 16, "g": "maybe", "zh": "英语没问题吗？", "q": [["英語", "えいご"], ["は", ""], ["大丈夫", "だいじょうぶ"], ["です", ""], ["か", ""], ["。", ""]], "a": [[["英語", "えいご"], ["も", ""], ["使える", "つかえる"], ["よう", ""], ["に", ""], ["なり", ""], ["たい", ""]], [["入学", "にゅうがく"], ["まで", ""], ["毎日", "まいにち"], ["勉強", "べんきょう"], ["し", ""], ["ます", ""]]]}, {"n": 17, "g": "maybe", "zh": "申请书上写了你不擅长做计划……", "q": [["計画", "けいかく"], ["を", ""], ["立てる", "たてる"], ["の", ""], ["が", ""], ["苦手", "にがて"], ["だ", ""], ["と", ""], ["書い", "かい"], ["て", ""], ["あり", ""], ["ます", ""], ["が", ""], ["。", ""]], "a": [[["まだ", ""], ["得意", "とくい"], ["で", ""], ["は", ""], ["あり", ""], ["ませ", ""], ["ん", ""]], [["毎年", "まいとし"], ["ゼミ", ""], ["が", ""], ["ある", ""], ["国際共創学部", "こくさいきょうそうがくぶ"], ["で", ""], ["、", ""], ["その", ""], ["力", "ちから"], ["を", ""], ["つけ", ""], ["たい", ""]]]}, {"n": 18, "g": "maybe", "zh": "为什么还没去开放日？", "q": [["どう", ""], ["し", ""], ["て", ""], ["、", ""], ["まだ", ""], ["オープン", ""], ["キャンパス", ""], ["に", ""], ["行っ", "いっ"], ["て", ""], ["い", ""], ["ない", ""], ["ん", ""], ["です", ""], ["か", ""], ["。", ""]], "a": [[["学期休み", "がっきやすみ"], ["に", ""], ["時間", "じかん"], ["を", ""], ["作っ", "つくっ"], ["て", ""], ["、", ""], ["しっかり", ""], ["見", "み"], ["たかっ", ""], ["た", ""]], [["10月4日", "じゅうがつよっか"], ["に", ""], ["行き", "いき"], ["ます", ""]]]}, {"n": 19, "g": "maybe", "zh": "如果没拿到推荐怎么办？", "q": [["推薦", "すいせん"], ["が", ""], ["もらえ", ""], ["なかっ", ""], ["たら", ""], ["、", ""], ["どう", ""], ["し", ""], ["ます", ""], ["か", ""], ["。", ""]], "a": [[["先生", "せんせい"], ["と", ""], ["相談", "そうだん"], ["し", ""], ["ます", ""]], [["で", ""], ["も", ""], ["、", ""], ["大阪経済大学", "おおさかけいざいだいがく"], ["に", ""], ["行く", "いく"], ["つもり", ""], ["で", ""], ["準備", "じゅんび"], ["し", ""], ["て", ""], ["き", ""], ["まし", ""], ["た", ""]]]}, {"n": 20, "g": "maybe", "zh": "在打工吗？", "q": [["アルバイト", ""], ["は", ""], ["し", ""], ["て", ""], ["い", ""], ["ます", ""], ["か", ""], ["。", ""]], "a": [[["週", "しゅう"], ["22時間", "にじゅうにじかん"], ["ぐらい", ""]], [["学校", "がっこう"], ["の", ""], ["勉強", "べんきょう"], ["が", ""], ["第一", "だいいち"]]]}, {"n": 21, "g": "maybe", "zh": "高中毕业到来日本之前，你在做什么？", "q": [["高校", "こうこう"], ["を", ""], ["卒業", "そつぎょう"], ["し", ""], ["て", ""], ["から", ""], ["、", ""], ["日本", "にほん"], ["に", ""], ["来る", "くる"], ["まで", ""], ["は", ""], ["何", "なに"], ["を", ""], ["し", ""], ["て", ""], ["い", ""], ["まし", ""], ["た", ""], ["か", ""], ["。", ""]], "a": [[["進路", "しんろ"], ["を", ""], ["よく", ""], ["考え", "かんがえ"], ["て", ""], ["、", ""], ["日本", "にほん"], ["で", ""], ["働く", "はたらく"], ["こと", ""], ["を", ""], ["目標", "もくひょう"], ["に", ""], ["決め", "きめ"], ["た", ""]], [["日本語", "にほんご"], ["の", ""], ["勉強", "べんきょう"], ["と", ""], ["留学", "りゅうがく"], ["の", ""], ["準備", "じゅんび"]]]}, {"n": 22, "g": "maybe", "zh": "上过大学吗？", "q": [["大学", "だいがく"], ["に", ""], ["は", ""], ["行き", "いき"], ["まし", ""], ["た", ""], ["か", ""], ["。", ""]], "a": [[["はい", ""], ["、", ""], ["中国", "ちゅうごく"], ["の", ""], ["大学", "だいがく"], ["に", ""], ["一年", "いちねん"], ["通い", "かよい"], ["まし", ""], ["た", ""]], [["専攻", "せんこう"], ["は", ""], ["幼児教育", "ようじきょういく"]], [["子ども", "こども"], ["の", ""], ["世話", "せわ"], ["を", ""], ["する", ""], ["仕事", "しごと"], ["は", ""], ["、", ""], ["自分", "じぶん"], ["に", ""], ["は", ""], ["向い", "むい"], ["て", ""], ["い", ""], ["ない", ""], ["と", ""], ["分かっ", "わかっ"], ["た", ""]], [["残念", "ざんねん"], ["でし", ""], ["た", ""], ["が", ""], ["、", ""], ["退学", "たいがく"], ["し", ""], ["まし", ""], ["た", ""]], [["今回", "こんかい"], ["は", ""], ["、", ""], ["自分", "じぶん"], ["が", ""], ["し", ""], ["たい", ""], ["仕事", "しごと"], ["に", ""], ["合わせ", "あわせ"], ["て", ""], ["学部", "がくぶ"], ["を", ""], ["選ん", "えらん"], ["だ", ""]], [["必ず", "かならず"], ["卒業", "そつぎょう"], ["し", ""], ["ます", ""]]]}], "built": "9/28 01:40"};
+const KEY='mensetsu-tango-v1';
+let marked=new Set();
+try{marked=new Set(JSON.parse(localStorage.getItem(KEY)||'[]'))}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify([...marked]))}catch(e){}};
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const words=new Map();
+function line(toks,n){
+  return toks.map(([s,y])=>{
+    if(!y)return esc(s);
+    if(!words.has(s))words.set(s,{y,qs:new Set()});
+    words.get(s).qs.add(n);
+    return `<span class="w" data-w="${esc(s)}" data-y="${esc(y)}">${esc(s)}</span>`;
+  }).join('');
 }
-if (canSpeak) { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
-function speak(text, rate) {
-  if (!canSpeak) return;
-  try {
-    speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = 'ja-JP'; if (jaVoice) u.voice = jaVoice; u.rate = rate || 1;
-    speechSynthesis.speak(u);
-  } catch (e) {}
+const qa=document.getElementById('qa');
+let g=null,h='';
+for(const it of D.items){
+  if(it.g!==g){g=it.g;h+=`<h2>${g==='must'?'一定会问的':'可能会问的'}</h2>`}
+  h+=`<div class="card"><div class="qh"><span class="no">${it.n}</span><span class="qj">${line(it.q,it.n)}</span></div>`+
+     `<div class="zh">${esc(it.zh)}</div><ul class="a">${it.a.map(a=>`<li>${line(a,it.n)}</li>`).join('')}</ul></div>`;
 }
-
-/* ---------- 判分用の正規化（元の位置を覚えておく） ---------- */
-const PUNCT = /[\s、。，．,.!！?？「」『』（）()\[\]【】・…〜~"'“”‘’：:；;／\/]/u;
-const KNUM = {'〇':0,'零':0,'一':1,'二':2,'三':3,'四':4,'五':5,'六':6,'七':7,'八':8,'九':9};
-const KUNIT = {'十':10,'百':100,'千':1000};
-function mkMap(pairs) { const d = new Map(pairs); let max = 0; for (const k of d.keys()) max = Math.max(max, Array.from(k).length); return {d, max}; }
-const YOMI = mkMap(DATA.yomi), ALT = mkMap(DATA.alt), ALT2 = mkMap(DATA.alt2);
-function replaceMap(arr, M) {
-  const out = []; let i = 0;
-  while (i < arr.length) {
-    let hit = null;
-    for (let L = Math.min(M.max, arr.length - i); L >= 1; L--) {
-      let k = ''; for (let t = i; t < i + L; t++) k += arr[t].c;
-      if (M.d.has(k)) { hit = [L, M.d.get(k)]; break; }
-    }
-    if (hit) { const os = arr[i].os, oe = arr[i + hit[0] - 1].oe; for (const c of Array.from(hit[1])) out.push({c, os, oe}); i += hit[0]; }
-    else { out.push(arr[i]); i++; }
-  }
-  return out;
+qa.insertAdjacentHTML('beforeend',h);
+document.getElementById('built').textContent=D.built;
+const ol=document.getElementById('ol');
+function refresh(){
+  for(const el of qa.querySelectorAll('.w'))el.classList.toggle('on',marked.has(el.dataset.w));
+  const rows=[...words].filter(([s])=>marked.has(s));
+  ol.innerHTML=rows.map(([s,w])=>`<li><span class="lw">${esc(s)}</span><span class="lr">${esc(w.y)}</span><span class="ln">第${[...w.qs].join('、')}题</span></li>`).join('');
+  document.getElementById('empty').hidden=rows.length>0;
+  document.getElementById('cnt').textContent=rows.length;
 }
-function kanjiValue(run) {
-  let total = 0, pend = 0;
-  for (const ch of run) {
-    if (ch in KNUM) pend = pend * 10 + KNUM[ch];
-    else { total += (pend || 1) * KUNIT[ch]; pend = 0; }
-  }
-  return total + pend;
-}
-function kanjiNums(arr) {
-  const out = []; let i = 0;
-  while (i < arr.length) {
-    if (arr[i].c in KNUM || arr[i].c in KUNIT) {
-      let j = i; while (j < arr.length && (arr[j].c in KNUM || arr[j].c in KUNIT)) j++;
-      const run = arr.slice(i, j).map(x => x.c).join('');
-      const os = arr[i].os, oe = arr[j - 1].oe;
-      for (const c of String(kanjiValue(run))) out.push({c, os, oe});
-      i = j;
-    } else { out.push(arr[i]); i++; }
-  }
-  return out;
-}
-function kata2hira(c) { const x = c.codePointAt(0); return (x >= 0x30A1 && x <= 0x30F6) ? String.fromCodePoint(x - 0x60) : c; }
-function norm(str) {
-  let arr = [], idx = 0;
-  for (const cp of Array.from(str)) {
-    for (const c of Array.from(cp.normalize('NFKC'))) arr.push({c, os: idx, oe: idx + cp.length});
-    idx += cp.length;
-  }
-  arr = arr.filter(x => !PUNCT.test(x.c));
-  arr = replaceMap(arr, ALT);
-  arr = replaceMap(arr, YOMI);
-  arr = replaceMap(arr, ALT2);
-  arr = kanjiNums(arr);
-  arr = arr.map(x => ({c: kata2hira(x.c), os: x.os, oe: x.oe}));
-  return {s: arr.map(x => x.c), m: arr};
-}
-/* 句を答えの中のどこかと照合（始まり・終わり自由の編集距離） */
-function bestMatch(C, A) {
-  const m = C.length, n = A.length;
-  let prev = new Array(n + 1).fill(0), pst = Array.from({length: n + 1}, (_, j) => j);
-  for (let i = 1; i <= m; i++) {
-    const cur = new Array(n + 1), cst = new Array(n + 1);
-    cur[0] = i; cst[0] = 0;
-    for (let j = 1; j <= n; j++) {
-      const sub = prev[j - 1] + (C[i - 1] === A[j - 1] ? 0 : 1), del = prev[j] + 1, ins = cur[j - 1] + 1;
-      if (sub <= del && sub <= ins) { cur[j] = sub; cst[j] = pst[j - 1]; }
-      else if (del <= ins) { cur[j] = del; cst[j] = pst[j]; }
-      else { cur[j] = ins; cst[j] = cst[j - 1]; }
-    }
-    prev = cur; pst = cst;
-  }
-  let d = Infinity, je = 0;
-  for (let j = 0; j <= n; j++) if (prev[j] < d) { d = prev[j]; je = j; }
-  return {d, js: pst[je], je};
-}
-function grade(item, answer) {
-  const A = norm(answer);
-  return item.chunks.map(t => {
-    const C = norm(t).s;
-    const r = bestMatch(C, A.s);
-    const sim = C.length ? 1 - r.d / C.length : 1;
-    let mine = '';
-    if (r.je > r.js && A.m.length) mine = answer.slice(A.m[r.js].os, A.m[r.je - 1].oe);
-    const level = r.d === 0 ? 'ok' : sim >= 0.85 ? 'ok2' : sim >= 0.5 ? 'mid' : 'ng';
-    return {t, level, mine};
-  });
-}
-
-/* ---------- 画面 ---------- */
-let S = null; // {queue, pos, again:{id:count}, firstTry:{id:bool}, answer}
-function counts(g) {
-  const its = DATA.items.filter(it => !g || it.g === g);
-  return {n: its.length, wrong: its.filter(it => store[it.id] && store[it.id].ok === false).length};
-}
-function home() {
-  if (canSpeak) speechSynthesis.cancel();
-  const a = counts('must'), b = counts('maybe'), all = counts(null);
-  $('#app').innerHTML = `
-    <h1>校長面接 問答練習</h1>
-    <div class="sub">听问题，用日语打字回答。判分看的是稿子里粗体所在的整句片段，不是单个词。</div>
-    <div class="card col menu">
-      <button data-go="must">一定会问的<span class="n">${a.n} 题${a.wrong ? `・错 ${a.wrong}` : ''}</span></button>
-      <button data-go="maybe">可能问的<span class="n">${b.n} 题${b.wrong ? `・错 ${b.wrong}` : ''}</span></button>
-      <button data-go="all">全部<span class="n">${all.n} 题</span></button>
-      <button data-go="wrong" class="ghost" ${all.wrong ? '' : 'disabled'}>只练错的<span class="n">${all.wrong} 题</span></button>
-    </div>
-    <div class="card">
-      <div class="row"><button class="ghost" id="test">试听声音</button></div>
-      <div class="small" style="margin-top:8px">${canSpeak ? 'iPhone 没声音的话，看看手机侧面的静音开关。' : '这个浏览器不能朗读，题目会直接显示文字。'}</div>
-    </div>
-    <div class="small">题目来自练习稿（${esc(DATA.built)} 生成）。对错记录只存在这台手机上。</div>`;
-  document.querySelectorAll('[data-go]').forEach(b => b.onclick = () => start(b.dataset.go));
-  $('#test').onclick = () => speak('大阪経済大学を志望した理由を教えてください。');
-}
-function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
-function start(kind) {
-  let its = DATA.items;
-  if (kind === 'must' || kind === 'maybe') its = its.filter(it => it.g === kind);
-  if (kind === 'wrong') its = its.filter(it => store[it.id] && store[it.id].ok === false);
-  if (!its.length) return home();
-  S = {kind, queue: shuffle(its.map(it => it.id)), pos: 0, again: {}, firstTry: {}, answer: ''};
-  ask();
-}
-function header() {
-  const total = S.queue.length, pct = Math.round(S.pos / total * 100);
-  return `<div class="top"><span>第 ${S.pos + 1} 题 / 共 ${total} 题</span><button class="ghost" id="quit">回首页</button></div>
-    <div class="bar"><i style="width:${pct}%"></i></div>`;
-}
-function ask() {
-  const it = byId[S.queue[S.pos]];
-  $('#app').innerHTML = header() + `
-    <div class="card listen">
-      ${canSpeak ? `<div class="q">（听题目）</div><div class="hint">题目只播放声音，交卷后才显示文字</div>`
-                 : `<div class="q">${esc(it.q)}</div>`}
-      <div class="row" style="margin-top:14px">
-        <button class="ghost" id="replay" ${canSpeak ? '' : 'disabled'}>再听一遍</button>
-        <button class="ghost" id="slow" ${canSpeak ? '' : 'disabled'}>慢速再听</button>
-      </div>
-    </div>
-    <textarea id="ans" lang="ja" placeholder="用日语打出你的回答" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
-    <div class="row" style="margin-top:12px">
-      <button class="ghost" id="giveup">不会，看答案</button>
-      <button id="submit">交卷</button>
-    </div>`;
-  $('#quit').onclick = home;
-  $('#replay').onclick = () => speak(it.q, 1);
-  $('#slow').onclick = () => speak(it.q, 0.7);
-  $('#giveup').onclick = () => result(it, '', true);
-  $('#submit').onclick = () => { const v = $('#ans').value.trim(); if (v) result(it, v, false); else $('#ans').focus(); };
-  $('#ans').addEventListener('keydown', e => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) $('#submit').click(); });
-  speak(it.q, 1);
-}
-const TAG = {ok: '对', ok2: '对（有一点不一样）', mid: '差一点', ng: '没写到'};
-function result(it, answer, gaveUp) {
-  if (canSpeak) speechSynthesis.cancel();
-  const g = gaveUp ? it.chunks.map(t => ({t, level: 'ng', mine: ''})) : grade(it, answer);
-  const pass = g.every(x => x.level === 'ok' || x.level === 'ok2');
-  const nOk = g.filter(x => x.level === 'ok' || x.level === 'ok2').length;
-  if (!(it.id in S.firstTry)) S.firstTry[it.id] = pass;
-  store[it.id] = {ok: pass, n: ((store[it.id] && store[it.id].n) || 0) + 1, t: Date.now()};
-  save();
-  let requeued = false;
-  if (!pass && (S.again[it.id] || 0) < 2) {
-    S.again[it.id] = (S.again[it.id] || 0) + 1;
-    S.queue.splice(Math.min(S.pos + 4, S.queue.length), 0, it.id);
-    requeued = true;
-  }
-  const rows = g.map(x => `
-    <div class="chunk c-${x.level === 'ok2' ? 'ok' : x.level}">
-      <span class="tag">${TAG[x.level]}</span><span class="t">${esc(x.t)}</span>
-      ${(x.level === 'ok2' || x.level === 'mid') && x.mine ? `<div class="yours">你写的：${esc(x.mine)}</div>` : ''}
-    </div>`).join('');
-  $('#app').innerHTML = header() + `
-    <div class="card">
-      <div class="verdict ${pass ? 'v-ok' : 'v-ng'}">${pass ? '过了' : '还没记住'}　${nOk} / ${g.length}</div>
-      ${requeued ? '<div class="small">这题过几题再考一次。</div>' : ''}
-      <div class="label">题目</div><div class="q">${esc(it.q)}</div>
-      <div class="row" style="margin-top:8px"><button class="ghost" id="replay">再听一遍题目</button></div>
-      <div class="label">要说到的句子</div>${rows}
-      <div class="label">稿子原文（粗体是要说到的）</div><div class="model">${it.html}</div>
-      ${answer ? `<div class="label">你的回答</div><div class="mine">${esc(answer)}</div>` : ''}
-    </div>
-    <button class="big" id="next">${S.pos + 1 < S.queue.length ? '下一题' : '看这一轮的结果'}</button>`;
-  $('#quit').onclick = home;
-  $('#replay').onclick = () => speak(it.q, 1);
-  $('#next').onclick = () => { S.pos++; if (S.pos < S.queue.length) ask(); else summary(); };
-  window.scrollTo(0, 0);
-}
-function summary() {
-  const ids = Object.keys(S.firstTry), first = ids.filter(id => S.firstTry[id]).length;
-  const wrong = ids.filter(id => store[id] && store[id].ok === false);
-  $('#app').innerHTML = `
-    <h1>这一轮结束</h1>
-    <div class="card">
-      <div class="verdict">一次就过：${first} / ${ids.length} 题</div>
-      ${wrong.length ? `<div class="label">最后一次还没过的</div><ul class="wrong">${wrong.map(id => `<li>${esc(byId[id].q)}</li>`).join('')}</ul>`
-                     : '<div class="small">全部都过了。</div>'}
-    </div>
-    <div class="col">
-      ${wrong.length ? '<button class="big" id="redo">错的再练一遍</button>' : ''}
-      <button class="big ghost" id="home">回首页</button>
-    </div>`;
-  if (wrong.length) $('#redo').onclick = () => start('wrong');
-  $('#home').onclick = home;
-}
-home();
+qa.addEventListener('click',e=>{
+  const el=e.target.closest('.w');if(!el)return;
+  const s=el.dataset.w;marked.has(s)?marked.delete(s):marked.add(s);save();refresh();
+});
+ol.addEventListener('click',e=>{const li=e.target.closest('li');if(li)li.classList.toggle('peek')});
+const tq=document.getElementById('t-qa'),tl=document.getElementById('t-list');
+function tab(list){qa.hidden=list;document.getElementById('list').hidden=!list;tq.setAttribute('aria-pressed',!list);tl.setAttribute('aria-pressed',list);window.scrollTo(0,0)}
+tq.onclick=()=>tab(false);tl.onclick=()=>tab(true);
+const bh=document.getElementById('b-hide');
+bh.onclick=()=>{const on=bh.getAttribute('aria-pressed')!=='true';bh.setAttribute('aria-pressed',on);ol.classList.toggle('hide',on);for(const li of ol.children)li.classList.remove('peek')};
+document.getElementById('b-clear').onclick=()=>{if(marked.size&&confirm('清空全部标记？')){marked.clear();save();refresh()}};
+refresh();
 </script>
 </body>
 </html>
