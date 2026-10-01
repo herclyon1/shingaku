@@ -1,0 +1,203 @@
+{
+ "_note": "大学ポートレート（私学版）各学部ページ「進路別」2025年度卒業者（2026-05-01）を学部（通信を除く）で合計。rate＝正規の職員等÷(卒業者−進学者)×100。2026-10-01 取得。太成学院・神戸医療未来はポートレート頁 404 で未取得。",
+ "schools": {
+  "近畿大学": {
+   "total": 8215,
+   "shingaku": 980,
+   "seiki": 6511,
+   "rate": 90.0
+  },
+  "追手門学院大学": {
+   "total": 1903,
+   "shingaku": 28,
+   "seiki": 1636,
+   "rate": 87.3
+  },
+  "桃山学院大学": {
+   "total": 1693,
+   "shingaku": 24,
+   "seiki": 1402,
+   "rate": 84.0
+  },
+  "神戸学院大学": {
+   "total": 2413,
+   "shingaku": 45,
+   "seiki": 2091,
+   "rate": 88.3
+  },
+  "大阪経済大学": {
+   "total": 1561,
+   "shingaku": 20,
+   "seiki": 1362,
+   "rate": 88.4
+  },
+  "京都外国語大学": {
+   "total": 867,
+   "shingaku": 30,
+   "seiki": 650,
+   "rate": 77.7
+  },
+  "大阪国際大学": {
+   "total": 523,
+   "shingaku": 11,
+   "seiki": 430,
+   "rate": 84.0
+  },
+  "大阪産業大学": {
+   "total": 1410,
+   "shingaku": 33,
+   "seiki": 1219,
+   "rate": 88.5
+  },
+  "大手前大学": {
+   "total": 685,
+   "shingaku": 14,
+   "seiki": 564,
+   "rate": 84.1
+  },
+  "大阪経済法科大学": {
+   "total": 894,
+   "shingaku": 43,
+   "seiki": 740,
+   "rate": 87.0
+  },
+  "天理大学": {
+   "total": 672,
+   "shingaku": 20,
+   "seiki": 510,
+   "rate": 78.2
+  },
+  "園田学園大学": {
+   "total": 260,
+   "shingaku": 1,
+   "seiki": 217,
+   "rate": 83.8
+  },
+  "関西国際大学": {
+   "total": 562,
+   "shingaku": 10,
+   "seiki": 463,
+   "rate": 83.9
+  },
+  "神戸国際大学": {
+   "total": 398,
+   "shingaku": 16,
+   "seiki": 321,
+   "rate": 84.0
+  },
+  "羽衣国際大学": {
+   "total": 240,
+   "shingaku": 2,
+   "seiki": 200,
+   "rate": 84.0
+  },
+  "大阪人間科学大学": {
+   "total": 275,
+   "shingaku": 11,
+   "seiki": 216,
+   "rate": 81.8
+  },
+  "芦屋大学": {
+   "total": 146,
+   "shingaku": 2,
+   "seiki": 120,
+   "rate": 83.3
+  },
+  "流通科学大学": {
+   "total": 805,
+   "shingaku": 24,
+   "seiki": 612,
+   "rate": 78.4
+  },
+  "相愛大学": {
+   "total": 217,
+   "shingaku": 12,
+   "seiki": 130,
+   "rate": 63.4
+  },
+  "大阪観光大学": {
+   "total": 168,
+   "shingaku": 10,
+   "seiki": 98,
+   "rate": 62.0
+  },
+  "日本工業大学": {
+   "total": 864,
+   "shingaku": 69,
+   "seiki": 744,
+   "rate": 93.6
+  },
+  "山梨学院大学": {
+   "total": 982,
+   "shingaku": 16,
+   "seiki": 738,
+   "rate": 76.4
+  },
+  "城西国際大学": {
+   "total": 1366,
+   "shingaku": 38,
+   "seiki": 999,
+   "rate": 75.2
+  },
+  "駒沢女子大学": {
+   "total": 457,
+   "shingaku": 9,
+   "seiki": 408,
+   "rate": 91.1
+  },
+  "名古屋経済大学": {
+   "total": 482,
+   "shingaku": 11,
+   "seiki": 413,
+   "rate": 87.7
+  },
+  "大阪キリスト教短期大学": {
+   "total": 146,
+   "shingaku": 2,
+   "seiki": 125,
+   "rate": 86.8
+  },
+  "ものつくり大学": {
+   "total": 229,
+   "shingaku": 23,
+   "seiki": 173,
+   "rate": 84.0
+  },
+  "愛知産業大学": {
+   "total": 225,
+   "shingaku": 1,
+   "seiki": 203,
+   "rate": 90.6
+  },
+  "平安女学院大学": {
+   "total": 109,
+   "shingaku": 1,
+   "seiki": 93,
+   "rate": 86.1
+  },
+  "大阪女学院大学": {
+   "total": 82,
+   "shingaku": 0,
+   "seiki": 61,
+   "rate": 74.4
+  },
+  "中日本自動車短期大学": {
+   "total": 253,
+   "shingaku": 40,
+   "seiki": 210,
+   "rate": 98.6
+  },
+  "育英館大学": {
+   "total": 32,
+   "shingaku": 1,
+   "seiki": 16,
+   "rate": 51.6
+  },
+  "大阪樟蔭女子大学": {
+   "total": 453,
+   "shingaku": 6,
+   "seiki": 369,
+   "rate": 82.6
+  }
+ }
+}
