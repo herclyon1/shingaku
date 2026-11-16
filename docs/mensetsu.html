@@ -2,518 +2,1211 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>11/21 大経大 口頭試問 総台詞表</title>
 <script>try{var t=localStorage.getItem('mensetsu-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 <style>
 :root{
-  --bg:#f5f4ee;--fg:#1c1c1e;--mute:#68686e;--line:#dfdcd2;--card:#ffffff;--sub:#faf9f5;
-  --mark:#ffe8a3;--rt:#b3261e;--accent:#1f527d;--accent-bg:#e6eff7;
-  --ok:#1d7a32;--ok-bg:#e5f4e8;--mask:#eae7de;--dot:#aba69b;--blk:#2c3e50
+  --bg:#f3f2ec;--card:#ffffff;--sub:#f8f7f2;--fg:#18181b;--mute:#66656d;--line:#e1ded4;
+  --accent:#1a4f7a;--accent-soft:#e6eff7;--accent-bd:#b8d2ea;
+  --kw-bg:#fff0b3;--kw-fg:#141416;
+  --ok:#187935;--ok-soft:#e6f5ea;--ok-bd:#a8dcba;
+  --warn:#b54708;--warn-soft:#fef0c7;
+  --rt:#b42318;--dot:#b0aba0;--mask:#e5e2d9;
+  --shadow:0 1px 3px rgba(0,0,0,.05);
+  --safe-b:env(safe-area-inset-bottom,0px)
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme=light]){
-  --bg:#131315;--fg:#ededf0;--mute:#9898a2;--line:#2b2b31;--card:#1c1c20;--sub:#232329;
-  --mark:#594710;--rt:#ff9b90;--accent:#8ab8ea;--accent-bg:#1d2a38;
-  --ok:#6dd58c;--ok-bg:#193322;--mask:#2c2c33;--dot:#5c5c63;--blk:#9ec3e6;color-scheme:dark
+  --bg:#111215;--card:#1a1b20;--sub:#22242b;--fg:#ececef;--mute:#9698a3;--line:#2c2e37;
+  --accent:#7cb4ea;--accent-soft:#1b2938;--accent-bd:#2d4a68;
+  --kw-bg:#4d3d0e;--kw-fg:#fff8db;
+  --ok:#65d488;--ok-soft:#162d1f;--ok-bd:#255437;
+  --warn:#f7b955;--warn-soft:#36280f;
+  --rt:#ff9b90;--dot:#626470;--mask:#2d3039;
+  --shadow:0 1px 4px rgba(0,0,0,.3);color-scheme:dark
 }}
 :root[data-theme=dark]{
-  --bg:#131315;--fg:#ededf0;--mute:#9898a2;--line:#2b2b31;--card:#1c1c20;--sub:#232329;
-  --mark:#594710;--rt:#ff9b90;--accent:#8ab8ea;--accent-bg:#1d2a38;
-  --ok:#6dd58c;--ok-bg:#193322;--mask:#2c2c33;--dot:#5c5c63;--blk:#9ec3e6;color-scheme:dark
+  --bg:#111215;--card:#1a1b20;--sub:#22242b;--fg:#ececef;--mute:#9698a3;--line:#2c2e37;
+  --accent:#7cb4ea;--accent-soft:#1b2938;--accent-bd:#2d4a68;
+  --kw-bg:#4d3d0e;--kw-fg:#fff8db;
+  --ok:#65d488;--ok-soft:#162d1f;--ok-bd:#255437;
+  --warn:#f7b955;--warn-soft:#36280f;
+  --rt:#ff9b90;--dot:#626470;--mask:#2d3039;
+  --shadow:0 1px 4px rgba(0,0,0,.3);color-scheme:dark
 }
-*{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 -apple-system,"Hiragino Sans","Noto Sans JP","PingFang SC",sans-serif}
-header{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--line)}
-.wrap{max-width:800px;margin:0 auto;padding:0 14px}
-.top{display:flex;align-items:center;gap:6px;padding:9px 0 6px;flex-wrap:wrap}
-h1{font-size:16px;margin:0;flex:1;min-width:140px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pill,.bar button,.s-acts button,.tools button,.blk-head button,.drill-btns button{
-  font:inherit;font-size:13px;line-height:1.4;border:1px solid var(--line);
-  background:var(--card);color:var(--fg);border-radius:999px;padding:5px 11px;
-  cursor:pointer;-webkit-tap-highlight-color:transparent;white-space:nowrap
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--bg);color:var(--fg);
+  font:15px/1.5 -apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP","PingFang SC",sans-serif;
+  padding-bottom:calc(62px + var(--safe-b))
 }
-.bar{display:flex;gap:6px;padding:0 0 9px;overflow-x:auto;scrollbar-width:none}
-.bar::-webkit-scrollbar{display:none}
-button[aria-pressed=true],.pill[aria-pressed=true]{background:var(--fg);color:var(--bg);border-color:var(--fg);font-weight:600}
-
-.player{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:8px 0 10px}
-.p-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:6px}
-.p-row .pill{white-space:normal;text-align:left}
-.p-row span{font-size:12px;color:var(--mute)}
-.player audio{width:100%;height:36px;display:block}
-
-.intro{font-size:13px;color:var(--mute);margin:10px 0 12px;line-height:1.5}
-
-/* 一整张总台词表（6大板块） */
-.block{background:var(--card);border:1.5px solid var(--line);border-radius:14px;margin:0 0 16px;overflow:hidden}
-.blk-head{
-  display:flex;align-items:center;gap:8px;padding:10px 14px;
-  background:var(--accent-bg);border-bottom:1px solid var(--line);flex-wrap:wrap
-}
-.blk-title{font-weight:800;font-size:15px;color:var(--accent);flex:1}
-.seg{padding:11px 14px;border-bottom:1px solid var(--line);transition:background .15s}
-.seg:last-child{border-bottom:none}
-.seg.playing{background:var(--accent-bg)}
-.seg.done{background:var(--ok-bg)}
-.seg-top{display:flex;align-items:center;gap:6px;margin-bottom:5px;flex-wrap:wrap}
-.tag{
-  font-size:12px;font-weight:700;color:var(--accent);background:var(--sub);
-  border:1px solid var(--line);border-radius:6px;padding:2px 8px
-}
-.seg.done .tag{color:var(--ok);border-color:var(--ok)}
-.q-trig{font-size:12.5px;color:var(--mute);flex:1;min-width:150px}
-.s-acts{display:flex;gap:4px;margin-left:auto}
-.s-acts button{font-size:12px;padding:3px 8px}
-.s-acts .b-done[aria-pressed=true]{background:var(--ok);color:#fff;border-color:var(--ok)}
-
-.clauses{display:flex;flex-direction:column;gap:5px;margin-top:4px}
-.cl{padding:5px 10px;border-radius:8px;background:var(--sub);position:relative}
-.za{font-size:13px;color:var(--mute);line-height:1.45;margin-bottom:1px}
-.ja{font-size:17px;line-height:2.32;font-weight:500}
-.hide-zh .za{display:none}
-
-/* 遮日文背总表模式 */
-.recite .cl{cursor:pointer;border:1px dashed var(--line)}
-.recite .za{color:var(--accent);font-weight:600;font-size:14px;margin-bottom:3px}
-.recite .cl:not(.peek) .ja{color:transparent;background:var(--mask);border-radius:5px;user-select:none}
-.recite .cl:not(.peek) .ja .w{border-bottom-color:transparent;pointer-events:none}
-.recite .cl:not(.peek) .ja .w::after{display:none!important}
-.recite .cl:not(.peek)::after{
-  content:"点此翻开日文";position:absolute;right:10px;bottom:8px;
-  font-size:11.5px;color:var(--mute);pointer-events:none
-}
-
-/* 假名 */
-.w{position:relative;white-space:nowrap;cursor:pointer;border-bottom:1px dotted var(--dot);border-radius:3px;-webkit-tap-highlight-color:transparent}
-.w.on{background:var(--mark);border-bottom-color:transparent}
-.w.on::after,.all-kana .w::after{
-  content:attr(data-y);position:absolute;left:50%;transform:translateX(-50%);
-  top:-1.22em;font-size:.55em;line-height:1;color:var(--rt);font-weight:600;
-  white-space:nowrap;pointer-events:none
-}
-.all-kana .w{border-bottom-color:transparent}
-
-/* 考官随机抽问模拟面板 */
-.drill-box{background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:16px;margin:12px 0}
-.d-meta{font-size:13px;color:var(--mute);display:flex;justify-content:space-between;margin-bottom:8px}
-.d-q{font-size:19px;font-weight:700;line-height:2.2;margin:6px 0 4px}
-.d-q.blind{color:transparent;background:var(--mask);border-radius:8px;user-select:none;cursor:pointer;position:relative}
-.d-q.blind .w::after{display:none!important}
-.d-q.blind::after{content:"🎧 盲听模式：点此显示考官提问文字";position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--mute);font-weight:500}
-.drill-btns{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
-.drill-btns .primary{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:600}
-.d-ans{border-top:1px solid var(--line);padding-top:12px;margin-top:8px}
-.d-loc{font-size:13px;font-weight:700;color:var(--accent);margin-bottom:6px}
-
-.tools{display:flex;gap:8px;margin:12px 0 10px;flex-wrap:wrap}
-ol.list{list-style:none;margin:0;padding:0}
-ol.list li{display:flex;align-items:baseline;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:0 0 8px;cursor:pointer}
-.lw{font-size:20px;font-weight:700}
-.lr{font-size:16px;color:var(--rt);flex:1}
-.ln{font-size:12px;color:var(--mute);white-space:nowrap}
-.hide .lr{color:transparent;background:var(--line);border-radius:4px}
-.hide li.peek .lr{color:var(--rt);background:none}
-.empty{color:var(--mute);font-size:14px;padding:24px 0;text-align:center}
-footer{font-size:12px;color:var(--mute);padding:20px 0 44px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
-.sheet{position:fixed;inset:0;z-index:30;background:var(--bg);overflow-y:auto;-webkit-overflow-scrolling:touch}
-.sheet-top{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line)}
-.sheet-top .in{max-width:800px;margin:0 auto;padding:10px 14px;display:flex;align-items:center;gap:8px}
-.sheet-top b{flex:1;font-size:17px}
-.rei{max-width:800px;margin:0 auto;padding:4px 14px 48px;font-size:16px;line-height:1.75}
-.rei .rt{font-weight:700;margin:12px 0 2px}
-.rei .tip{color:var(--mute);margin:0 0 6px}
-.rei h3{font-size:14px;color:var(--mute);margin:22px 0 4px;font-weight:600}
-.rei .sh{font-weight:700;margin:14px 0 2px}
-.rei ul,.rei ol{margin:0;padding-left:1.4em}
-.rei li{margin:4px 0}
-.rei a{color:var(--accent)}
+body.has-player{padding-bottom:calc(114px + var(--safe-b))}
+button,input{font:inherit;color:inherit}
 [hidden]{display:none!important}
+
+/* 顶部极简双层吸顶（总高仅 70px，最大化手机可视屏效） */
+.topbar{
+  position:sticky;top:0;z-index:25;background:var(--bg);
+  border-bottom:1px solid var(--line);backdrop-filter:blur(10px)
+}
+.tb-in{max-width:1380px;margin:0 auto;padding:0 10px}
+.tb-r1{display:flex;align-items:center;gap:5px;height:38px}
+.brand{display:flex;align-items:center;gap:5px;min-width:0;flex:1}
+.brand b{font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:540px){.brand b{display:none}}
+.badge{
+  font-size:11px;font-weight:700;padding:1px 6px;border-radius:99px;
+  background:var(--accent-soft);color:var(--accent);white-space:nowrap
+}
+.badge.ok{background:var(--ok-soft);color:var(--ok)}
+
+.seg-ctrl{
+  display:inline-flex;background:var(--sub);border:1px solid var(--line);
+  border-radius:8px;padding:1px;gap:1px
+}
+.seg-ctrl button{
+  border:0;background:none;font-size:12px;padding:3px 7px;border-radius:6px;
+  cursor:pointer;color:var(--mute);font-weight:600;white-space:nowrap
+}
+.seg-ctrl button[aria-pressed=true]{background:var(--card);color:var(--fg);box-shadow:var(--shadow)}
+
+.ibtn{
+  border:1px solid var(--line);background:var(--card);border-radius:7px;
+  padding:3px 7px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap
+}
+.ibtn[aria-pressed=true]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+
+/* 板块快速定位条（单手拇指秒跳） */
+.jump-rail{
+  display:flex;align-items:center;gap:4px;height:31px;
+  overflow-x:auto;scrollbar-width:none;padding-bottom:3px
+}
+.jump-rail::-webkit-scrollbar{display:none}
+.j-pill{
+  border:1px solid var(--line);background:var(--card);color:var(--mute);
+  font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:99px;
+  white-space:nowrap;cursor:pointer;text-decoration:none;flex-shrink:0
+}
+.j-pill.active,.j-pill[aria-pressed=true]{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* 主容器：手机单栏高密度，电脑双栏宽屏导演台本 */
+.shell{max-width:1380px;margin:0 auto;padding:8px 10px 16px}
+.desk-side{display:none}
+
+@media (min-width:980px){
+  body{padding-bottom:24px}
+  body.has-player{padding-bottom:76px}
+  .jump-rail-wrap{display:none}
+  .shell{display:grid;grid-template-columns:228px minmax(0,1fr);gap:16px;padding:14px 18px 28px;align-items:start}
+  .desk-side{
+    display:flex;flex-direction:column;gap:10px;
+    position:sticky;top:52px;background:var(--card);border:1px solid var(--line);
+    border-radius:12px;padding:12px;box-shadow:var(--shadow)
+  }
+  .ds-title{font-size:12px;font-weight:700;color:var(--mute);letter-spacing:.03em}
+  .ds-nav{display:flex;flex-direction:column;gap:3px}
+  .ds-nav a{
+    font-size:13px;padding:6px 9px;border-radius:8px;color:var(--fg);
+    text-decoration:none;display:flex;justify-content:space-between;align-items:center
+  }
+  .ds-nav a:hover{background:var(--sub)}
+  .ds-nav a.active{background:var(--accent-soft);color:var(--accent);font-weight:700}
+  .ds-tabs{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+  .ds-tabs button{
+    border:1px solid var(--line);background:var(--sub);border-radius:8px;
+    padding:6px 4px;font-size:12.5px;font-weight:600;cursor:pointer
+  }
+  .ds-tabs button[aria-pressed=true]{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .sheet-cols{columns:2;column-gap:14px}
+  .sheet-cols .block,.sheet-cols .stage-card{break-inside:avoid;margin-bottom:12px}
+  .bnav{display:none!important}
+  .pbar{bottom:0!important}
+}
+
+/* 顶部个人信息微条 */
+.prof-strip{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  background:var(--card);border:1px solid var(--line);border-radius:9px;
+  padding:5px 10px;margin-bottom:8px;font-size:12px;color:var(--mute)
+}
+.prof-strip b{color:var(--fg)}
+.prof-strip button{
+  border:0;background:var(--accent-soft);color:var(--accent);
+  font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:6px;cursor:pointer;white-space:nowrap
+}
+
+/* 开场 / 退场 / 救场卡片 */
+.stage-card{
+  background:var(--card);border:1px solid var(--accent-bd);border-radius:11px;
+  padding:8px 11px;margin-bottom:9px;box-shadow:var(--shadow);scroll-margin-top:78px
+}
+.st-hd{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:3px}
+.st-hd b{font-size:13px;color:var(--accent)}
+.st-step{font-size:11.5px;color:var(--mute);line-height:1.4;margin:2px 0}
+.st-ja{font-size:15px;font-weight:600;line-height:1.62;margin:3px 0 2px}
+.st-no-yomi{font-size:11.5px;color:var(--rt);font-weight:600;margin-bottom:2px}
+
+/* 6大板块与20段高密度主台词表 */
+.block{
+  background:var(--card);border:1px solid var(--line);border-radius:11px;
+  margin-bottom:9px;overflow:hidden;box-shadow:var(--shadow);scroll-margin-top:78px
+}
+.blk-hd{
+  display:flex;align-items:center;justify-content:space-between;gap:6px;
+  padding:6px 10px;background:var(--accent-soft);border-bottom:1px solid var(--line)
+}
+.blk-t{font-size:13.5px;font-weight:800;color:var(--accent);min-width:0}
+.mbtn{
+  border:1px solid var(--line);background:var(--card);color:var(--fg);
+  font-size:11.5px;font-weight:600;padding:2px 7px;border-radius:6px;
+  cursor:pointer;white-space:nowrap;line-height:1.35
+}
+.mbtn.on,.mbtn[aria-pressed=true]{background:var(--ok);color:#fff;border-color:var(--ok)}
+.mbtn.loop-on{background:var(--warn);color:#fff;border-color:var(--warn)}
+
+.seg{padding:6px 10px;border-bottom:1px solid var(--line);transition:background .15s;scroll-margin-top:86px}
+.seg:last-child{border-bottom:0}
+.seg.playing{background:var(--accent-soft);box-shadow:inset 3px 0 0 var(--accent)}
+.seg.done{background:var(--ok-soft)}
+.seg-hd{display:flex;align-items:flex-start;gap:5px;margin-bottom:3px}
+.s-head-l{flex:1;min-width:0;line-height:1.38}
+.s-id{
+  display:inline-block;font-size:11px;font-weight:800;color:var(--accent);background:var(--sub);
+  border:1px solid var(--line);border-radius:5px;padding:0 5px;margin-right:5px;vertical-align:baseline;white-space:nowrap
+}
+.seg.done .s-id{color:var(--ok);border-color:var(--ok-bd)}
+.s-q{font-size:12px;color:var(--mute)}
+.s-alt-tag{
+  display:inline-block;font-size:10.5px;color:var(--accent);background:var(--accent-soft);
+  padding:0 4px;border-radius:4px;margin-left:4px;cursor:pointer;white-space:nowrap
+}
+.s-acts{display:flex;gap:3px;flex-shrink:0}
+.s-acts .mbtn{padding:1px 5.5px;font-size:11px}
+
+/* 连贯台词段落（核心高密度排版：整段一气呵成，绝不碎成豆腐块） */
+.seg-ja{font-size:15.5px;line-height:1.6;font-weight:500;letter-spacing:.01em}
+.cl{border-radius:4px;transition:opacity .12s}
+.sl{color:var(--dot);font-weight:400;margin:0 2px;user-select:none;font-size:13px}
+mark.kw{
+  background:linear-gradient(transparent 58%,var(--kw-bg) 58%);
+  color:inherit;padding:0 1px;border-radius:2px;font-weight:700
+}
+.seg-zh{font-size:12px;line-height:1.42;color:var(--mute);margin-top:2px}
+.hide-zh .seg-zh,.hide-zh .st-zh{display:none}
+
+/* 原生 <ruby> 智能假名：平时零行高浪费，点词或全开假名时精准浮现不裁切 */
+ruby.w{
+  ruby-position:over;cursor:pointer;
+  border-bottom:1px dotted var(--dot);border-radius:2px
+}
+ruby.w rt{display:none;font-size:.58em;color:var(--rt);font-weight:700;line-height:1.1;user-select:none}
+ruby.w.on{background:var(--kw-bg);color:var(--kw-fg);border-bottom-color:transparent}
+ruby.w.on rt,.all-kana ruby.w rt{display:ruby-text}
+.all-kana ruby.w{border-bottom-color:transparent}
+.all-kana .seg-ja,.all-kana .st-ja,.all-kana .d-q{line-height:2.05}
+
+/* 模式二：🦴 骨架提词模式（隐藏连接套话，只留采分骨架词，训练自然口语连句） */
+.mode-skel .cl:not(.peek) .non-kw{
+  opacity:.13;filter:blur(2px);transition:all .15s
+}
+.mode-skel .cl{cursor:pointer}
+.mode-skel mark.kw{background:var(--kw-bg);color:var(--kw-fg);padding:1px 4px;border-radius:4px}
+
+/* 模式三：🙈 全遮顺背模式（看中文提示，按分句点按翻牌） */
+.mode-mask .seg{display:flex;flex-direction:column}
+.mode-mask .seg-hd{order:1}
+.mode-mask .seg-zh{order:2;display:block!important;color:var(--accent);font-size:13px;font-weight:600;margin:1px 0 4px}
+.mode-mask .seg-ja{order:3}
+.mode-mask .cl:not(.peek){
+  color:transparent!important;background:var(--mask);border-radius:5px;
+  cursor:pointer;user-select:none;padding:0 4px
+}
+.mode-mask .cl:not(.peek) *{
+  color:transparent!important;background:transparent!important;border-color:transparent!important
+}
+.mode-mask .cl:not(.peek) rt{display:none!important}
+.mode-mask .cl.peek{cursor:pointer;background:var(--sub)}
+
+/* 救场万能句紧凑列表 */
+.rs-row{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  padding:6px 0;border-top:1px solid var(--line)
+}
+.rs-row:first-of-type{border-top:0}
+.rs-meta{font-size:11.5px;color:var(--mute)}
+.rs-ja{font-size:14.5px;font-weight:600;line-height:1.55}
+
+/* 视图2：🎲 考官抽问实战模考 */
+.drill-wrap{max-width:720px;margin:0 auto}
+.d-top{
+  display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap;
+  background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 11px;margin-bottom:8px
+}
+.timer-pill{
+  font-variant-numeric:tabular-nums;font-weight:800;font-size:14px;
+  color:var(--accent);background:var(--accent-soft);padding:3px 9px;border-radius:7px;cursor:pointer;border:0
+}
+.timer-pill.warn{color:var(--warn);background:var(--warn-soft)}
+.d-card{
+  background:var(--card);border:1.5px solid var(--line);border-radius:12px;
+  padding:14px;box-shadow:var(--shadow)
+}
+.d-status{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--mute);margin-bottom:8px}
+.d-qbox{
+  min-height:68px;display:flex;flex-direction:column;justify-content:center;
+  padding:10px 12px;border-radius:9px;background:var(--sub);border:1px solid var(--line)
+}
+.d-q{font-size:18px;font-weight:700;line-height:1.65}
+.d-qbox.blind .d-q,.d-qbox.blind .d-qzh{display:none}
+.d-blind-hint{display:none;font-size:13.5px;color:var(--accent);font-weight:600;cursor:pointer;text-align:center;padding:8px 0}
+.d-qbox.blind .d-blind-hint{display:block}
+.d-qzh{font-size:12.5px;color:var(--mute);margin-top:4px}
+.d-ctrl{display:flex;gap:7px;flex-wrap:wrap;margin:11px 0 4px}
+.btn-pri{
+  flex:1;min-width:140px;background:var(--accent);color:#fff;border:0;
+  border-radius:9px;padding:9px 12px;font-weight:700;font-size:14px;cursor:pointer
+}
+.btn-sec{
+  background:var(--sub);border:1px solid var(--line);border-radius:9px;
+  padding:9px 12px;font-weight:600;font-size:13px;cursor:pointer
+}
+.d-reveal{border-top:1px solid var(--line);margin-top:11px;padding-top:11px}
+.d-loc{
+  display:flex;align-items:center;justify-content:space-between;gap:6px;
+  font-size:12.5px;font-weight:700;color:var(--accent);
+  background:var(--accent-soft);padding:5px 9px;border-radius:7px;margin-bottom:8px
+}
+.d-grade{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.g-retry{
+  background:var(--warn-soft);color:var(--warn);border:1px solid var(--warn);
+  border-radius:9px;padding:9px;font-weight:700;font-size:13.5px;cursor:pointer
+}
+.g-pass{
+  background:var(--ok);color:#fff;border:0;
+  border-radius:9px;padding:9px;font-weight:700;font-size:13.5px;cursor:pointer
+}
+
+/* 视图3：🔤 生词本（手机紧凑列表 / 电脑双列网格） */
+.vocab-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:9px}
+.v-grid{display:grid;grid-template-columns:1fr;gap:6px;list-style:none;padding:0;margin:0}
+@media (min-width:680px){.v-grid{grid-template-columns:repeat(2,1fr)}}
+.v-item{
+  display:flex;align-items:center;gap:10px;background:var(--card);
+  border:1px solid var(--line);border-radius:9px;padding:8px 11px;cursor:pointer
+}
+.v-w{font-size:17px;font-weight:800}
+.v-y{font-size:14px;color:var(--rt);font-weight:600;flex:1}
+.hide-yomi .v-item:not(.peek) .v-y{color:transparent;background:var(--mask);border-radius:4px}
+.v-jump{
+  font-size:11.5px;color:var(--accent);background:var(--accent-soft);
+  padding:2px 7px;border-radius:5px;border:0;cursor:pointer;white-space:nowrap
+}
+
+/* 视图4：📋 11/21 考场防掉链子指挥台 */
+.prep-grid{display:grid;grid-template-columns:1fr;gap:10px}
+@media (min-width:760px){.prep-grid{grid-template-columns:1.1fr .9fr}}
+.p-card{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:11px 13px}
+.p-card h3{margin:0 0 8px;font-size:14px;color:var(--accent)}
+.chk{
+  display:flex;align-items:flex-start;gap:8px;padding:6px 0;
+  border-top:1px solid var(--line);font-size:13.5px;line-height:1.45;cursor:pointer
+}
+.chk:first-of-type{border-top:0}
+.chk input{margin-top:3px;width:16px;height:16px;accent-color:var(--ok);flex-shrink:0}
+.chk.checked span{text-decoration:line-through;color:var(--mute)}
+.tl-item{display:flex;gap:9px;padding:6px 0;border-top:1px solid var(--line);font-size:13px}
+.tl-item:first-of-type{border-top:0}
+.tl-t{font-weight:800;color:var(--accent);min-width:86px;font-variant-numeric:tabular-nums}
+.link-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.link-row a{
+  font-size:12.5px;font-weight:600;color:var(--accent);background:var(--accent-soft);
+  padding:5px 10px;border-radius:7px;text-decoration:none
+}
+
+/* 底部常驻迷你播控栏（支持单段循环洗脑跟读 + 顺播自动滚屏 + 息屏m4a） */
+.pbar{
+  position:fixed;left:0;right:0;bottom:calc(48px + var(--safe-b));z-index:28;
+  background:var(--card);border-top:1px solid var(--line);box-shadow:0 -2px 10px rgba(0,0,0,.08)
+}
+.pbar-in{max-width:1380px;margin:0 auto;padding:5px 10px}
+.p-prog{
+  width:100%;height:4px;background:var(--line);border-radius:2px;
+  overflow:hidden;cursor:pointer;margin-bottom:5px
+}
+.p-fill{height:100%;width:0%;background:var(--accent);transition:width .1s linear}
+.p-ctrls{display:flex;align-items:center;gap:5px}
+.p-title{font-size:12px;font-weight:700;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.p-ctrls button{
+  border:1px solid var(--line);background:var(--sub);border-radius:6px;
+  padding:3px 7px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap
+}
+.p-ctrls button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* 手机底部拇指四栏导航 */
+.bnav{
+  position:fixed;left:0;right:0;bottom:0;z-index:30;
+  background:var(--card);border-top:1px solid var(--line);
+  padding-bottom:var(--safe-b);display:grid;grid-template-columns:repeat(4,1fr);height:calc(48px + var(--safe-b))
+}
+.bnav button{
+  border:0;background:none;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:1px;font-size:11px;color:var(--mute);font-weight:600;cursor:pointer
+}
+.bnav button .ic{font-size:15px;line-height:1.1}
+.bnav button[aria-pressed=true]{color:var(--accent);font-weight:800}
+
+/* 个人代号与设置弹窗 */
+.modal-bg{
+  position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.45);
+  display:flex;align-items:center;justify-content:center;padding:16px
+}
+.modal{
+  background:var(--card);border:1px solid var(--line);border-radius:14px;
+  max-width:400px;width:100%;padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.22)
+}
+.modal h3{margin:0 0 6px;font-size:15px}
+.modal p{margin:0 0 10px;font-size:12px;color:var(--mute);line-height:1.45}
+.f-row{margin-bottom:9px}
+.f-row label{display:block;font-size:12px;font-weight:700;margin-bottom:3px}
+.f-row input{
+  width:100%;padding:7px 9px;border:1px solid var(--line);border-radius:8px;
+  background:var(--sub);font-size:14px
+}
+.m-btns{display:flex;justify-content:space-between;gap:8px;margin-top:12px}
+.empty-note{text-align:center;color:var(--mute);font-size:13px;padding:24px 12px}
 </style>
 </head>
 <body>
-<header><div class="wrap">
-  <div class="top">
-    <h1>11/21 大経大 総台詞表</h1>
-    <button class="pill" id="b-commute" aria-pressed="false">🎧 锁屏连播</button>
-    <button class="pill" id="b-speed">1.0x</button>
-    <button class="pill" id="b-rei">当天礼仪</button>
-    <button class="pill" id="b-theme">暗色</button>
+
+<header class="topbar"><div class="tb-in">
+  <div class="tb-r1">
+    <div class="brand">
+      <b>11/21 大経大 総台詞表</b>
+      <span class="badge" id="cd-badge">11/21</span>
+      <span class="badge ok" id="done-badge">0/20</span>
+    </div>
+    <div class="seg-ctrl" role="group" aria-label="背诵模式">
+      <button type="button" data-m="read" aria-pressed="true">全文</button>
+      <button type="button" data-m="skel" aria-pressed="false">🦴骨架</button>
+      <button type="button" data-m="mask" aria-pressed="false">🙈遮背</button>
+    </div>
+    <button type="button" class="ibtn" id="b-kana" aria-pressed="false" title="全标假名">あ</button>
+    <button type="button" class="ibtn" id="b-zh" aria-pressed="true" title="显示中文翻译">訳</button>
+    <button type="button" class="ibtn" id="b-gear" title="设置与暗色">⚙</button>
   </div>
-  <div class="bar">
-    <button id="t-sheet" aria-pressed="true">📜 一整张总台词表</button>
-    <button id="t-drill" aria-pressed="false">🎲 考官抽问模拟</button>
-    <button id="t-list" aria-pressed="false">生词本 <span id="cnt">0</span></button>
-    <button id="b-recite" aria-pressed="false">🙈 遮日文顺背</button>
-    <button id="b-kana" aria-pressed="false">あ 全标假名</button>
-    <button id="b-unlearned" aria-pressed="false">只看未熟 (<span id="rem">0</span>)</button>
-    <button id="b-zh" aria-pressed="false">藏中文</button>
+  <div class="jump-rail-wrap">
+    <nav class="jump-rail" id="m-rail">
+      <a class="j-pill active" href="#sec-enter">🚪进场</a>
+      <a class="j-pill" href="#blk-0">①个人</a>
+      <a class="j-pill" href="#blk-1">②主线</a>
+      <a class="j-pill" href="#blk-2">③择校</a>
+      <a class="j-pill" href="#blk-3">④学业</a>
+      <a class="j-pill" href="#blk-4">⑤学费</a>
+      <a class="j-pill" href="#blk-5">⑥收官</a>
+      <a class="j-pill" href="#sec-rescue">🆘救场</a>
+      <button type="button" class="j-pill" id="b-unlearned" aria-pressed="false">只看未熟</button>
+      <button type="button" class="j-pill" id="b-commute-quick">🎧连播</button>
+    </nav>
   </div>
 </div></header>
 
-<div class="wrap">
-  <div id="commute-box" class="player" hidden>
-    <div class="p-row">
-      <button class="pill" id="c-flow" aria-pressed="true">📜 按6大板块从头顺背台词（纯男声连读）</button>
-      <button class="pill" id="c-qa" aria-pressed="false">🎤 考官提问→停3.5秒抢答→示范（全20段）</button>
-      <span>锁屏揣兜里不断连</span>
+<div class="shell">
+  <!-- 电脑端左栏控制台 -->
+  <aside class="desk-side">
+    <div class="ds-tabs">
+      <button type="button" data-v="sheet" aria-pressed="true">📜 总台词表</button>
+      <button type="button" data-v="drill" aria-pressed="false">🎲 抽问模考</button>
+      <button type="button" data-v="vocab" aria-pressed="false">🔤 生词 (<span class="v-cnt">0</span>)</button>
+      <button type="button" data-v="prep" aria-pressed="false">📋 考场清单</button>
     </div>
-    <audio id="c-audio" controls preload="none"></audio>
+    <div class="ds-title">大纲快速定位</div>
+    <nav class="ds-nav" id="d-rail">
+      <a href="#sec-enter" class="active"><span>🚪 开场进门报号</span></a>
+      <a href="#blk-0"><span>① 个人底盘</span><small>§1-6</small></a>
+      <a href="#blk-1"><span>② 未来主线</span><small>§7-9</small></a>
+      <a href="#blk-2"><span>③ 认准大经大</span><small>§10-12</small></a>
+      <a href="#blk-3"><span>④ 国际共创学业</span><small>§13-16</small></a>
+      <a href="#blk-4"><span>⑤ 学费与减免</span><small>§17</small></a>
+      <a href="#blk-5"><span>⑥ 优缺点与收官</span><small>§18-20</small></a>
+      <a href="#sec-rescue"><span>🆘 退场与救场句</span></a>
+    </nav>
+    <div style="display:flex;flex-direction:column;gap:5px;border-top:1px solid var(--line);padding-top:8px">
+      <button type="button" class="mbtn" id="d-unlearned" aria-pressed="false">🔍 只看未背熟段落</button>
+      <button type="button" class="mbtn" id="d-flow-all">▶ 从头顺播全表跟读</button>
+      <button type="button" class="mbtn" id="d-m4a-flow">🎧 息屏纯男声连读版</button>
+      <button type="button" class="mbtn" id="d-m4a-qa">🎤 息屏提问抢答版</button>
+    </div>
+  </aside>
+
+  <div>
+    <!-- 视图1：📜 一整张总台词表 -->
+    <main id="v-sheet">
+      <div class="sheet-cols" id="sheet-canvas"></div>
+      <p class="empty-note" id="all-done-msg" hidden>🎉 20段台词已全部标为「已熟」！切到「🎲 抽问模考」试试15分钟实战盲听抽问吧。</p>
+    </main>
+
+    <!-- 视图2：🎲 考官抽问实战模考 -->
+    <main id="v-drill" hidden>
+      <div class="drill-wrap">
+        <div class="d-top">
+          <div class="seg-ctrl" id="d-pool-ctrl">
+            <button type="button" data-pool="all" aria-pressed="true">全35种问法</button>
+            <button type="button" data-pool="core" aria-pressed="false">20道主问</button>
+            <button type="button" data-pool="weak" aria-pressed="false">只抽未熟</button>
+          </div>
+          <div style="display:flex;gap:6px;align-items:center">
+            <button type="button" class="ibtn" id="d-blind-btn" aria-pressed="true">🎧 先盲听</button>
+            <button type="button" class="timer-pill" id="d-timer" title="点击开始/暂停15分钟实战倒计时">⏱ 15:00 开考</button>
+          </div>
+        </div>
+
+        <div class="d-card">
+          <div class="d-status">
+            <span id="d-prog">第 1 问</span>
+            <span id="d-react">🔊 听完马上微笑开口</span>
+          </div>
+          <div class="d-qbox blind" id="d-qbox">
+            <div class="d-blind-hint" id="d-peek-q">🎧 实战盲听中（考场没字幕！）· 没听清点此看文字</div>
+            <div class="d-q" id="d-q"></div>
+            <div class="d-qzh" id="d-qzh"></div>
+          </div>
+          <div class="d-ctrl">
+            <button type="button" class="btn-sec" id="d-replay">🔊 重听考官</button>
+            <button type="button" class="btn-pri" id="d-show">👀 核对总表位置与台词</button>
+            <button type="button" class="btn-sec" id="d-skip">换一题 →</button>
+          </div>
+
+          <div class="d-reveal" id="d-ans" hidden>
+            <div class="d-loc">
+              <span id="d-loc-txt"></span>
+              <div style="display:flex;gap:5px">
+                <button type="button" class="mbtn" id="d-play-a">▶ 示范音</button>
+                <button type="button" class="mbtn" id="d-goto">↗ 跳回总表</button>
+              </div>
+            </div>
+            <div class="seg-ja" id="d-ans-ja"></div>
+            <div class="seg-zh" id="d-ans-zh"></div>
+            <div class="d-grade">
+              <button type="button" class="g-retry" id="d-g-retry">😬 卡壳了（3题后重抽）</button>
+              <button type="button" class="g-pass" id="d-g-pass">✅ 对答如流（过关下一题）</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- 视图3：🔤 生词本 -->
+    <main id="v-vocab" hidden>
+      <div class="vocab-bar">
+        <button type="button" class="ibtn" id="v-seed">⚡ 一键导入16个易读错重点词</button>
+        <button type="button" class="ibtn" id="v-hide" aria-pressed="false">🙈 遮住假名自测</button>
+        <button type="button" class="ibtn" id="v-clear">清空生词</button>
+      </div>
+      <ul class="v-grid" id="v-list"></ul>
+      <p class="empty-note" id="v-empty">点上面「⚡ 一键导入16个易读错重点词」，或在总台词表里点任何带虚线的汉字词即可收入此处。</p>
+    </main>
+
+    <!-- 视图4：📋 11/21 考场清单与时间线 -->
+    <main id="v-prep" hidden>
+      <div class="prep-grid">
+        <section class="p-card">
+          <h3>✅ 11月21日 出门与考前打勾清单</h3>
+          <div id="chk-list"></div>
+          <div class="link-row">
+            <a href="https://www.osaka-ue.ac.jp/newfaculty/features/" target="_blank" rel="noopener">🔗 国際共創学部主页</a>
+            <a href="https://www.osaka-ue.ac.jp/career-power/" target="_blank" rel="noopener">🔗 就职支援介绍页</a>
+            <a href="https://www.osaka-ue.ac.jp/education/faculty/newfaculty/kamoku.html" target="_blank" rel="noopener">🔗 四年课程表</a>
+          </div>
+        </section>
+        <section class="p-card">
+          <h3>🕛 11月21日（周六）大隅校区时间死线</h3>
+          <div class="tl-item"><span class="tl-t">交通路线</span><span>地铁今里筋线<b>「瑞光四丁目」站步行约2分钟</b>（或阪急「上新庄」站步行15分钟），严禁打车进校</span></div>
+          <div class="tl-item"><span class="tl-t">11:40–12:20</span><span>入场黄金窗口：看校内揭示板确认具体试场教室，进楼前先关掉手机闹钟并彻底关机</span></div>
+          <div class="tl-item"><span class="tl-t" style="color:var(--rt)">12:40 死线</span><span><b>开考前20分钟必须进教室入座</b>，把A4竖向原寸《受験票》放在桌上考号牌前</span></div>
+          <div class="tl-item"><span class="tl-t">13:00 开始</span><span>日本語による口頭試問（约15分钟，全程微笑看着老师眼睛说慢一点）</span></div>
+          <div class="tl-item"><span class="tl-t">12/07 13:00</span><span>UCARO 网站查询合格发表并下载《合格通知書》（纸质受验票考完别扔，留着备查）</span></div>
+          <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:12px;color:var(--mute)">更新：<span id="built-t"></span></span>
+            <button type="button" class="mbtn" id="b-reset-done">重置已背熟标记</button>
+          </div>
+        </section>
+      </div>
+    </main>
   </div>
-
-  <!-- 主视图：一整张总台词表 -->
-  <main id="sheet-view">
-    <p class="intro">整场15分钟面试考官拿着清单随机抽问，但你脑子里<b>只装下面这一整张连贯台词表（共6大块、20段零重复）</b>——考官问到哪一块，直接切那一块的台词答出去就行。</p>
-    <div id="blocks"></div>
-    <p class="empty" id="all-done" hidden>🎉 整张总台词表已全部背熟！点顶部「🎲 考官抽问模拟」检验一下定位反应速度吧。</p>
-  </main>
-
-  <!-- 辅助视图：考官随机抽问模拟 -->
-  <main id="drill-view" hidden>
-    <p class="intro">模拟考官拿着问题单随机跳着问你：先听声音，在脑海里定位<b>它在总台词表第几块</b>并开口答，再点「翻开对应台词块」核对。</p>
-    <div class="drill-box">
-      <div class="d-meta">
-        <span id="d-progress">随机抽问 1 / 20</span>
-        <label style="cursor:pointer"><input type="checkbox" id="d-blind"> 盲听提问（先遮住考官文字）</label>
-      </div>
-      <div id="d-q" class="d-q"></div>
-      <div id="d-qzh" style="font-size:13px;color:var(--mute)" hidden></div>
-      <div class="drill-btns">
-        <button type="button" id="d-replay">🔊 重听考官提问</button>
-        <button type="button" id="d-reveal" class="primary">👀 翻开总表对应台词块</button>
-        <button type="button" id="d-next">🎲 随机抽下一题 →</button>
-      </div>
-      <div id="d-ans" class="d-ans" hidden>
-        <div id="d-loc" class="d-loc"></div>
-        <div style="margin-bottom:6px"><button type="button" class="pill" id="d-play-ans">🔊 听这段示范回答</button></div>
-        <div id="d-clauses" class="clauses"></div>
-      </div>
-    </div>
-  </main>
-
-  <!-- 生词本视图 -->
-  <main id="list-view" hidden>
-    <div class="tools"><button id="b-hide" aria-pressed="false">遮住假名自测</button><button id="b-clear">清空生词</button></div>
-    <ol class="list" id="ol"></ol>
-    <p class="empty" id="empty">还没有标记生词。在总台词表里点带虚线的汉字词，就会自动收进这里。</p>
-  </main>
-
-  <footer>
-    <span>进度存在本机浏览器 · 更新 <span id="built"></span></span>
-    <button class="pill" id="b-reset-done">重置「已背熟」进度</button>
-  </footer>
 </div>
 
-<div id="rei" class="sheet" hidden>
-  <div class="sheet-top"><div class="in"><b>11/21 考场流程与礼仪</b><button class="pill" id="rei-x">关闭</button></div></div>
-  <div class="rei"><p class="rt">大阪経済大学 国際共創学部 口頭試問 総台詞表（11月21日 13:00）</p>
-<p class="tip">说慢一点，声音大一点，看着考官老师的眼睛，嘴角带一点笑。整场15分钟考官拿着问题清单随机抽问，但你脑子里只装下面这6大块连贯台词表——问到哪一块，就切哪一块答。</p>
-<h3>当天的流程</h3>
-<p class="sh"><b>出门前必查</b></p>
-<ul>
-<li>必带：<b>受験票（A4白纸竖向原寸打印，正反面严禁写任何字！）</b>、在留卡、学生证、黑笔、手表（无通信功能）、手帕、交通卡</li>
-<li>集合时间：<b>11:40～12:40 入场</b>，<b>12:40 前必须进考场教室</b>，<b>13:00 正式开始</b>（迟到超30分钟取消资格，务必 11:50 左右到大隅校区）</li>
-<li><b>手机进校门前先解除所有闹钟，彻底关机</b>，连同钱包、钥匙一起放进包里，西装口袋全空</li>
-<li>西装外套只扣上面第一颗扣子（坐下也扣着）；双肩包进校门后改用手提</li>
-</ul>
-<p class="sh"><b>进考场门（以当天引导老师指示为准）</b></p>
-<ol>
-<li>敲门 3 下，听到「どうぞ」再推门（若门本来开着，在门口说「<b>失礼いたします</b>」鞠躬后进）</li>
-<li>进去转身轻轻把门关好，再转向考官鞠躬（30 度）</li>
-<li>走到椅子旁边站直，微笑响亮报号：「<b>受験番号〇〇番、〇〇です。本日はよろしくお願いいたします。</b>」说完深鞠躬（45 度）（注：语校名太长容易嘴瓢，考官手头有表，不用报；今天10点出受验番号后把号码念熟）</li>
-<li>考官说「どうぞ」后：「<b>失礼いたします</b>」，点头坐下，包立放在脚边</li>
-<li>坐椅子前一半，背挺直不靠椅背，双手轻握放在大腿上，全程面带温和微笑看着说话的老师</li>
-</ol>
-<p class="sh"><b>结束退场</b>（考官说「これで終わります」）</p>
-<ol>
-<li>先坐着微笑说：「<b>ありがとうございました</b>」，点头</li>
-<li>起身站到椅子旁：「<b>本日はお忙しい中、お時間をいただき、ありがとうございました。</b>」深鞠躬（45 度）</li>
-<li>提包走到门口，转身面向考官：「<b>失礼いたします</b>」，鞠躬后轻手开门离开</li>
-<li>走出校门前绝不掏手机</li>
-</ol>
-<h3>困ったとき</h3>
-<ul>
-<li>没听清：「<b>すみません、もう一度お願いできますでしょうか。</b>」</li>
-<li>某个词没听懂：「<b>すみません、『〇〇』はどういう意味でしょうか。</b>」（把听到的词照音念一遍，绝不硬猜乱答）</li>
-<li>想确认自己没理解错：「<b>〇〇ということでしょうか。</b>」等老师点头再答</li>
-<li>需要3秒钟组织语言：「<b>少し考えてもよろしいでしょうか。</b>」</li>
-<li>完全没准备到的冷门知识：「<b>すみません、そこはまだ勉強不足でした。入学までにしっかり調べておきます。</b>」</li>
-</ul>
-<p class="sh"><b>考官换个说法问，也是切同一块台词：</b></p>
-<ul>
-<li>志望動機・志望理由を教えてください → <b>§10 为什么选大经大</b> ＋ <b>§13 国际共创学部</b></li>
-<li>入学後の抱負・意気込み・やりたいこと → <b>§14 大学四年具体学什么</b></li>
-<li>将来の夢・卒業後の進路・キャリアプラン → <b>§9 毕业后的工作目标</b></li>
-<li>自己PR・自分の強み・アピールポイント → <b>§18 优缺点与自我PR（前半段长处）</b></li>
-<li>学業とアルバイトの両立・週何時間 → <b>§4 打工与出勤平衡</b></li>
-<li>経費支弁者・学費は誰が払いますか → <b>§17 学费父母支持与减免</b></li>
-<li>併願校はありますか・専願ですか → <b>§11 他校对比与必入学</b></li>
-</ul></div>
+<!-- 底部常驻迷你播控栏 -->
+<div class="pbar" id="pbar" hidden>
+  <div class="pbar-in">
+    <div class="p-prog" id="p-prog"><div class="p-fill" id="p-fill"></div></div>
+    <div class="p-ctrls">
+      <span class="p-title" id="p-title">准备播放</span>
+      <button type="button" id="p-prev" title="上一段">⏮</button>
+      <button type="button" id="p-toggle">⏸</button>
+      <button type="button" id="p-next" title="下一段">⏭</button>
+      <button type="button" id="p-mode" title="切换 单段循环 / 全表顺播 / 息屏连读">▶顺播</button>
+      <button type="button" id="p-speed">1.0x</button>
+      <button type="button" id="p-close" title="收起播放器">✕</button>
+    </div>
+  </div>
+</div>
+
+<!-- 手机底部拇指四栏导航 -->
+<nav class="bnav" id="bnav">
+  <button type="button" data-v="sheet" aria-pressed="true"><span class="ic">📜</span><span>总台词表</span></button>
+  <button type="button" data-v="drill" aria-pressed="false"><span class="ic">🎲</span><span>抽问模考</span></button>
+  <button type="button" data-v="vocab" aria-pressed="false"><span class="ic">🔤</span><span>生词 (<span class="v-cnt">0</span>)</span></button>
+  <button type="button" data-v="prep" aria-pressed="false"><span class="ic">📋</span><span>考场清单</span></button>
+</nav>
+
+<!-- 个人代号（仅存本机浏览器）与外观弹窗 -->
+<div class="modal-bg" id="prof-modal" hidden>
+  <div class="modal">
+    <h3>⚙️ 本机个性化与外观设置</h3>
+    <p>以下信息<b>只保存在你手机/电脑本地浏览器</b>，绝不上传网络，用于在台词表中自动替换公开占位符并生成受验番号读音。</p>
+    <div class="f-row">
+      <label>受験番号（11/17 10:00 出号后填入数字）</label>
+      <input type="text" id="in-no" placeholder="例：0105" inputmode="numeric">
+    </div>
+    <div class="f-row">
+      <label>カタカナ氏名（台词自我介绍用）</label>
+      <input type="text" id="in-name" placeholder="例：ヤマダ タロウ">
+    </div>
+    <div class="f-row">
+      <label>现居住市（§3 通学台词用）</label>
+      <input type="text" id="in-city" placeholder="例：大阪市">
+    </div>
+    <div class="m-btns">
+      <button type="button" class="btn-sec" id="b-theme-toggle">🌗 切换暗色/亮色</button>
+      <div style="display:flex;gap:6px">
+        <button type="button" class="btn-sec" id="m-cancel">取消</button>
+        <button type="button" class="btn-pri" style="min-width:80px;padding:7px 14px" id="m-save">保存</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
-const D={"blocks": [{"title": "板块一：我是谁・日本生活・打工与过往（个人底盘）", "segs": [{"n": 1, "tag": "自我介绍", "q": [["自己紹介", "じこしょうかい"], ["を", ""], ["し", ""], ["て", ""], ["ください", ""], ["。", ""]], "a": [[["〇", ""], ["〇", ""], ["と", ""], ["申し", "もうし"], ["ます", ""]], [["中国", "ちゅうごく"], ["から", ""], ["来", "き"], ["まし", ""], ["た", ""], ["、", ""], ["二十一歳", "にじゅういっさい"], ["です", ""]], [["今", "いま"], ["は", ""], ["ヒューマン", ""], ["アカデミー", ""], ["日本語学校", "にほんごがっこう"], ["で", ""], ["、", ""], ["日本語", "にほんご"], ["を", ""], ["勉強", "べんきょう"], ["し", ""], ["て", ""], ["い", ""], ["ます", ""]], [["大阪経済大学", "おおさかけいざいだいがく"], ["の", ""], ["国際共創学部", "こくさいきょうそうがくぶ"], ["を", ""], ["第一志望", "だいいちしぼう"], ["と", ""], ["し", ""], ["て", ""], ["まいり", ""], ["まし", ""], ["た", ""]], [["本日", "ほんじつ"], ["は", ""], ["どうぞ", ""], ["よろしく", ""], ["お", ""], ["願い", "ねがい"], ["いたし", ""], ["ます", ""]]], "qzh": "请做一下自我介绍。", "za": ["我叫 〇〇", "来自中国，今年21岁", "现在在修曼日本语学校学习日语", "把大阪经济大学的国际共创学部作为第一志愿前来应考", "今天请各位老师多多关照"], "aq": "mensetsu-audio/q_c5d7241343.mp3", "aa": "mensetsu-audio/a_9bafe481d6.mp3"}, {"n": 2, "tag": "来日与日本生活", "q": [["いつ", ""], ["日本", "にほん"], ["に", ""], ["来", "き"], ["まし", ""], ["た", ""], ["か", ""], ["。", ""], ["日本", "にほん"], ["の", ""], ["生活", "せいかつ"], ["に", ""], ["は", ""], ["慣れ", "なれ"], ["まし", ""], ["た", ""], ["か", ""], ["。", ""]], "a": [[["去年", "きょねん"], ["の", ""], ["十月", "じゅうがつ"], ["に", ""], ["日本", "にほん"], ["へ", ""], ["来", "き"], ["まし", ""], ["た", ""]], [["もう", ""], ["すっかり", ""], ["慣れ", "なれ"], ["て", ""], ["、", ""], ["毎日", "まいにち"], ["とても", ""], ["充実", "じゅうじつ"], ["し", ""], ["て", ""], ["い", ""], ["ます", ""]], [["学校", "がっこう"], ["の", ""], ["先生方", "せんせいがた"], ["も", ""], ["周りの方", "まわりのかた"], ["も", ""], ["本当", "ほんとう"], ["に", ""], ["優しく", "やさしく"], ["て", ""], ["、", ""], ["日本", "にほん"], ["に", ""], ["来", "き"], ["て", ""], ["よかっ", ""], ["た", ""], ["と", ""], ["感じ", "かんじ"], ["て", ""], ["い", ""], ["ます", ""]]], "qzh": "什么时候来日本的？习惯日本的生活了吗？", "za": ["我是去年10月来日本的", "已经完全习惯了，每天都过得很充实", "学校的老师们和身边的人都特别温柔亲切，真心觉得来日本太好了"], "aq": "mensetsu-audio/q_2e799ba092.mp3", "aa": "mensetsu-audio/a_5d28691745.mp3"}, {"n": 3, "tag": "现住址与通学", "q": [["今", "いま"], ["は", ""], ["どこ", ""], ["に", ""], ["住ん", "すん"], ["で", ""], ["い", ""], ["ます", ""], ["か", ""], ["。", ""], ["大学", "だいがく"], ["まで", ""], ["通え", "かよえ"], ["ます", ""], ["か", ""], ["。", ""]], "a": [[["今", "いま"], ["は", ""], ["〇〇", ""], ["市", "し"], ["で", ""], ["一人暮らし", "ひとりぐらし"], ["を", ""], ["し", ""], ["て", ""], ["い", ""], ["ます", ""]], [["今", "いま"], ["の", ""], ["家", "いえ"], ["から", ""], ["で", ""], ["も", ""], ["電車", "でんしゃ"], ["で", ""], ["五十分", "ごじっぷん"], ["ほど", ""], ["で", ""], ["通え", "かよえ"], ["ます", ""]], [["合格", "ごうかく"], ["を", ""], ["いただけ", ""], ["まし", ""], ["たら", ""], ["、", ""], ["もっと", ""], ["勉強", "べんきょう"], ["に", ""], ["集中", "しゅうちゅう"], ["できる", ""], ["よう", ""], ["に", ""], ["、", ""], ["キャンパス", ""], ["の", ""], ["近く", "ちかく"], ["へ", ""], ["引っ越す", "ひっこす"], ["つもり", ""], ["です", ""]]], "qzh": "现在住在哪里？上大学通勤方便吗？", "za": ["我现在在〇〇市一个人住", "从现在的家坐电车大概50分钟也能到学校", "如果能荣幸合格的话，为了更集中精力学习，我打算搬到校区附近住"], "aq": "mensetsu-audio/q_36fcf48eb8.mp3", "aa": "mensetsu-audio/a_3983d1db59.mp3"}, {"n": 4, "tag": "打工与出勤平衡", "q": [["アルバイト", ""], ["は", ""], ["し", ""], ["て", ""], ["い", ""], ["ます", ""], ["か", ""], ["。", ""], ["勉強", "べんきょう"], ["と", ""], ["両立", "りょうりつ"], ["でき", ""], ["て", ""], ["い", ""], ["ます", ""], ["か", ""], ["。", ""]], "a": [[["はい", ""], ["、", ""], ["すき家", "すきや"], ["で", ""], ["週", "しゅう"], ["に", ""], ["22時間", "にじゅうにじかん"], ["ぐらい", ""], ["働い", "はたらい"], ["て", ""], ["い", ""], ["ます", ""]], [["で", ""], ["も", ""], ["、", ""], ["私", "わたし"], ["の", ""], ["中", "なか"], ["で", ""], ["は", ""], ["学校", "がっこう"], ["の", ""], ["勉強", "べんきょう"], ["が", ""], ["一番", "いちばん"], ["大事", "だいじ"], ["です", ""]], [["アルバイト", ""], ["で", ""], ["も", ""], ["日本", "にほん"], ["の", ""], ["礼儀", "れいぎ"], ["や", ""], ["接客", "せっきゃく"], ["の", ""], ["言葉", "ことば"], ["を", ""], ["学べ", "まなべ"], ["て", ""], ["、", ""], ["とても", ""], ["いい", ""], ["経験", "けいけん"], ["に", ""], ["なっ", ""], ["て", ""], ["い", ""], ["ます", ""]]], "qzh": "在打工吗？能和学习兼顾吗？", "za": ["是的，我在食其家（すき家）每周打工22小时左右", "但在我心里，学校的学习永远是第一位的", "在打工时也能学到日本的礼仪和待客敬语，成了非常好的锻炼"], "aq": "mensetsu-audio/q_5d795da51e.mp3", "aa": "mensetsu-audio/a_718b0808eb.mp3"}, {"n": 5, "tag": "高中毕业后的准备", "q": [["高校", "こうこう"], ["を", ""], ["卒業", "そつぎょう"], ["し", ""], ["て", ""], ["から", ""], ["日本", "にほん"], ["に", ""], ["来る", "くる"], ["まで", ""], ["は", ""], ["、", ""], ["何", "なに"], ["を", ""], ["し", ""], ["て", ""], ["い", ""], ["まし", ""], ["た", ""], ["か", ""], ["。", ""]], "a": [[["将来", "しょうらい"], ["の", ""], ["進路", "しんろ"], ["を", ""], ["よく", ""], ["考え", "かんがえ"], ["て", ""], ["、", ""], ["日本", "にほん"], ["で", ""], ["就職", "しゅうしょく"], ["し", ""], ["て", ""], ["長く", "ながく"], ["働く", "はたらく"], ["こと", ""], ["を", ""], ["目標", "もくひょう"], ["に", ""], ["決め", "きめ"], ["まし", ""], ["た", ""]], [["その", ""], ["ため", ""], ["に", ""], ["、", ""], ["中国", "ちゅうごく"], ["で", ""], ["日本語", "にほんご"], ["の", ""], ["勉強", "べんきょう"], ["と", ""], ["留学", "りゅうがく"], ["の", ""], ["準備", "じゅんび"], ["を", ""], ["し", ""], ["て", ""], ["い", ""], ["まし", ""], ["た", ""]]], "qzh": "高中毕业到来日本之前，在做些什么？", "za": ["我认真思考了未来的出路，定下了在日本就业并长期工作的目标", "为了实现这个目标，当时在中国专心学习日语并准备留学"], "aq": "mensetsu-audio/q_4fe766f9af.mp3", "aa": "mensetsu-audio/a_6f20278aa1.mp3"}, {"n": 6, "tag": "国内大学经历（仅追问时答）", "q": [["中国", "ちゅうごく"], ["の", ""], ["大学", "だいがく"], ["に", ""], ["は", ""], ["行き", "いき"], ["まし", ""], ["た", ""], ["か", ""], ["。", ""]], "a": [[["はい", ""], ["、", ""], ["中国", "ちゅうごく"], ["の", ""], ["大学", "だいがく"], ["に", ""], ["一年", "いちねん"], ["通い", "かよい"], ["まし", ""], ["た", ""]], [["専攻", "せんこう"], ["は", ""], ["幼児教育", "ようじきょういく"], ["でし", ""], ["た", ""], ["が", ""], ["、", ""], ["本当", "ほんとう"], ["に", ""], ["し", ""], ["たい", ""], ["の", ""], ["は", ""], ["日本", "にほん"], ["と", ""], ["関わる", "かかわる"], ["貿易", "ぼうえき"], ["の", ""], ["仕事", "しごと"], ["だ", ""], ["と", ""], ["気づき", "きづき"], ["、", ""], ["退学", "たいがく"], ["し", ""], ["て", ""], ["日本", "にほん"], ["へ", ""], ["来", "き"], ["まし", ""], ["た", ""]], [["遠回り", "とおまわり"], ["し", ""], ["た", ""], ["分", "ぶん"], ["、", ""], ["今回", "こんかい"], ["は", ""], ["目標", "もくひょう"], ["に", ""], ["合う", "あう"], ["学部", "がくぶ"], ["を", ""], ["しっかり", ""], ["選ん", "えらん"], ["だ", ""], ["の", ""], ["で", ""], ["、", ""], ["必ず", "かならず"], ["四年間", "よねんかん"], ["で", ""], ["卒業", "そつぎょう"], ["し", ""], ["ます", ""]]], "qzh": "在中国上过大学吗？（※考官没点名问这句就绝不主动提）", "za": ["是的，在中国的大学读过一年", "当时专业是幼儿教育，但后来意识到自己真正想做的是和日本相关的贸易工作，于是果断退学来到了日本", "正因为绕了一点远路，这次我非常慎重地选定了契合目标的学部，一定会读满四年顺利毕业"], "aq": "mensetsu-audio/q_a098dc5170.mp3", "aa": "mensetsu-audio/a_0b28192a3e.mp3"}]}, {"title": "板块二：为什么来日本・爱大阪・毕业目标（未来主线）", "segs": [{"n": 7, "tag": "为什么来日本", "q": [["どう", ""], ["し", ""], ["て", ""], ["日本", "にほん"], ["に", ""], ["留学", "りゅうがく"], ["しよう", ""], ["と", ""], ["思っ", "おもっ"], ["た", ""], ["ん", ""], ["です", ""], ["か", ""], ["。", ""]], "a": [[["中国", "ちゅうごく"], ["と", ""], ["日本", "にほん"], ["は", ""], ["経済", "けいざい"], ["の", ""], ["つながり", ""], ["が", ""], ["とても", ""], ["強い", "つよい"], ["から", ""], ["です", ""]], [["中国語", "ちゅうごくご"], ["と", ""], ["日本語", "にほんご"], ["の", ""], ["両方", "りょうほう"], ["が", ""], ["できる", ""], ["人", "ひと"], ["は", ""], ["、", ""], ["日本", "にほん"], ["の", ""], ["会社", "かいしゃ"], ["で", ""], ["必要", "ひつよう"], ["と", ""], ["さ", ""], ["れ", ""], ["て", ""], ["いる", ""], ["と", ""], ["思い", "おもい"], ["まし", ""], ["た", ""]], [["日本", "にほん"], ["で", ""], ["就職", "しゅうしょく"], ["し", ""], ["て", ""], ["、", ""], ["長く", "ながく"], ["働こう", "はたらこう"], ["と", ""], ["決め", "きめ"], ["まし", ""], ["た", ""]]], "qzh": "为什么决定来日本留学？", "za": ["因为中国和日本在经济上的联系非常紧密", "我觉得既懂中文又懂日语的人，在日本企业里是被需要的", "所以我下定决心要在日本就业，长期工作下去"], "aq": "mensetsu-audio/q_cf6122615b.mp3", "aa": "mensetsu-audio/a_66e581bd19.mp3"}, {"n": 8, "tag": "为什么选大阪", "q": [["日本", "にほん"], ["の", ""], ["中", "なか"], ["で", ""], ["も", ""], ["、", ""], ["どう", ""], ["し", ""], ["て", ""], ["大阪", "おおさか"], ["を", ""], ["選ん", "えらん"], ["だ", ""], ["ん", ""], ["です", ""], ["か", ""], ["。", ""]], "a": [[["中国", "ちゅうごく"], ["と", ""], ["取引", "とりひき"], ["を", ""], ["し", ""], ["て", ""], ["いる", ""], ["会社", "かいしゃ"], ["が", ""], ["たくさん", ""], ["あり", ""], ["、", ""], ["中国語", "ちゅうごくご"], ["と", ""], ["日本語", "にほんご"], ["を", ""], ["一番", "いちばん"], ["生かせる", "いかせる"], ["場所", "ばしょ"], ["だ", ""], ["から", ""], ["です", ""]], [["実際", "じっさい"], ["に", ""], ["大阪", "おおさか"], ["で", ""], ["生活", "せいかつ"], ["し", ""], ["て", ""], ["み", ""], ["て", ""], ["、", ""], ["人", "ひと"], ["が", ""], ["明るく", "あかるく"], ["て", ""], ["親切", "しんせつ"], ["で", ""], ["、", ""], ["この", ""], ["町", "まち"], ["が", ""], ["大好き", "だいすき"], ["に", ""], ["なり", ""], ["まし", ""], ["た", ""]], [["卒業", "そつぎょう"], ["し", ""], ["て", ""], ["から", ""], ["も", ""], ["、", ""], ["ずっと", ""], ["大阪", "おおさか"], ["で", ""], ["暮らし", "くらし"], ["たい", ""], ["です", ""]]], "qzh": "日本这么多地方，为什么偏偏选了大阪？", "za": ["因为大阪有很多和中国做生意的企业，是最能发挥中文和日语优势的地方", "而且实际在大阪生活之后，发现这里的人开朗又热心，我一下子就爱上了这座城市", "毕业以后我也想一直留在大阪生活"], "aq": "mensetsu-audio/q_9ad132b950.mp3", "aa": "mensetsu-audio/a_e31970277e.mp3"}, {"n": 9, "tag": "毕业后的工作目标", "q": [["大学", "だいがく"], ["を", ""], ["卒業", "そつぎょう"], ["し", ""], ["たら", ""], ["、", ""], ["将来", "しょうらい"], ["どんな", ""], ["仕事", "しごと"], ["が", ""], ["し", ""], ["たい", ""], ["です", ""], ["か", ""], ["。", ""]], "a": [[["大阪", "おおさか"], ["で", ""], ["就職", "しゅうしょく"], ["し", ""], ["て", ""], ["、", ""], ["海外", "かいがい"], ["と", ""], ["取引", "とりひき"], ["が", ""], ["ある", ""], ["会社", "かいしゃ"], ["で", ""], ["長く", "ながく"], ["働き", "はたらき"], ["たい", ""], ["です", ""]], [["貿易事務", "ぼうえきじむ"], ["や", ""], ["営業サポート", "えいぎょうサポート"], ["の", ""], ["仕事", "しごと"], ["を", ""], ["目指し", "めざし"], ["て", ""], ["い", ""], ["ます", ""]], [["中国", "ちゅうごく"], ["の", ""], ["会社", "かいしゃ"], ["と", ""], ["は", ""], ["中国語", "ちゅうごくご"], ["、", ""], ["ほか", ""], ["の", ""], ["国", "くに"], ["の", ""], ["会社", "かいしゃ"], ["と", ""], ["は", ""], ["英語", "えいご"], ["を", ""], ["使っ", "つかっ"], ["て", ""], ["、", ""], ["日本", "にほん"], ["と", ""], ["海外", "かいがい"], ["を", ""], ["つなぐ", ""], ["仕事", "しごと"], ["が", ""], ["し", ""], ["たい", ""], ["です", ""]]], "qzh": "大学毕业后，将来想做什么样的工作？", "za": ["我想在大阪就业，在有海外业务往来的公司长期工作", "目标是从事贸易事务或营业支持的工作", "面对中国客户用中文、面对其他国家客户用英语，做连接日本与海外的桥梁工作"], "aq": "mensetsu-audio/q_d21930b67d.mp3", "aa": "mensetsu-audio/a_d18dae4740.mp3"}]}, {"title": "板块三：为什么认准大阪经济大学（择校＋开放日）", "segs": [{"n": 10, "tag": "为什么选大经大", "q": [["どう", ""], ["し", ""], ["て", ""], ["大阪経済大学", "おおさかけいざいだいがく"], ["を", ""], ["志望", "しぼう"], ["し", ""], ["た", ""], ["ん", ""], ["です", ""], ["か", ""], ["。", ""]], "a": [[["理由", "りゆう"], ["は", ""], ["二つ", "ふたつ"], ["あり", ""], ["ます", ""]], [["一つ目", "ひとつめ"], ["は", ""], ["、", ""], ["就職", "しゅうしょく"], ["の", ""], ["サポート", ""], ["が", ""], ["手厚い", "てあつい"], ["こと", ""], ["です", ""]], [["キャリア支援課の方", "キャリアしえんかのかた"], ["に", ""], ["何度", "なんど"], ["で", ""], ["も", ""], ["相談", "そうだん"], ["でき", ""], ["て", ""], ["、", ""], ["先生", "せんせい"], ["と", ""], ["職員の方", "しょくいんのかた"], ["が", ""], ["チーム", ""], ["で", ""], ["支え", "ささえ"], ["て", ""], ["くださる", ""], ["と", ""], ["知り", "しり"], ["まし", ""], ["た", ""]], [["学生", "がくせい"], ["一人ひとり", "ひとりひとり"], ["を", ""], ["本当", "ほんとう"], ["に", ""], ["大切", "たいせつ"], ["に", ""], ["し", ""], ["て", ""], ["くれる", ""], ["大学", "だいがく"], ["だ", ""], ["と", ""], ["感じ", "かんじ"], ["まし", ""], ["た", ""]], [["二つ目", "ふたつめ"], ["は", ""], ["、", ""], ["「", ""], ["人間的実学", "にんげんてきじつがく"], ["」", ""], ["です", ""]], [["人", "ひと"], ["と", ""], ["し", ""], ["て", ""], ["成長", "せいちょう"], ["する", ""], ["こと", ""], ["と", ""], ["、", ""], ["社会", "しゃかい"], ["で", ""], ["役に立つ", "やくにたつ"], ["力", "ちから"], ["を", ""], ["つける", ""], ["こと", ""], ["の", ""], ["両方", "りょうほう"], ["を", ""], ["大事", "だいじ"], ["に", ""], ["し", ""], ["て", ""], ["い", ""], ["て", ""], ["、", ""], ["私", "わたし"], ["も", ""], ["ぜひ", ""], ["ここ", ""], ["で", ""], ["学び", "まなび"], ["たい", ""], ["と", ""], ["思い", "おもい"], ["まし", ""], ["た", ""]]], "qzh": "为什么志愿报考大阪经济大学？（同义：请谈谈志望理由）", "za": ["理由有两个", "第一，贵校的就业支援非常周到贴心", "我了解到可以不限次数向就业支援课的老师咨询，而且授课老师和职员老师会组成团队一起帮扶学生", "让我真切感受到这是一所珍惜每一位学生的好大学", "第二，是贵校的「人间性实学」理念", "既重视作为人的成长，又重视培养在社会上派得上用场的真本领，我也非常想在这样的环境里学习"], "aq": "mensetsu-audio/q_d5291d2f29.mp3", "aa": "mensetsu-audio/a_80cf643f76.mp3"}, {"n": 11, "tag": "他校对比与必入学", "q": [["ほか", ""], ["の", ""], ["大学", "だいがく"], ["と", ""], ["も", ""], ["迷い", "まよい"], ["まし", ""], ["た", ""], ["か", ""], ["。", ""], ["合格", "ごうかく"], ["し", ""], ["たら", ""], ["必ず", "かならず"], ["入学", "にゅうがく"], ["し", ""], ["ます", ""], ["か", ""], ["。", ""]], "a": [[["日本語学校", "にほんごがっこう"], ["の", ""], ["説明会", "せつめいかい"], ["で", ""], ["ほか", ""], ["の", ""], ["大学", "だいがく"], ["と", ""], ["も", ""], ["比べ", "くらべ"], ["まし", ""], ["た", ""], ["が", ""], ["、", ""], ["調べれ", "しらべれ"], ["ば", ""], ["調べる", "しらべる"], ["ほど", ""], ["大阪経済大学", "おおさかけいざいだいがく"], ["に", ""], ["行き", "いき"], ["たく", ""], ["なり", ""], ["まし", ""], ["た", ""]], [["今", "いま"], ["は", ""], ["大阪経済大学", "おおさかけいざいだいがく"], ["一本", "いっぽん"], ["に", ""], ["決め", "きめ"], ["て", ""], ["い", ""], ["ます", ""]], [["合格", "ごうかく"], ["を", ""], ["いただけ", ""], ["まし", ""], ["たら", ""], ["、", ""], ["日本語学校", "にほんごがっこう"], ["の", ""], ["代表", "だいひょう"], ["と", ""], ["し", ""], ["て", ""], ["必ず", "かならず"], ["入学", "にゅうがく"], ["し", ""], ["ます", ""]]], "qzh": "有没有犹豫过其他大学？合格的话一定会入学吗？", "za": ["我在语言学校的说明会上也对比过其他大学，但越深入了解就越想来大阪经济大学", "现在我一心只认准大阪经济大学这一所", "如果能荣幸合格，我作为语言学校的代表，保证一定入学"], "aq": "mensetsu-audio/q_a888217806.mp3", "aa": "mensetsu-audio/a_107ab6b777.mp3"}, {"n": 12, "tag": "校园开放日与初印象", "q": [["オープン", ""], ["キャンパス", ""], ["に", ""], ["は", ""], ["行き", "いき"], ["まし", ""], ["た", ""], ["か", ""], ["。", ""]], "a": [[["残念", "ざんねん"], ["です", ""], ["が", ""], ["、", ""], ["その", ""], ["日", "ひ"], ["は", ""], ["アルバイト", ""], ["が", ""], ["あっ", ""], ["て", ""], ["時間", "じかん"], ["が", ""], ["作れ", "つくれ"], ["ず", ""], ["、", ""], ["行け", "いけ"], ["ませ", ""], ["ん", ""], ["でし", ""], ["た", ""]], [["それ", ""], ["が", ""], ["ずっと", ""], ["心残り", "こころのこり"], ["だっ", ""], ["た", ""], ["の", ""], ["で", ""], ["、", ""], ["その", ""], ["分", "ぶん"], ["ホーム", ""], ["ページ", ""], ["を", ""], ["何度", "なんど"], ["も", ""], ["見", "み"], ["まし", ""], ["た", ""]], [["今日", "きょう"], ["キャンパス", ""], ["に", ""], ["来る", "くる"], ["の", ""], ["を", ""], ["とても", ""], ["楽しみ", "たのしみ"], ["に", ""], ["し", ""], ["て", ""], ["い", ""], ["まし", ""], ["た", ""]], [["実際", "じっさい"], ["に", ""], ["来", "き"], ["て", ""], ["み", ""], ["て", ""], ["、", ""], ["きれい", ""], ["で", ""], ["落ち着い", "おちつい"], ["た", ""], ["雰囲気", "ふんいき"], ["が", ""], ["とても", ""], ["素敵", "すてき"], ["で", ""], ["、", ""], ["ここ", ""], ["で", ""], ["学び", "まなび"], ["たい", ""], ["気持ち", "きもち"], ["が", ""], ["もっと", ""], ["強く", "つよく"], ["なり", ""], ["まし", ""], ["た", ""]]], "qzh": "参加过校园开放日（Open Campus）吗？", "za": ["非常遗憾，那天正好有打工抽不出时间，没能去成", "这件事我一直觉得很惋惜，所以把学校官网反反复复看了很多遍", "今天能真正来到校园，我一直特别期待", "亲眼看到校园这么干净又安静雅致，想在这里读书的心情变得更强烈了"], "aq": "mensetsu-audio/q_50b7b80c7d.mp3", "aa": "mensetsu-audio/a_ffa746fdbc.mp3"}]}, {"title": "板块四：国际共创学部・四年课程・语言与新闻（学业块）", "segs": [{"n": 13, "tag": "国际共创学部与理念", "q": [["どう", ""], ["し", ""], ["て", ""], ["国際共創学部", "こくさいきょうそうがくぶ"], ["です", ""], ["か", ""], ["。", ""], ["「", ""], ["国際共創", "こくさいきょうそう"], ["」", ""], ["と", ""], ["は", ""], ["何", "なに"], ["だ", ""], ["と", ""], ["思い", "おもい"], ["ます", ""], ["か", ""], ["。", ""]], "a": [[["経済", "けいざい"], ["・", ""], ["経営", "けいえい"], ["と", ""], ["、", ""], ["国際的", "こくさいてき"], ["な", ""], ["社会", "しゃかい"], ["や", ""], ["文化", "ぶんか"], ["を", ""], ["、", ""], ["両方", "りょうほう"], ["学べる", "まなべる"], ["から", ""], ["です", ""]], [["一年生", "いちねんせい"], ["から", ""], ["四年生", "よねんせい"], ["ま", ""], ["で", ""], ["毎年", "まいとし"], ["少人数", "しょうにんずう"], ["の", ""], ["ゼミ", ""], ["が", ""], ["あり", ""], ["、", ""], ["就職活動", "しゅうしょくかつどう"], ["まで", ""], ["サポート", ""], ["し", ""], ["て", ""], ["いただける", ""], ["の", ""], ["も", ""], ["魅力", "みりょく"], ["です", ""]], [["また", ""], ["、", ""], ["一年生", "いちねんせい"], ["の", ""], ["春休み", "はるやすみ"], ["に", ""], ["全員", "ぜんいん"], ["で", ""], ["三週間", "さんしゅうかん"], ["ハワイ大学マノア校", "ハワイだいがくマノアこう"], ["へ", ""], ["留学", "りゅうがく"], ["でき", ""], ["て", ""], ["、", ""], ["費用", "ひよう"], ["も", ""], ["学費", "がくひ"], ["に", ""], ["入っ", "はいっ"], ["て", ""], ["いる", ""], ["と", ""], ["知り", "しり"], ["まし", ""], ["た", ""]], [["いろいろ", ""], ["な", ""], ["国", "くに"], ["や", ""], ["文化", "ぶんか"], ["の", ""], ["仲間", "なかま"], ["と", ""], ["力", "ちから"], ["を", ""], ["合わせ", "あわせ"], ["て", ""], ["未来", "みらい"], ["を", ""], ["作る", "つくる"], ["こと", ""], ["が", ""], ["「", ""], ["国際共創", "こくさいきょうそう"], ["」", ""], ["だ", ""], ["と", ""], ["思う", "おもう"], ["の", ""], ["で", ""], ["、", ""], ["みんな", ""], ["と", ""], ["一緒", "いっしょ"], ["に", ""], ["学ぶ", "まなぶ"], ["の", ""], ["が", ""], ["とても", ""], ["楽しみ", "たのしみ"], ["です", ""]]], "qzh": "为什么选国际共创学部？你觉得什么是「国际共创」？", "za": ["因为在这里既能学经济与经营，又能同时学习国际社会与多元文化", "从大一到大四每年都有小班研讨课（ゼミ），一直帮扶到找工作，非常吸引我", "而且大一春假全员都能去夏威夷大学马诺阿分校留学三周，费用还包含在学费里", "我认为和不同国家、不同文化背景的伙伴齐心协力共创未来就是「国际共创」，所以我特别期待能和大家一起学习"], "aq": "mensetsu-audio/q_94671aa571.mp3", "aa": "mensetsu-audio/a_c4a479be61.mp3"}, {"n": 14, "tag": "大学四年具体学什么", "q": [["大学", "だいがく"], ["に", ""], ["入っ", "はいっ"], ["たら", ""], ["、", ""], ["具体的", "ぐたいてき"], ["に", ""], ["何", "なに"], ["を", ""], ["勉強", "べんきょう"], ["し", ""], ["たい", ""], ["です", ""], ["か", ""], ["。", ""]], "a": [[["まず", ""], ["は", ""], ["経済学概論", "けいざいがくがいろん"], ["と", ""], ["社会学概論", "しゃかいがくがいろん"], ["で", ""], ["、", ""], ["しっかり", ""], ["基礎", "きそ"], ["を", ""], ["身", "み"], ["に", ""], ["つけ", ""], ["たい", ""], ["です", ""]], [["その", ""], ["あと", ""], ["国際経済論", "こくさいけいざいろん"], ["と", ""], ["アジア経済論", "アジアけいざいろん"], ["で", ""], ["、", ""], ["日本", "にほん"], ["と", ""], ["中国", "ちゅうごく"], ["の", ""], ["貿易", "ぼうえき"], ["に", ""], ["つい", ""], ["て", ""], ["深く", "ふかく"], ["学び", "まなび"], ["たい", ""], ["です", ""]], [["ゼミ", ""], ["で", ""], ["も", ""], ["貿易", "ぼうえき"], ["を", ""], ["テーマ", ""], ["に", ""], ["研究", "けんきゅう"], ["し", ""], ["て", ""], ["、", ""], ["自分", "じぶん"], ["の", ""], ["考え", "かんがえ"], ["を", ""], ["わかり", ""], ["やすく", ""], ["伝える", "つたえる"], ["力", "ちから"], ["を", ""], ["つけ", ""], ["たい", ""], ["です", ""]]], "qzh": "上大学之后，具体想学哪些课程？（同义：入学后的抱负）", "za": ["首先我想在《经济学概论》和《社会学概论》里把基础打牢", "接着在《国际经济论》和《亚洲经济论》中深入学习日中贸易", "在研讨课（ゼミ）里我也想研究贸易课题，锻炼把自己的想法清晰表达出来的能力"], "aq": "mensetsu-audio/q_2610123003.mp3", "aa": "mensetsu-audio/a_41d2b6c743.mp3"}, {"n": 15, "tag": "日语与英语准备", "q": [["日本語", "にほんご"], ["や", ""], ["英語", "えいご"], ["の", ""], ["授業", "じゅぎょう"], ["に", ""], ["つい", ""], ["て", ""], ["いけ", ""], ["ます", ""], ["か", ""], ["。", ""]], "a": [[["日本語", "にほんご"], ["は", ""], ["十二月", "じゅうにがつ"], ["に", ""], ["N", ""], ["2", ""], ["、", ""], ["来年", "らいねん"], ["は", ""], ["N", ""], ["1", ""], ["の", ""], ["合格", "ごうかく"], ["を", ""], ["目指し", "めざし"], ["て", ""], ["毎日", "まいにち"], ["勉強", "べんきょう"], ["し", ""], ["て", ""], ["い", ""], ["ます", ""]], [["英語", "えいご"], ["は", ""], ["まだ", ""], ["得意", "とくい"], ["で", ""], ["は", ""], ["あり", ""], ["ませ", ""], ["ん", ""], ["が", ""], ["、", ""], ["ハワイ留学", "ハワイりゅうがく"], ["まで", ""], ["に", ""], ["少し", "すこし"], ["で", ""], ["も", ""], ["話せる", "はなせる"], ["よう", ""], ["に", ""], ["なり", ""], ["たく", ""], ["て", ""], ["、", ""], ["入学", "にゅうがく"], ["まで", ""], ["毎日", "まいにち"], ["単語", "たんご"], ["と", ""], ["リスニング", ""], ["を", ""], ["続け", "つづけ"], ["ます", ""]]], "qzh": "日语和英语的授课跟得上吗？", "za": ["日语方面，我正瞄准今年12月考过N2、明年考过N1，每天都在坚持学习", "英语目前还不算擅长，但为了在去夏威夷留学前尽可能多开口交流，入学前我会每天坚持背单词练听力"], "aq": "mensetsu-audio/q_33f99c213a.mp3", "aa": "mensetsu-audio/a_6c7b10fa6e.mp3"}, {"n": 16, "tag": "最近关心的新闻", "q": [["最近", "さいきん"], ["、", ""], ["気", "き"], ["に", ""], ["なっ", ""], ["て", ""], ["いる", ""], ["ニュース", ""], ["は", ""], ["あり", ""], ["ます", ""], ["か", ""], ["。", ""]], "a": [[["日本", "にほん"], ["の", ""], ["物価高", "ぶっかだか"], ["と", ""], ["円安", "えんやす"], ["の", ""], ["ニュース", ""], ["が", ""], ["一番", "いちばん"], ["気", "き"], ["に", ""], ["なっ", ""], ["て", ""], ["い", ""], ["ます", ""]], [["スーパー", ""], ["で", ""], ["の", ""], ["買い物", "かいもの"], ["や", ""], ["アルバイト先", "アルバイトさき"], ["の", ""], ["すき家", "すきや"], ["で", ""], ["も", ""], ["、", ""], ["値上がり", "ねあがり"], ["を", ""], ["肌", "はだ"], ["で", ""], ["感じ", "かんじ"], ["て", ""], ["い", ""], ["ます", ""]], [["どう", ""], ["し", ""], ["て", ""], ["物価", "ぶっか"], ["や", ""], ["為替", "かわせ"], ["が", ""], ["こう", ""], ["動く", "うごく"], ["の", ""], ["か", ""], ["、", ""], ["大学", "だいがく"], ["の", ""], ["経済学", "けいざいがく"], ["の", ""], ["授業", "じゅぎょう"], ["で", ""], ["基礎", "きそ"], ["から", ""], ["学ん", "まなん"], ["で", ""], ["み", ""], ["たい", ""], ["です", ""]]], "qzh": "最近有什么关注的经济或社会新闻吗？", "za": ["我最关注日本物价上涨和日元贬值的新闻", "平时去超市买东西，还有在食其家打工的时候，都能切身感受到涨价", "我很想在大学的经济学课堂上，从基础开始弄懂物价和汇率为什么会这样波动"], "aq": "mensetsu-audio/q_6cd95f56a4.mp3", "aa": "mensetsu-audio/a_8cc783c9a7.mp3"}]}, {"title": "板块五：学费与减免（家庭经济兜底）", "segs": [{"n": 17, "tag": "学费父母支持与减免", "q": [["学費", "がくひ"], ["は", ""], ["大丈夫", "だいじょうぶ"], ["です", ""], ["か", ""], ["。", ""], ["授業料減免", "じゅぎょうりょうげんめん"], ["や", ""], ["奨学金", "しょうがくきん"], ["は", ""], ["考え", "かんがえ"], ["て", ""], ["い", ""], ["ます", ""], ["か", ""], ["。", ""]], "a": [[["はい", ""], ["、", ""], ["確認", "かくにん"], ["し", ""], ["まし", ""], ["た", ""], ["。", ""], ["一年目", "いちねんめ"], ["は", ""], ["131万3千円", "ひゃくさんじゅういちまんさんぜんえん"], ["、", ""], ["四年間", "よねんかん"], ["で", ""], ["528万3千円", "ごひゃくにじゅうはちまんさんぜんえん"], ["です", ""]], [["両親", "りょうしん"], ["も", ""], ["私", "わたし"], ["の", ""], ["進学", "しんがく"], ["を", ""], ["心", "こころ"], ["から", ""], ["応援", "おうえん"], ["し", ""], ["て", ""], ["くれ", ""], ["て", ""], ["い", ""], ["て", ""], ["、", ""], ["学費", "がくひ"], ["は", ""], ["すべて", ""], ["両親", "りょうしん"], ["が", ""], ["払っ", "はらっ"], ["て", ""], ["くれ", ""], ["ます", ""]], [["入学後", "にゅうがくご"], ["は", ""], ["授業料減免制度", "じゅぎょうりょうげんめんせいど"], ["に", ""], ["も", ""], ["申請", "しんせい"], ["し", ""], ["たい", ""], ["と", ""], ["思っ", "おもっ"], ["て", ""], ["い", ""], ["ます", ""], ["が", ""], ["、", ""], ["もし", ""], ["通ら", "とおら"], ["なく", ""], ["て", ""], ["も", ""], ["両親", "りょうしん"], ["が", ""], ["払っ", "はらっ"], ["て", ""], ["くれる", ""], ["の", ""], ["で", ""], ["心配", "しんぱい"], ["は", ""], ["あり", ""], ["ませ", ""], ["ん", ""]], [["生活費", "せいかつひ"], ["だけ", ""], ["、", ""], ["勉強", "べんきょう"], ["に", ""], ["影響", "えいきょう"], ["が", ""], ["ない", ""], ["範囲", "はんい"], ["で", ""], ["アルバイト", ""], ["を", ""], ["し", ""], ["ます", ""]]], "qzh": "学费没问题吗？有没有考虑学费减免或奖学金？", "za": ["没问题，我已经仔细确认过招生简章，第一年是131万3千日元，四年一共528万3千日元", "父母发自内心地支持我升学，学费全部由父母承担", "入学后我也想申请自费外国留学生学费减免制度，但就算没批下来父母也会全额支付，完全不用担心", "只有生活费这一块，我会在不影响学习的前提下打工补贴一点"], "aq": "mensetsu-audio/q_2f95f20d0d.mp3", "aa": "mensetsu-audio/a_edca354791.mp3"}]}, {"title": "板块六：优缺点与收尾哄考官两连招（高分收官）", "segs": [{"n": 18, "tag": "优缺点与自我PR", "q": [["長所", "ちょうしょ"], ["と", ""], ["短所", "たんしょ"], ["を", ""], ["教え", "おしえ"], ["て", ""], ["ください", ""], ["。", ""]], "a": [[["長所", "ちょうしょ"], ["は", ""], ["、", ""], ["毎日", "まいにち"], ["休ま", "やすま"], ["ず", ""], ["に", ""], ["勉強", "べんきょう"], ["を", ""], ["続け", "つづけ"], ["られる", ""], ["こと", ""], ["です", ""]], [["アルバイト", ""], ["を", ""], ["し", ""], ["ながら", ""], ["で", ""], ["も", ""], ["、", ""], ["出席率", "しゅっせきりつ"], ["は", ""], ["99パーセント", ""], ["ぐらい", ""], ["を", ""], ["保っ", "たもっ"], ["て", ""], ["い", ""], ["ます", ""]], [["短所", "たんしょ"], ["は", ""], ["、", ""], ["少し", "すこし"], ["慎重", "しんちょう"], ["すぎ", ""], ["て", ""], ["、", ""], ["話す", "はなす"], ["前", "まえ"], ["に", ""], ["考え", "かんがえ"], ["すぎ", ""], ["て", ""], ["しまう", ""], ["ところ", ""], ["です", ""]], [["で", ""], ["も", ""], ["その", ""], ["分", "ぶん"], ["、", ""], ["人", "ひと"], ["の", ""], ["話", "はなし"], ["を", ""], ["よく", ""], ["聞く", "きく"], ["よう", ""], ["に", ""], ["し", ""], ["て", ""], ["い", ""], ["ます", ""], ["。", ""], ["大学", "だいがく"], ["の", ""], ["ゼミ", ""], ["で", ""], ["は", ""], ["自分", "じぶん"], ["から", ""], ["も", ""], ["笑顔", "えがお"], ["で", ""], ["積極的", "せっきょくてき"], ["に", ""], ["話し", "はなし"], ["たい", ""], ["です", ""]]], "qzh": "请说说你的优点和缺点。（同义：请做自我PR／谈谈你的强项）", "za": ["我的优点是每天坚持学习从不懈怠", "就算一边打工，语言学校的出勤率也一直保持在99%左右", "缺点是有时候稍微有点过于谨慎，开口说话前容易想太多", "但也正因为这样，我会非常认真地倾听别人说话。到了大学的研讨课上，我一定带着笑容主动积极发言"], "aq": "mensetsu-audio/q_f4264d5d4e.mp3", "aa": "mensetsu-audio/a_cd5a42cd46.mp3"}, {"n": 19, "tag": "逆质问（反问考官）", "q": [["何", "なに"], ["か", ""], ["質問", "しつもん"], ["は", ""], ["あり", ""], ["ます", ""], ["か", ""], ["。", ""]], "a": [[["はい", ""], ["、", ""], ["一つ", "ひとつ"], ["お伺い", "おうかがい"], ["し", ""], ["て", ""], ["も", ""], ["よろしい", ""], ["でしょう", ""], ["か", ""]], [["四月", "しがつ"], ["の", ""], ["入学", "にゅうがく"], ["まで", ""], ["に", ""], ["、", ""], ["読ん", "よん"], ["で", ""], ["おい", ""], ["た", ""], ["方がいい", "ほうがいい"], ["本", "ほん"], ["や", ""], ["、", ""], ["準備", "じゅんび"], ["し", ""], ["て", ""], ["おく", ""], ["と", ""], ["よい", ""], ["こと", ""], ["が", ""], ["あれ", ""], ["ば", ""], ["、", ""], ["ぜひ", ""], ["教え", "おしえ"], ["て", ""], ["いただき", ""], ["たい", ""], ["です", ""]]], "qzh": "你有什么想问我们的吗？", "za": ["有的，请问我可以请教一个问题吗", "在明年4月正式入学之前，如果有什么推荐提前阅读的书籍、或者建议提前做好的准备，非常希望能请老师们指点一下"], "aq": "mensetsu-audio/q_fe6b405318.mp3", "aa": "mensetsu-audio/a_fc42447abf.mp3"}, {"n": 20, "tag": "最后感言与决心", "q": [["最後", "さいご"], ["に", ""], ["何", "なに"], ["か", ""], ["言っ", "いっ"], ["て", ""], ["おき", ""], ["たい", ""], ["こと", ""], ["は", ""], ["あり", ""], ["ます", ""], ["か", ""], ["。", ""]], "a": [[["本日", "ほんじつ"], ["は", ""], ["緊張", "きんちょう"], ["し", ""], ["て", ""], ["い", ""], ["まし", ""], ["た", ""], ["が", ""], ["、", ""], ["先生方", "せんせいがた"], ["が", ""], ["優しく", "やさしく"], ["お", ""], ["話", "はなし"], ["を", ""], ["聞い", "きい"], ["て", ""], ["くださっ", ""], ["た", ""], ["の", ""], ["で", ""], ["、", ""], ["落ち着い", "おちつい"], ["て", ""], ["話す", "はなす"], ["こと", ""], ["が", ""], ["でき", ""], ["まし", ""], ["た", ""]], [["合格", "ごうかく"], ["を", ""], ["いただけ", ""], ["まし", ""], ["たら", ""], ["、", ""], ["四年間", "よねんかん"], ["一日", "いちにち"], ["も", ""], ["気", "き"], ["を", ""], ["抜か", "ぬか"], ["ず", ""], ["に", ""], ["頑張り", "がんばり"], ["ます", ""]], [["春", "はる"], ["から", ""], ["先生方", "せんせいがた"], ["の", ""], ["授業", "じゅぎょう"], ["を", ""], ["受ける", "うける"], ["の", ""], ["を", ""], ["、", ""], ["心", "こころ"], ["から", ""], ["楽しみ", "たのしみ"], ["に", ""], ["し", ""], ["て", ""], ["い", ""], ["ます", ""], ["。", ""], ["本日", "ほんじつ"], ["は", ""], ["本当", "ほんとう"], ["に", ""], ["ありがとう", ""], ["ござい", ""], ["まし", ""], ["た", ""]]], "qzh": "最后还有什么想说的吗？", "za": ["今天原本非常紧张，但因为各位老师特别温和地倾听我说话，让我能够平静下来回答", "如果能获得合格，这四年里我每一天都绝不松懈，全力以赴努力学习", "我发自内心地期待明年春天能坐进各位老师的课堂。今天真的非常感谢各位老师"], "aq": "mensetsu-audio/q_f0edf2cd8c.mp3", "aa": "mensetsu-audio/a_161b48488d.mp3"}]}], "commuteFlow": "mensetsu-audio/commute_flow_5a995ab2.m4a", "commuteQa": "mensetsu-audio/commute_qa_06c3a359.m4a", "built": "11/17 04:47"};
-const KEY_W='mensetsu-tango-v3', KEY_D='mensetsu-done-v3';
-let marked=new Set(), doneSet=new Set();
-try{marked=new Set(JSON.parse(localStorage.getItem(KEY_W)||'[]'))}catch(e){}
-try{doneSet=new Set(JSON.parse(localStorage.getItem(KEY_D)||'[]'))}catch(e){}
-const saveW=()=>{try{localStorage.setItem(KEY_W,JSON.stringify([...marked]))}catch(e){}};
-const saveD=()=>{try{localStorage.setItem(KEY_D,JSON.stringify([...doneSet]))}catch(e){}};
-const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const D={"blocks": [{"short": "①个人", "title": "板块一：我是谁・日本生活・打工与过往（个人底盘）", "segs": [{"n": 1, "tag": "自我介绍", "q": [["自己紹介", "じこしょうかい"], ["を", ""], ["し", ""], ["て", ""], ["ください", ""], ["。", ""]], "a": [[{"kw": true, "toks": [["{{NAME}}", ""]]}, {"kw": false, "toks": [["と", ""], ["申し", "もうし"], ["ます", ""]]}], [{"kw": true, "toks": [["中国", "ちゅうごく"]]}, {"kw": false, "toks": [["から", ""], ["来", "き"], ["まし", ""], ["た", ""], ["、", ""]]}, {"kw": true, "toks": [["二十一歳", "にじゅういっさい"]]}, {"kw": false, "toks": [["です", ""]]}], [{"kw": false, "toks": [["今", "いま"], ["は", ""]]}, {"kw": true, "toks": [["ヒューマン", ""], ["アカデミー", ""], ["日本語学校", "にほんごがっこう"]]}, {"kw": false, "toks": [["で", ""], ["、", ""], ["日本語", "にほんご"], ["を", ""], ["勉強", "べんきょう"], ["し", ""], ["て", ""], ["い", ""], ["ます", ""]]}], [{"kw": true, "toks": [["大阪経済大学", "おおさかけいざいだいがく"], ["の", ""], ["国際共創学部", "こくさいきょうそうがくぶ"]]}, {"kw": false, "toks": [["を", ""], ["志望", "しぼう"], ["し", ""], ["て", ""], ["い", ""], ["ます", ""]]}], [{"kw": false, "toks": [["本日", "ほんじつ"], ["は", ""], ["どうぞ", ""]]}, {"kw": true, "toks": [["よろしく", ""], ["お", ""], ["願い", "ねがい"], ["いたし", ""], ["ます", ""]]}]], "qzh": "请做一下自我介绍。", "za": ["我叫 {{ZH_NAME}}", "来自中国，今年21岁", "现在在修曼日本语学校学习日语", "志愿报考大阪经济大学的国际共创学部", "今天请各位老师多多关照"], "alts": [{"qzh": "请先报一下姓名并做自我介绍。", "q": [["まず", ""], ["、", ""], ["お", ""], ["名前", "なまえ"], ["と", ""], ["自己紹介", "じこしょうかい"], ["を", ""], ["お", ""], ["願い", "ねがい"], ["し", ""], ["ます", ""], ["。", ""]], "aq": "mensetsu-audio/q_dd27cddb39.mp3"}], "aq": "mensetsu-audio/q_c5d7241343.mp3", "aa": "mensetsu-audio/a_5052c85a2b.mp3"}, {"n": 2, "tag": "来日与日本生活", "q": [["いつ", ""], ["日本", "にほん"], ["に", ""], ["来", "き"], ["まし", ""], ["た", ""], ["か", ""], ["。", ""], ["日本", "にほん"], ["の", ""], ["生活", "せいかつ"], ["に", ""], ["は", ""], ["慣れ", "なれ"], ["まし", ""], ["た", ""], ["か", ""], ["。", ""]], "a": [[{"kw": true, "toks": [["去年", "きょねん"], ["の", ""], ["十月", "じゅうがつ"]]}, {"kw": false, "toks": [["に", ""], ["日本", "にほん"], ["へ", ""], ["来", "き"], ["まし", ""], ["た", ""]]}], [{"kw": false, "toks": [["もう", ""]]}, {"kw": true, "toks": [["すっかり", ""], ["慣れ", "なれ"], ["て", ""]]}, {"kw": false, "toks": [["、", ""], ["毎日", "まいにち"], ["とても", ""], ["充実", "じゅうじつ"], ["し", ""], ["て", ""], ["い", ""], ["ます", ""]]}], [{"kw": false, "toks": [["学校", "がっこう"], ["の", ""]]}, {"kw": true, "toks": [["先生方", "せんせいがた"], ["も", ""], ["周りの方", "まわりのかた"], ["も", ""], ["本当", "ほんとう"], ["に", ""], ["優しく", "やさしく"]]}, {"kw": false, "toks": [["て", ""], ["、", ""], ["日本", "にほん"], ["に", ""], ["来", "き"], ["て", ""], ["よかっ", ""], ["た", ""], ["と", ""], ["感じ", "かんじ"], ["て", ""], ["い", ""], ["ます", ""]]}]], "qzh": "什么时候来日本的？习惯日本的生活了吗？", "za": ["我是去年10月来日本的", "已经完全习惯了，每天都过得很充实", "学校的老师们和身边的人都特别温柔亲切，真心觉得来日本太好了"], "alts": [], "aq": "mensetsu-audio/q_2e799ba092.mp3", "aa": "mensetsu-audio/a_5d28691745.mp3"}, {"n": 3, "tag": "现住址与通学", "q": [["今", "いま"], ["は", ""], ["どこ", ""], ["に", ""], ["住ん", "すん"], ["で", ""], ["い", ""], ["ます", ""], ["か", ""], ["。", ""], ["大学", "だいがく"], ["まで", ""], ["通え", "かよえ"], ["ます", ""], ["か", ""], ["。", ""]], "a": [[{"kw": false, "toks": [["今", "いま"], ["は", ""]]}, {"kw": true, "toks": [["{{CITY}}", ""], ["で", ""], ["一人暮らし", "ひとりぐらし"]]}, {"kw": false, "toks": [["を", ""], ["し", ""], ["て", ""], ["い", ""], ["ます", ""]]}], [{"kw": false, "toks": [["今", "いま"], ["の", ""], ["家", "いえ"], ["から", ""], ["で", ""], ["も", ""]]}, {"kw": true, "toks": [["電車", "でんしゃ"], ["で", ""], ["五十分", "ごじっぷん"]]}, {"kw": false, "toks": [["ほど", ""], ["で", ""], ["通え", "かよえ"], ["ます", ""]]}], [{"kw": false, "toks": [["合格", "ごうかく"], ["を", ""], ["いただけ", ""], ["まし", ""], ["たら", ""], ["、", ""], ["もっと", ""], ["勉強", "べんきょう"], ["に", ""], ["集中", "しゅうちゅう"], ["できる", ""], ["よう", ""], ["に", ""], ["、", ""]]}, {"kw": true, "toks": [["キャンパス", ""], ["の", ""], ["近く", "ちかく"], ["へ", ""], ["引っ越す", "ひっこす"]]}, {"kw": false, "toks": [["つもり", ""], ["です", ""]]}]], "qzh": "现在住在哪里？上大学通勤方便吗？", "za": ["我现在在{{ZH_CITY}}一个人住", "从现在的家坐电车大概50分钟也能到学校", "如果能荣幸合格的话，为了更集中精力学习，我打算搬到校区附近住"], "alts": [], "aq": "mensetsu-audio/q_36fcf48eb8.mp3", "aa": "mensetsu-audio/a_3983d1db59.mp3"}, {"n": 4, "tag": "打工与出勤平衡", "q": [["アルバイト", ""], ["は", ""], ["し", ""], ["て", ""], ["い", ""], ["ます", ""], ["か", ""], ["。", ""], ["勉強", "べんきょう"], ["と", ""], ["両立", "りょうりつ"], ["でき", ""], ["て", ""], ["い", ""], ["ます", ""], ["か", ""], ["。", ""]], "a": [[{"kw": false, "toks": [["はい", ""], ["、", ""]]}, {"kw": true, "toks": [["すき家", "すきや"], ["で", ""], ["週", "しゅう"], ["に", ""], ["22時間", "にじゅうにじかん"]]}, {"kw": false, "toks": [["ぐらい", ""], ["働い", "はたらい"], ["て", ""], ["い", ""], ["ます", ""]]}], [{"kw": false, "toks": [["で", ""], ["も", ""], ["、", ""], ["私", "わたし"], ["の", ""], ["中", "なか"], ["で", ""], ["は", ""]]}, {"kw": true, "toks": [["学校", "がっこう"], ["の", ""], ["勉強", "べんきょう"], ["が", ""], ["一番", "いちばん"], ["大事", "だいじ"]]}, {"kw": false, "toks": [["です", ""]]}], [{"kw": false, "toks": [["アルバイト", ""], ["で", ""], ["も", ""], ["日本", "にほん"], ["の", ""]]}, {"kw": true, "toks": [["礼儀", "れいぎ"], ["や", ""], ["接客", "せっきゃく"], ["の", ""], ["言葉", "ことば"]]}, {"kw": false, "toks": [["を", ""], ["学べ", "まなべ"], ["て", ""], ["、", ""], ["とても", ""], ["いい", ""], ["経験", "けいけん"], ["に", ""], ["なっ", ""], ["て", ""], ["い", ""], ["ます", ""]]}]], "qzh": "在打工吗？能和学习兼顾吗？", "za": ["是的，我在食其家每周打工22小时左右", "但在我心里，学校的学习永远是第一位的", "在打工时也能学到日本的礼仪和待客敬语，成了非常好的锻炼"], "alts": [{"qzh": "学业和打工能兼顾好吗？", "q": [["学業", "がくぎょう"], ["と", ""], ["アルバイト", ""], ["の", ""], ["両立", "りょうりつ"], ["は", ""], ["でき", ""], ["て", ""], ["い", ""], ["ます", ""], ["か", ""], ["。", ""]], "aq": "mensetsu-audio/q_2f8b96d3de.mp3"}], "aq": "mensetsu-audio/q_5d795da51e.mp3", "aa": "mensetsu-audio/a_718b0808eb.mp3"}, {"n": 5, "tag": "高中毕业后的准备", "q": [["高校", "こうこう"], ["を", ""], ["卒業", "そつぎょう"], ["し", ""], ["て", ""], ["から", ""], ["日本", "にほん"], ["に", ""], ["来る", "くる"], ["まで", ""], ["は", ""], ["、", ""], ["何", "なに"], ["を", ""], ["し", ""], ["て", ""], ["い", ""], ["まし", ""], ["た", ""], ["か", ""], ["。", ""]], "a": [[{"kw": false, "toks": [["将来", "しょうらい"], ["の", ""], ["進路", "しんろ"], ["を", ""], ["よく", ""], ["考え", "かんがえ"], ["て", ""], ["、", ""]]}, {"kw": true, "toks": [["日本", "にほん"], ["で", ""], ["就職", "しゅうしょく"], ["し", ""], ["て", ""], ["長く", "ながく"], ["働く", "はたらく"]]}, {"kw": false, "toks": [["こと", ""], ["を", ""], ["目標", "もくひょう"], ["に", ""], ["決め", "きめ"], ["まし", ""], ["た", ""]]}], [{"kw": false, "toks": [["その", ""], ["ため", ""], ["に", ""], ["、", ""], ["中国", "ちゅうごく"], ["で", ""]]}, {"kw": true, "toks": [["日本語", "にほんご"], ["の", ""], ["勉強", "べんきょう"], ["と", ""], ["留学", "りゅうがく"], ["の", ""], ["準備", "じゅんび"]]}, {"kw": false, "toks": [["を", ""], ["し", ""], ["て", ""], ["い", ""], ["まし", ""], ["た", ""]]}]], "qzh": "高中毕业到来日本之前，在做些什么？", "za": ["我认真思考了未来的出路，定下了在日本就业并长期工作的目标", "为了实现这个目标，当时在中国专心学习日语并准备留学"], "alts": [], "aq": "mensetsu-audio/q_4fe766f9af.mp3", "aa": "mensetsu-audio/a_6f20278aa1.mp3"}, {"n": 6, "tag": "国内大学（仅追问时答）", "q": [["中国", "ちゅうごく"], ["の", ""], ["大学", "だいがく"], ["に", ""], ["は", ""], ["行き", "いき"], ["まし", ""], ["た", ""], ["か", ""], ["。", ""]], "a": [[{"kw": false, "toks": [["はい", ""], ["、", ""]]}, {"kw": true, "toks": [["中国", "ちゅうごく"], ["の", ""], ["大学", "だいがく"], ["に", ""], ["一年", "いちねん"]]}, {"kw": false, "toks": [["通い", "かよい"], ["まし", ""], ["た", ""]]}], [{"kw": false, "toks": [["専攻", "せんこう"], ["は", ""]]}, {"kw": true, "toks": [["幼児教育", "ようじきょういく"]]}, {"kw": false, "toks": [["でし", ""], ["た", ""], ["が", ""], ["、", ""], ["本当", "ほんとう"], ["に", ""], ["し", ""], ["たい", ""], ["の", ""], ["は", ""]]}, {"kw": true, "toks": [["日本", "にほん"], ["と", ""], ["関わる", "かかわる"], ["貿易", "ぼうえき"], ["の", ""], ["仕事", "しごと"]]}, {"kw": false, "toks": [["だ", ""], ["と", ""], ["気づき", "きづき"], ["、", ""], ["退学", "たいがく"], ["し", ""], ["て", ""], ["日本", "にほん"], ["へ", ""], ["来", "き"], ["まし", ""], ["た", ""]]}], [{"kw": false, "toks": [["遠回り", "とおまわり"], ["し", ""], ["た", ""], ["分", "ぶん"], ["、", ""], ["今回", "こんかい"], ["は", ""]]}, {"kw": true, "toks": [["目標", "もくひょう"], ["に", ""], ["合う", "あう"], ["学部", "がくぶ"]]}, {"kw": false, "toks": [["を", ""], ["しっかり", ""], ["選ん", "えらん"], ["だ", ""], ["の", ""], ["で", ""], ["、", ""]]}, {"kw": true, "toks": [["必ず", "かならず"], ["四年間", "よねんかん"], ["で", ""], ["卒業", "そつぎょう"]]}, {"kw": false, "toks": [["し", ""], ["ます", ""]]}]], "qzh": "在中国上过大学吗？", "za": ["是的，在中国的大学读过一年", "当时专业是幼儿教育，但后来意识到自己真正想做的是和日本相关的贸易工作，于是退学来到了日本", "正因为绕了一点远路，这次我选定了契合目标的学部，一定会读满四年顺利毕业"], "alts": [], "aq": "mensetsu-audio/q_a098dc5170.mp3", "aa": "mensetsu-audio/a_0b28192a3e.mp3"}]}, {"short": "②主线", "title": "板块二：为什么来日本・爱大阪・毕业目标（未来主线）", "segs": [{"n": 7, "tag": "为什么来日本", "q": [["どう", ""], ["し", ""], ["て", ""], ["日本", "にほん"], ["に", ""], ["留学", "りゅうがく"], ["しよう", ""], ["と", ""], ["思っ", "おもっ"], ["た", ""], ["ん", ""], ["です", ""], ["か", ""], ["。", ""]], "a": [[{"kw": false, "toks": [["中国", "ちゅうごく"], ["と", ""], ["日本", "にほん"], ["は", ""]]}, {"kw": true, "toks": [["経済", "けいざい"], ["の", ""], ["つながり", ""], ["が", ""], ["とても", ""], ["強い", "つよい"]]}, {"kw": false, "toks": [["から", ""], ["です", ""]]}], [{"kw": true, "toks": [["中国語", "ちゅうごくご"], ["と", ""], ["日本語", "にほんご"], ["の", ""], ["両方", "りょうほう"]]}, {"kw": false, "toks": [["が", ""], ["できる", ""], ["人", "ひと"], ["は", ""], ["、", ""], ["日本", "にほん"], ["の", ""], ["会社", "かいしゃ"], ["で", ""]]}, {"kw": true, "toks": [["必要", "ひつよう"], ["と", ""], ["さ", ""], ["れ", ""], ["て", ""], ["いる", ""]]}, {"kw": false, "toks": [["と", ""], ["思い", "おもい"], ["まし", ""], ["た", ""]]}], [{"kw": true, "toks": [["日本", "にほん"], ["で", ""], ["就職", "しゅうしょく"], ["し", ""], ["て", ""], ["、", ""], ["長く", "ながく"], ["働こう", "はたらこう"]]}, {"kw": false, "toks": [["と", ""], ["決め", "きめ"], ["まし", ""], ["た", ""]]}]], "qzh": "为什么决定来日本留学？", "za": ["因为中国和日本在经济上的联系非常紧密", "我觉得既懂中文又懂日语的人，在日本企业里是被需要的", "所以我下定决心要在日本就业，长期工作下去"], "alts": [{"qzh": "决定来日本留学的契机是什么？", "q": [["日本", "にほん"], ["へ", ""], ["の", ""], ["留学", "りゅうがく"], ["を", ""], ["決め", "きめ"], ["た", ""], ["きっかけ", ""], ["は", ""], ["何", "なに"], ["です", ""], ["か", ""], ["。", ""]], "aq": "mensetsu-audio/q_06a9179f91.mp3"}], "aq": "mensetsu-audio/q_cf6122615b.mp3", "aa": "mensetsu-audio/a_66e581bd19.mp3"}, {"n": 8, "tag": "为什么选大阪", "q": [["日本", "にほん"], ["の", ""], ["中", "なか"], ["で", ""], ["も", ""], ["、", ""], ["どう", ""], ["し", ""], ["て", ""], ["大阪", "おおさか"], ["を", ""], ["選ん", "えらん"], ["だ", ""], ["ん", ""], ["です", ""], ["か", ""], ["。", ""]], "a": [[{"kw": true, "toks": [["中国", "ちゅうごく"], ["と", ""], ["取引", "とりひき"], ["を", ""], ["し", ""], ["て", ""], ["いる", ""], ["会社", "かいしゃ"]]}, {"kw": false, "toks": [["が", ""], ["たくさん", ""], ["あり", ""], ["、", ""], ["中国語", "ちゅうごくご"], ["と", ""], ["日本語", "にほんご"], ["を", ""]]}, {"kw": true, "toks": [["一番", "いちばん"], ["生かせる", "いかせる"], ["場所", "ばしょ"]]}, {"kw": false, "toks": [["だ", ""], ["から", ""], ["です", ""]]}], [{"kw": false, "toks": [["実際", "じっさい"], ["に", ""], ["大阪", "おおさか"], ["で", ""], ["生活", "せいかつ"], ["し", ""], ["て", ""], ["み", ""], ["て", ""], ["、", ""]]}, {"kw": true, "toks": [["人", "ひと"], ["が", ""], ["明るく", "あかるく"], ["て", ""], ["親切", "しんせつ"]]}, {"kw": false, "toks": [["で", ""], ["、", ""]]}, {"kw": true, "toks": [["この", ""], ["町", "まち"], ["が", ""], ["大好き", "だいすき"]]}, {"kw": false, "toks": [["に", ""], ["なり", ""], ["まし", ""], ["た", ""]]}], [{"kw": false, "toks": [["卒業", "そつぎょう"], ["し", ""], ["て", ""], ["から", ""], ["も", ""], ["、", ""]]}, {"kw": true, "toks": [["ずっと", ""], ["大阪", "おおさか"], ["で", ""], ["暮らし", "くらし"], ["たい", ""]]}, {"kw": false, "toks": [["です", ""]]}]], "qzh": "日本这么多地方，为什么偏偏选了大阪？", "za": ["因为大阪有很多和中国做生意的企业，是最能发挥中文和日语优势的地方", "而且实际在大阪生活之后，发现这里的人开朗又热心，我一下子就爱上了这座城市", "毕业以后我也想一直留在大阪生活"], "alts": [{"qzh": "为什么没有选东京，而是选了大阪？", "q": [["東京", "とうきょう"], ["で", ""], ["は", ""], ["なく", ""], ["、", ""], ["大阪", "おおさか"], ["を", ""], ["選ん", "えらん"], ["だ", ""], ["理由", "りゆう"], ["は", ""], ["あり", ""], ["ます", ""], ["か", ""], ["。", ""]], "aq": "mensetsu-audio/q_b3bfd91bbe.mp3"}], "aq": "mensetsu-audio/q_9ad132b950.mp3", "aa": "mensetsu-audio/a_e31970277e.mp3"}, {"n": 9, "tag": "毕业后的工作目标", "q": [["大学", "だいがく"], ["を", ""], ["卒業", "そつぎょう"], ["し", ""], ["たら", ""], ["、", ""], ["将来", "しょうらい"], ["どんな", ""], ["仕事", "しごと"], ["が", ""], ["し", ""], ["たい", ""], ["です", ""], ["か", ""], ["。", ""]], "a": [[{"kw": true, "toks": [["大阪", "おおさか"], ["で", ""], ["就職", "しゅうしょく"]]}, {"kw": false, "toks": [["して", ""], ["、", ""], ["海外", "かいがい"], ["と", ""], ["取引", "とりひき"], ["が", ""], ["ある", ""], ["会社", "かいしゃ"], ["で", ""], ["長く", "ながく"], ["働き", "はたらき"], ["たい", ""], ["です", ""]]}], [{"kw": true, "toks": [["貿易事務", "ぼうえきじむ"], ["や", ""], ["営業サポート", "えいぎょうサポート"]]}, {"kw": false, "toks": [["の", ""], ["仕事", "しごと"], ["を", ""], ["目指し", "めざし"], ["て", ""], ["い", ""], ["ます", ""]]}], [{"kw": false, "toks": [["中国", "ちゅうごく"], ["の", ""], ["会社", "かいしゃ"], ["と", ""], ["は", ""]]}, {"kw": true, "toks": [["中国語", "ちゅうごくご"]]}, {"kw": false, "toks": [["、", ""], ["ほか", ""], ["の", ""], ["国", "くに"], ["の", ""], ["会社", "かいしゃ"], ["と", ""], ["は", ""]]}, {"kw": true, "toks": [["英語", "えいご"]]}, {"kw": false, "toks": [["を", ""], ["使っ", "つかっ"], ["て", ""], ["、", ""]]}, {"kw": true, "toks": [["日本", "にほん"], ["と", ""], ["海外", "かいがい"], ["を", ""], ["つなぐ", ""], ["仕事", "しごと"]]}, {"kw": false, "toks": [["が", ""], ["し", ""], ["たい", ""], ["です", ""]]}]], "qzh": "大学毕业后，将来想做什么样的工作？", "za": ["我想在大阪就业，在有海外业务往来的公司长期工作", "目标是从事贸易事务或营业支持的工作", "面对中国客户用中文、面对其他国家客户用英语，做连接日本与海外的工作"], "alts": [{"qzh": "请谈谈毕业后的出路和未来的职业规划。", "q": [["卒業後", "そつぎょうご"], ["の", ""], ["進路", "しんろ"], ["や", ""], ["、", ""], ["将来", "しょうらい"], ["の", ""], ["キャリア", ""], ["プラン", ""], ["を", ""], ["教え", "おしえ"], ["て", ""], ["ください", ""], ["。", ""]], "aq": "mensetsu-audio/q_f3a939de79.mp3"}], "aq": "mensetsu-audio/q_d21930b67d.mp3", "aa": "mensetsu-audio/a_d18dae4740.mp3"}]}, {"short": "③择校", "title": "板块三：为什么认准大阪经济大学（择校＋开放日）", "segs": [{"n": 10, "tag": "为什么选大经大", "q": [["どう", ""], ["し", ""], ["て", ""], ["大阪経済大学", "おおさかけいざいだいがく"], ["を", ""], ["志望", "しぼう"], ["し", ""], ["た", ""], ["ん", ""], ["です", ""], ["か", ""], ["。", ""]], "a": [[{"kw": true, "toks": [["理由", "りゆう"], ["は", ""], ["二つ", "ふたつ"]]}, {"kw": false, "toks": [["あり", ""], ["ます", ""]]}], [{"kw": false, "toks": [["一つ目", "ひとつめ"], ["は", ""], ["、", ""]]}, {"kw": true, "toks": [["就職", "しゅうしょく"], ["の", ""], ["サポート", ""], ["が", ""], ["手厚い", "てあつい"]]}, {"kw": false, "toks": [["こと", ""], ["です", ""]]}], [{"kw": true, "toks": [["キャリア支援課の方", "キャリアしえんかのかた"]]}, {"kw": false, "toks": [["に", ""], ["何度", "なんど"], ["で", ""], ["も", ""], ["相談", "そうだん"], ["でき", ""], ["て", ""], ["、", ""]]}, {"kw": true, "toks": [["先生", "せんせい"], ["と", ""], ["職員の方", "しょくいんのかた"], ["が", ""], ["チーム", ""]]}, {"kw": false, "toks": [["で", ""], ["支え", "ささえ"], ["て", ""], ["くださる", ""], ["と", ""], ["知り", "しり"], ["まし", ""], ["た", ""]]}], [{"kw": true, "toks": [["学生", "がくせい"], ["一人ひとり", "ひとりひとり"], ["を", ""], ["大切", "たいせつ"], ["に", ""], ["し", ""], ["て", ""], ["くれる", ""], ["大学", "だいがく"]]}, {"kw": false, "toks": [["だ", ""], ["と", ""], ["感じ", "かんじ"], ["まし", ""], ["た", ""]]}], [{"kw": false, "toks": [["二つ目", "ふたつめ"], ["は", ""], ["、", ""]]}, {"kw": true, "toks": [["「", ""], ["人間的実学", "にんげんてきじつがく"], ["」", ""]]}, {"kw": false, "toks": [["です", ""]]}], [{"kw": true, "toks": [["人", "ひと"], ["と", ""], ["し", ""], ["て", ""], ["成長", "せいちょう"]]}, {"kw": false, "toks": [["する", ""], ["こと", ""], ["と", ""], ["、", ""]]}, {"kw": true, "toks": [["社会", "しゃかい"], ["で", ""], ["役に立つ", "やくにたつ"], ["力", "ちから"]]}, {"kw": false, "toks": [["を", ""], ["つける", ""], ["こと", ""], ["の", ""], ["両方", "りょうほう"], ["を", ""], ["大事", "だいじ"], ["に", ""], ["し", ""], ["て", ""], ["い", ""], ["て", ""], ["、", ""], ["私", "わたし"], ["も", ""], ["ぜひ", ""], ["ここ", ""], ["で", ""], ["学び", "まなび"], ["たい", ""], ["と", ""], ["思い", "おもい"], ["まし", ""], ["た", ""]]}]], "qzh": "为什么志愿报考大阪经济大学？", "za": ["理由有两个", "第一，贵校的就业支援非常周到贴心", "可以不限次数向就业支援课的老师咨询，授课老师和职员老师还会组成团队一起帮扶", "让我感受到这是一所珍惜每一位学生的好大学", "第二，是「人间性实学」理念", "既重视作为人的成长，又重视培养在社会上派得上用场的真本领，我也非常想在这里学习"], "alts": [{"qzh": "请谈谈报考本校的志望理由。", "q": [["本学", "ほんがく"], ["の", ""], ["志望理由", "しぼうりゆう"], ["を", ""], ["教え", "おしえ"], ["て", ""], ["ください", ""], ["。", ""]], "aq": "mensetsu-audio/q_69d72c5240.mp3"}], "aq": "mensetsu-audio/q_d5291d2f29.mp3", "aa": "mensetsu-audio/a_03096a47e0.mp3"}, {"n": 11, "tag": "他校对比与必入学", "q": [["ほか", ""], ["の", ""], ["大学", "だいがく"], ["と", ""], ["も", ""], ["迷い", "まよい"], ["まし", ""], ["た", ""], ["か", ""], ["。", ""], ["合格", "ごうかく"], ["し", ""], ["たら", ""], ["必ず", "かならず"], ["入学", "にゅうがく"], ["し", ""], ["ます", ""], ["か", ""], ["。", ""]], "a": [[{"kw": false, "toks": [["日本語学校", "にほんごがっこう"], ["の", ""], ["説明会", "せつめいかい"], ["で", ""], ["ほか", ""], ["の", ""], ["大学", "だいがく"], ["と", ""], ["も", ""], ["比べ", "くらべ"], ["まし", ""], ["た", ""], ["が", ""], ["、", ""]]}, {"kw": true, "toks": [["調べれ", "しらべれ"], ["ば", ""], ["調べる", "しらべる"], ["ほど", ""], ["大阪経済大学", "おおさかけいざいだいがく"], ["に", ""], ["行き", "いき"], ["たく", ""]]}, {"kw": false, "toks": [["なり", ""], ["まし", ""], ["た", ""]]}], [{"kw": false, "toks": [["今", "いま"], ["は", ""]]}, {"kw": true, "toks": [["大阪経済大学", "おおさかけいざいだいがく"], ["一本", "いっぽん"]]}, {"kw": false, "toks": [["に", ""], ["決め", "きめ"], ["て", ""], ["い", ""], ["ます", ""]]}], [{"kw": false, "toks": [["合格", "ごうかく"], ["を", ""], ["いただけ", ""], ["まし", ""], ["たら", ""], ["、", ""], ["日本語学校", "にほんごがっこう"], ["の", ""], ["代表", "だいひょう"], ["と", ""], ["し", ""], ["て", ""]]}, {"kw": true, "toks": [["必ず", "かならず"], ["入学", "にゅうがく"], ["し", ""], ["ます", ""]]}]], "qzh": "有没有犹豫过其他大学？合格的话一定会入学吗？", "za": ["我在语言学校的说明会上也对比过其他大学，但越深入了解就越想来大阪经济大学", "现在我一心只认准大阪经济大学这一所", "如果能荣幸合格，我作为语言学校的代表，保证一定入学"], "alts": [{"qzh": "还有同时报考其他大学吗？本校是唯一志愿吗？", "q": [["ほか", ""], ["に", ""], ["併願", "へいがん"], ["し", ""], ["て", ""], ["いる", ""], ["大学", "だいがく"], ["は", ""], ["あり", ""], ["ます", ""], ["か", ""], ["。", ""], ["本学", "ほんがく"], ["が", ""], ["専願", "せんがん"], ["です", ""], ["か", ""], ["。", ""]], "aq": "mensetsu-audio/q_3f558748f4.mp3"}], "aq": "mensetsu-audio/q_a888217806.mp3", "aa": "mensetsu-audio/a_107ab6b777.mp3"}, {"n": 12, "tag": "校园开放日与初印象", "q": [["オープン", ""], ["キャンパス", ""], ["に", ""], ["は", ""], ["行き", "いき"], ["まし", ""], ["た", ""], ["か", ""], ["。", ""]], "a": [[{"kw": false, "toks": [["残念", "ざんねん"], ["です", ""], ["が", ""], ["、", ""], ["その", ""], ["日", "ひ"], ["は", ""]]}, {"kw": true, "toks": [["アルバイト", ""], ["が", ""], ["あっ", ""], ["て", ""], ["時間", "じかん"], ["が", ""], ["作れ", "つくれ"], ["ず", ""]]}, {"kw": false, "toks": [["、", ""], ["行け", "いけ"], ["ませ", ""], ["ん", ""], ["でし", ""], ["た", ""]]}], [{"kw": false, "toks": [["それ", ""], ["が", ""], ["ずっと", ""]]}, {"kw": true, "toks": [["心残り", "こころのこり"]]}, {"kw": false, "toks": [["だっ", ""], ["た", ""], ["の", ""], ["で", ""], ["、", ""], ["その", ""], ["分", "ぶん"]]}, {"kw": true, "toks": [["ホーム", ""], ["ページ", ""], ["を", ""], ["何度", "なんど"], ["も", ""]]}, {"kw": false, "toks": [["見", "み"], ["まし", ""], ["た", ""]]}], [{"kw": false, "toks": [["今日", "きょう"], ["キャンパス", ""], ["に", ""], ["来る", "くる"], ["の", ""], ["を", ""], ["とても", ""], ["楽しみ", "たのしみ"], ["に", ""], ["し", ""], ["て", ""], ["い", ""], ["まし", ""], ["た", ""]]}], [{"kw": false, "toks": [["実際", "じっさい"], ["に", ""], ["来", "き"], ["て", ""], ["み", ""], ["て", ""], ["、", ""]]}, {"kw": true, "toks": [["きれい", ""], ["で", ""], ["落ち着い", "おちつい"], ["た", ""], ["雰囲気", "ふんいき"]]}, {"kw": false, "toks": [["が", ""], ["とても", ""], ["素敵", "すてき"], ["で", ""], ["、", ""]]}, {"kw": true, "toks": [["ここ", ""], ["で", ""], ["学び", "まなび"], ["たい", ""], ["気持ち", "きもち"], ["が", ""], ["もっと", ""], ["強く", "つよく"]]}, {"kw": false, "toks": [["なり", ""], ["まし", ""], ["た", ""]]}]], "qzh": "参加过校园开放日吗？", "za": ["非常遗憾，那天正好有打工抽不出时间，没能去成", "这件事一直觉得很惋惜，所以把学校官网反反复复看了很多遍", "今天能真正来到校园，我一直特别期待", "亲眼看到校园这么干净又安静雅致，想在这里读书的心情变得更强烈了"], "alts": [{"qzh": "你是怎么收集本校信息的？今天来校园感觉如何？", "q": [["本学", "ほんがく"], ["の", ""], ["情報", "じょうほう"], ["は", ""], ["どの", ""], ["よう", ""], ["に", ""], ["集め", "あつめ"], ["まし", ""], ["た", ""], ["か", ""], ["。", ""], ["今日", "きょう"], ["の", ""], ["キャンパス", ""], ["の", ""], ["印象", "いんしょう"], ["は", ""], ["どう", ""], ["です", ""], ["か", ""], ["。", ""]], "aq": "mensetsu-audio/q_e8913e8da0.mp3"}], "aq": "mensetsu-audio/q_50b7b80c7d.mp3", "aa": "mensetsu-audio/a_ffa746fdbc.mp3"}]}, {"short": "④学业", "title": "板块四：国际共创学部・四年课程・语言与新闻（学业块）", "segs": [{"n": 13, "tag": "国际共创学部与理念", "q": [["どう", ""], ["し", ""], ["て", ""], ["国際共創学部", "こくさいきょうそうがくぶ"], ["です", ""], ["か", ""], ["。", ""], ["「", ""], ["国際共創", "こくさいきょうそう"], ["」", ""], ["と", ""], ["は", ""], ["何", "なに"], ["だ", ""], ["と", ""], ["思い", "おもい"], ["ます", ""], ["か", ""], ["。", ""]], "a": [[{"kw": true, "toks": [["経済", "けいざい"], ["・", ""], ["経営", "けいえい"]]}, {"kw": false, "toks": [["と", ""], ["、", ""]]}, {"kw": true, "toks": [["国際的", "こくさいてき"], ["な", ""], ["社会", "しゃかい"], ["や", ""], ["文化", "ぶんか"]]}, {"kw": false, "toks": [["を", ""], ["、", ""], ["両方", "りょうほう"], ["学べる", "まなべる"], ["から", ""], ["です", ""]]}], [{"kw": false, "toks": [["一年生", "いちねんせい"], ["から", ""], ["四年生", "よねんせい"], ["ま", ""], ["で", ""]]}, {"kw": true, "toks": [["毎年", "まいとし"], ["少人数", "しょうにんずう"], ["の", ""], ["ゼミ", ""]]}, {"kw": false, "toks": [["が", ""], ["あり", ""], ["、", ""], ["就職活動", "しゅうしょくかつどう"], ["まで", ""], ["サポート", ""], ["し", ""], ["て", ""], ["いただける", ""], ["の", ""], ["も", ""], ["魅力", "みりょく"], ["です", ""]]}], [{"kw": false, "toks": [["また", ""], ["、", ""], ["一年生", "いちねんせい"], ["の", ""], ["春休み", "はるやすみ"], ["に", ""]]}, {"kw": true, "toks": [["全員", "ぜんいん"], ["で", ""], ["三週間", "さんしゅうかん"], ["ハワイ大学マノア校", "ハワイだいがくマノアこう"], ["へ", ""], ["留学", "りゅうがく"]]}, {"kw": false, "toks": [["でき", ""], ["て", ""], ["、", ""]]}, {"kw": true, "toks": [["費用", "ひよう"], ["も", ""], ["学費", "がくひ"], ["に", ""], ["入っ", "はいっ"], ["て", ""], ["いる", ""]]}, {"kw": false, "toks": [["と", ""], ["知り", "しり"], ["まし", ""], ["た", ""]]}], [{"kw": true, "toks": [["いろいろ", ""], ["な", ""], ["国", "くに"], ["や", ""], ["文化", "ぶんか"], ["の", ""], ["仲間", "なかま"], ["と", ""], ["力", "ちから"], ["を", ""], ["合わせ", "あわせ"], ["て", ""], ["未来", "みらい"], ["を", ""], ["作る", "つくる"]]}, {"kw": false, "toks": [["こと", ""], ["が", ""], ["「", ""], ["国際共創", "こくさいきょうそう"], ["」", ""], ["だ", ""], ["と", ""], ["思う", "おもう"], ["の", ""], ["で", ""], ["、", ""], ["みんな", ""], ["と", ""], ["一緒", "いっしょ"], ["に", ""], ["学ぶ", "まなぶ"], ["の", ""], ["が", ""], ["とても", ""], ["楽しみ", "たのしみ"], ["です", ""]]}]], "qzh": "为什么选国际共创学部？你觉得什么是「国际共创」？", "za": ["因为既能学经济与经营，又能同时学习国际社会与多元文化", "从大一到大四每年都有小班研讨课，一直帮扶到找工作，非常吸引我", "而且大一春假全员都能去夏威夷大学马诺阿分校留学三周，费用还包含在学费里", "我认为和不同国家与文化的伙伴齐心协力共创未来就是「国际共创」，特别期待和大家一起学习"], "alts": [{"qzh": "为什么没选经济或经营学部，而选了国际共创学部？", "q": [["経済学部", "けいざいがくぶ"], ["や", ""], ["経営学部", "けいえいがくぶ"], ["で", ""], ["は", ""], ["なく", ""], ["、", ""], ["国際共創学部", "こくさいきょうそうがくぶ"], ["を", ""], ["選ん", "えらん"], ["だ", ""], ["の", ""], ["は", ""], ["どう", ""], ["し", ""], ["て", ""], ["です", ""], ["か", ""], ["。", ""]], "aq": "mensetsu-audio/q_f026e02538.mp3"}], "aq": "mensetsu-audio/q_94671aa571.mp3", "aa": "mensetsu-audio/a_c4a479be61.mp3"}, {"n": 14, "tag": "大学四年具体学什么", "q": [["大学", "だいがく"], ["に", ""], ["入っ", "はいっ"], ["たら", ""], ["、", ""], ["具体的", "ぐたいてき"], ["に", ""], ["何", "なに"], ["を", ""], ["勉強", "べんきょう"], ["し", ""], ["たい", ""], ["です", ""], ["か", ""], ["。", ""]], "a": [[{"kw": false, "toks": [["まず", ""], ["は", ""]]}, {"kw": true, "toks": [["経済学概論", "けいざいがくがいろん"], ["と", ""], ["社会学概論", "しゃかいがくがいろん"]]}, {"kw": false, "toks": [["で", ""], ["、", ""], ["しっかり", ""], ["基礎", "きそ"], ["を", ""], ["身", "み"], ["に", ""], ["つけ", ""], ["たい", ""], ["です", ""]]}], [{"kw": false, "toks": [["その", ""], ["あと", ""]]}, {"kw": true, "toks": [["国際経済論", "こくさいけいざいろん"], ["と", ""], ["アジア経済論", "アジアけいざいろん"]]}, {"kw": false, "toks": [["で", ""], ["、", ""]]}, {"kw": true, "toks": [["日本", "にほん"], ["と", ""], ["中国", "ちゅうごく"], ["の", ""], ["貿易", "ぼうえき"]]}, {"kw": false, "toks": [["に", ""], ["つい", ""], ["て", ""], ["深く", "ふかく"], ["学び", "まなび"], ["たい", ""], ["です", ""]]}], [{"kw": true, "toks": [["ゼミ", ""], ["で", ""], ["も", ""], ["貿易", "ぼうえき"], ["を", ""], ["テーマ", ""], ["に", ""], ["研究", "けんきゅう"]]}, {"kw": false, "toks": [["して", ""], ["、", ""], ["自分", "じぶん"], ["の", ""], ["考え", "かんがえ"], ["を", ""]]}, {"kw": true, "toks": [["わかり", ""], ["やすく", ""], ["伝える", "つたえる"], ["力", "ちから"]]}, {"kw": false, "toks": [["を", ""], ["つけ", ""], ["たい", ""], ["です", ""]]}]], "qzh": "上大学之后，具体想学哪些课程？", "za": ["首先我想在《经济学概论》和《社会学概论》里把基础打牢", "接着在《国际经济论》和《亚洲经济论》中深入学习日中贸易", "在研讨课里我也想以贸易为主题做研究，锻炼把想法清晰传达出来的能力"], "alts": [{"qzh": "请谈谈入学后的抱负，以及特别想修读的科目。", "q": [["入学後", "にゅうがくご"], ["の", ""], ["抱負", "ほうふ"], ["や", ""], ["、", ""], ["特に", "とくに"], ["履修", "りしゅう"], ["し", ""], ["たい", ""], ["科目", "かもく"], ["を", ""], ["教え", "おしえ"], ["て", ""], ["ください", ""], ["。", ""]], "aq": "mensetsu-audio/q_54936f04aa.mp3"}], "aq": "mensetsu-audio/q_2610123003.mp3", "aa": "mensetsu-audio/a_41d2b6c743.mp3"}, {"n": 15, "tag": "日语与英语准备", "q": [["日本語", "にほんご"], ["や", ""], ["英語", "えいご"], ["の", ""], ["授業", "じゅぎょう"], ["に", ""], ["つい", ""], ["て", ""], ["いけ", ""], ["ます", ""], ["か", ""], ["。", ""]], "a": [[{"kw": false, "toks": [["日本語", "にほんご"], ["は", ""]]}, {"kw": true, "toks": [["来月", "らいげつ"], ["の", ""], ["十二月", "じゅうにがつ"], ["に", ""], ["N", ""], ["2", ""]]}, {"kw": false, "toks": [["、", ""]]}, {"kw": true, "toks": [["来年", "らいねん"], ["は", ""], ["N", ""], ["1", ""]]}, {"kw": false, "toks": [["の", ""], ["合格", "ごうかく"], ["を", ""], ["目指し", "めざし"], ["て", ""], ["毎日", "まいにち"], ["勉強", "べんきょう"], ["し", ""], ["て", ""], ["い", ""], ["ます", ""]]}], [{"kw": false, "toks": [["英語", "えいご"], ["は", ""], ["まだ", ""], ["得意", "とくい"], ["で", ""], ["は", ""], ["あり", ""], ["ませ", ""], ["ん", ""], ["が", ""], ["、", ""]]}, {"kw": true, "toks": [["ハワイ留学", "ハワイりゅうがく"], ["まで", ""], ["に", ""], ["少し", "すこし"], ["で", ""], ["も", ""], ["話せる", "はなせる"]]}, {"kw": false, "toks": [["よう", ""], ["に", ""], ["なり", ""], ["たく", ""], ["て", ""], ["、", ""], ["入学", "にゅうがく"], ["まで", ""]]}, {"kw": true, "toks": [["毎日", "まいにち"], ["単語", "たんご"], ["と", ""], ["リスニング", ""]]}, {"kw": false, "toks": [["を", ""], ["続け", "つづけ"], ["ます", ""]]}]], "qzh": "日语和英语的授课跟得上吗？", "za": ["日语方面，我正瞄准下个月12月考过N2、明年考过N1，每天都在坚持学习", "英语目前还不算擅长，但为了在夏威夷留学前尽可能多开口交流，入学前会每天坚持背单词练听力"], "alts": [{"qzh": "距离入学剩下的四个月，你打算怎么学习度过？", "q": [["入学", "にゅうがく"], ["まで", ""], ["の", ""], ["残り", "のこり"], ["四ヶ月間", "よんかげつかん"], ["、", ""], ["どの", ""], ["よう", ""], ["に", ""], ["勉強", "べんきょう"], ["し", ""], ["て", ""], ["過ごし", "すごし"], ["ます", ""], ["か", ""], ["。", ""]], "aq": "mensetsu-audio/q_331400fd29.mp3"}], "aq": "mensetsu-audio/q_33f99c213a.mp3", "aa": "mensetsu-audio/a_605e77ad4e.mp3"}, {"n": 16, "tag": "最近关心的新闻", "q": [["最近", "さいきん"], ["、", ""], ["気", "き"], ["に", ""], ["なっ", ""], ["て", ""], ["いる", ""], ["ニュース", ""], ["は", ""], ["あり", ""], ["ます", ""], ["か", ""], ["。", ""]], "a": [[{"kw": false, "toks": [["日本", "にほん"], ["の", ""]]}, {"kw": true, "toks": [["物価高", "ぶっかだか"], ["と", ""], ["円安", "えんやす"]]}, {"kw": false, "toks": [["の", ""], ["ニュース", ""], ["が", ""], ["一番", "いちばん"], ["気", "き"], ["に", ""], ["なっ", ""], ["て", ""], ["い", ""], ["ます", ""]]}], [{"kw": false, "toks": [["スーパー", ""], ["で", ""], ["の", ""], ["買い物", "かいもの"], ["や", ""]]}, {"kw": true, "toks": [["アルバイト先", "アルバイトさき"], ["の", ""], ["すき家", "すきや"], ["で", ""], ["も", ""], ["値上がり", "ねあがり"]]}, {"kw": false, "toks": [["を", ""], ["肌", "はだ"], ["で", ""], ["感じ", "かんじ"], ["て", ""], ["い", ""], ["ます", ""]]}], [{"kw": false, "toks": [["どう", ""], ["し", ""], ["て", ""]]}, {"kw": true, "toks": [["物価", "ぶっか"], ["や", ""], ["為替", "かわせ"]]}, {"kw": false, "toks": [["が", ""], ["こう", ""], ["動く", "うごく"], ["の", ""], ["か", ""], ["、", ""], ["大学", "だいがく"], ["の", ""]]}, {"kw": true, "toks": [["経済学", "けいざいがく"], ["の", ""], ["授業", "じゅぎょう"], ["で", ""], ["基礎", "きそ"], ["から", ""], ["学ん", "まなん"], ["で", ""]]}, {"kw": false, "toks": [["みたい", ""], ["です", ""]]}]], "qzh": "最近有什么关注的经济或社会新闻吗？", "za": ["我最关注日本物价上涨和日元贬值的新闻", "平时去超市买东西，还有在食其家打工的时候，都能切身感受到涨价", "我很想在大学的经济学课堂上，从基础开始弄懂物价和汇率为什么会这样波动"], "alts": [{"qzh": "最近对日本的经济或社会有什么关注的话题吗？", "q": [["最近", "さいきん"], ["、", ""], ["日本", "にほん"], ["の", ""], ["経済", "けいざい"], ["や", ""], ["社会", "しゃかい"], ["で", ""], ["関心", "かんしん"], ["を", ""], ["持っ", "もっ"], ["て", ""], ["いる", ""], ["こと", ""], ["は", ""], ["あり", ""], ["ます", ""], ["か", ""], ["。", ""]], "aq": "mensetsu-audio/q_545c59acd6.mp3"}], "aq": "mensetsu-audio/q_6cd95f56a4.mp3", "aa": "mensetsu-audio/a_5c1173ca40.mp3"}]}, {"short": "⑤学费", "title": "板块五：学费与减免（家庭经济兜底）", "segs": [{"n": 17, "tag": "学费父母支持与减免", "q": [["学費", "がくひ"], ["は", ""], ["大丈夫", "だいじょうぶ"], ["です", ""], ["か", ""], ["。", ""], ["授業料減免", "じゅぎょうりょうげんめん"], ["や", ""], ["奨学金", "しょうがくきん"], ["は", ""], ["考え", "かんがえ"], ["て", ""], ["い", ""], ["ます", ""], ["か", ""], ["。", ""]], "a": [[{"kw": false, "toks": [["はい", ""], ["、", ""], ["確認", "かくにん"], ["し", ""], ["まし", ""], ["た", ""], ["。", ""]]}, {"kw": true, "toks": [["一年目", "いちねんめ"], ["は", ""], ["131万3千円", "ひゃくさんじゅういちまんさんぜんえん"], ["、", ""], ["四年間", "よねんかん"], ["で", ""], ["528万3千円", "ごひゃくにじゅうはちまんさんぜんえん"]]}, {"kw": false, "toks": [["です", ""]]}], [{"kw": true, "toks": [["両親", "りょうしん"], ["も", ""], ["心", "こころ"], ["から", ""], ["応援", "おうえん"]]}, {"kw": false, "toks": [["し", ""], ["て", ""], ["くれ", ""], ["て", ""], ["い", ""], ["て", ""], ["、", ""]]}, {"kw": true, "toks": [["学費", "がくひ"], ["は", ""], ["すべて", ""], ["両親", "りょうしん"]]}, {"kw": false, "toks": [["が", ""], ["払っ", "はらっ"], ["て", ""], ["くれ", ""], ["ます", ""]]}], [{"kw": false, "toks": [["入学後", "にゅうがくご"], ["は", ""]]}, {"kw": true, "toks": [["授業料減免制度", "じゅぎょうりょうげんめんせいど"], ["に", ""], ["も", ""], ["申請", "しんせい"]]}, {"kw": false, "toks": [["し", ""], ["たい", ""], ["と", ""], ["思っ", "おもっ"], ["て", ""], ["い", ""], ["ます", ""], ["が", ""], ["、", ""], ["もし", ""]]}, {"kw": true, "toks": [["通ら", "とおら"], ["なく", ""], ["て", ""], ["も", ""], ["両親", "りょうしん"], ["が", ""], ["払っ", "はらっ"], ["て", ""], ["くれる", ""]]}, {"kw": false, "toks": [["の", ""], ["で", ""], ["心配", "しんぱい"], ["は", ""], ["あり", ""], ["ませ", ""], ["ん", ""]]}], [{"kw": true, "toks": [["生活費", "せいかつひ"], ["だけ", ""]]}, {"kw": false, "toks": [["、", ""], ["勉強", "べんきょう"], ["に", ""], ["影響", "えいきょう"], ["が", ""], ["ない", ""], ["範囲", "はんい"], ["で", ""]]}, {"kw": true, "toks": [["アルバイト", ""]]}, {"kw": false, "toks": [["を", ""], ["し", ""], ["ます", ""]]}]], "qzh": "学费没问题吗？有没有考虑学费减免或奖学金？", "za": ["没问题，我已经确认过，第一年是131万3千日元，四年一共528万3千日元", "父母发自内心地支持我，学费全部由父母承担", "入学后我也想申请学费减免制度，但就算没批下来父母也会支付，完全不用担心", "只有生活费，我会在不影响学习的前提下打工补贴"], "alts": [{"qzh": "学费的经费支付人是谁？支付上没有问题吗？", "q": [["学費", "がくひ"], ["の", ""], ["支弁者", "しべんしゃ"], ["は", ""], ["どなた", ""], ["です", ""], ["か", ""], ["。", ""], ["支払い", "しはらい"], ["に", ""], ["問題", "もんだい"], ["は", ""], ["あり", ""], ["ませ", ""], ["ん", ""], ["か", ""], ["。", ""]], "aq": "mensetsu-audio/q_9803a486be.mp3"}], "aq": "mensetsu-audio/q_2f95f20d0d.mp3", "aa": "mensetsu-audio/a_cc26724c8c.mp3"}]}, {"short": "⑥收官", "title": "板块六：优缺点与收尾哄考官两连招（高分收官）", "segs": [{"n": 18, "tag": "优缺点与自我PR", "q": [["長所", "ちょうしょ"], ["と", ""], ["短所", "たんしょ"], ["を", ""], ["教え", "おしえ"], ["て", ""], ["ください", ""], ["。", ""]], "a": [[{"kw": false, "toks": [["長所", "ちょうしょ"], ["は", ""], ["、", ""]]}, {"kw": true, "toks": [["毎日", "まいにち"], ["休ま", "やすま"], ["ず", ""], ["に", ""], ["勉強", "べんきょう"], ["を", ""], ["続け", "つづけ"], ["られる", ""]]}, {"kw": false, "toks": [["こと", ""], ["です", ""]]}], [{"kw": false, "toks": [["アルバイト", ""], ["を", ""], ["し", ""], ["ながら", ""], ["で", ""], ["も", ""], ["、", ""]]}, {"kw": true, "toks": [["出席率", "しゅっせきりつ"], ["は", ""], ["99パーセント", ""]]}, {"kw": false, "toks": [["ぐらい", ""], ["を", ""], ["保っ", "たもっ"], ["て", ""], ["い", ""], ["ます", ""]]}], [{"kw": false, "toks": [["短所", "たんしょ"], ["は", ""], ["、", ""]]}, {"kw": true, "toks": [["少し", "すこし"], ["慎重", "しんちょう"], ["すぎ", ""], ["て", ""], ["、", ""], ["話す", "はなす"], ["前", "まえ"], ["に", ""], ["考え", "かんがえ"], ["すぎ", ""], ["て", ""], ["しまう", ""]]}, {"kw": false, "toks": [["ところ", ""], ["です", ""]]}], [{"kw": false, "toks": [["で", ""], ["も", ""], ["その", ""], ["分", "ぶん"], ["、", ""]]}, {"kw": true, "toks": [["人", "ひと"], ["の", ""], ["話", "はなし"], ["を", ""], ["よく", ""], ["聞く", "きく"]]}, {"kw": false, "toks": [["よう", ""], ["に", ""], ["し", ""], ["て", ""], ["い", ""], ["ます", ""], ["。", ""], ["大学", "だいがく"], ["の", ""], ["ゼミ", ""], ["で", ""], ["は", ""], ["自分", "じぶん"], ["から", ""], ["も", ""]]}, {"kw": true, "toks": [["笑顔", "えがお"], ["で", ""], ["積極的", "せっきょくてき"], ["に", ""], ["話し", "はなし"], ["たい", ""]]}, {"kw": false, "toks": [["です", ""]]}]], "qzh": "请说说你的优点和缺点。", "za": ["我的优点是每天坚持学习从不间断", "就算一边打工，出勤率也一直保持在99%左右", "缺点是稍微有点过于谨慎，开口说话前容易想太多", "但也正因为这样，我会认真倾听别人说话。到了大学研讨课上，我想带着笑容主动积极发言"], "alts": [{"qzh": "请做一下自我PR。在语言学校最努力的事是什么？", "q": [["自己PR", "じこピーアール"], ["を", ""], ["お", ""], ["願い", "ねがい"], ["し", ""], ["ます", ""], ["。", ""], ["日本語学校", "にほんごがっこう"], ["で", ""], ["一番", "いちばん"], ["頑張っ", "がんばっ"], ["た", ""], ["こと", ""], ["は", ""], ["何", "なに"], ["です", ""], ["か", ""], ["。", ""]], "aq": "mensetsu-audio/q_e7d30747a6.mp3"}], "aq": "mensetsu-audio/q_f4264d5d4e.mp3", "aa": "mensetsu-audio/a_cd5a42cd46.mp3"}, {"n": 19, "tag": "逆质问（反问考官）", "q": [["何", "なに"], ["か", ""], ["質問", "しつもん"], ["は", ""], ["あり", ""], ["ます", ""], ["か", ""], ["。", ""]], "a": [[{"kw": false, "toks": [["はい", ""], ["、", ""]]}, {"kw": true, "toks": [["一つ", "ひとつ"], ["お伺い", "おうかがい"], ["し", ""], ["て", ""], ["も", ""], ["よろしい", ""], ["でしょう", ""], ["か", ""]]}], [{"kw": false, "toks": [["四月", "しがつ"], ["の", ""], ["入学", "にゅうがく"], ["まで", ""], ["に", ""], ["、", ""]]}, {"kw": true, "toks": [["読ん", "よん"], ["で", ""], ["おい", ""], ["た", ""], ["方がいい", "ほうがいい"], ["本", "ほん"]]}, {"kw": false, "toks": [["や", ""], ["、", ""]]}, {"kw": true, "toks": [["準備", "じゅんび"], ["し", ""], ["て", ""], ["おく", ""], ["と", ""], ["よい", ""], ["こと", ""]]}, {"kw": false, "toks": [["が", ""], ["あれ", ""], ["ば", ""], ["、", ""], ["ぜひ", ""], ["教え", "おしえ"], ["て", ""], ["いただき", ""], ["たい", ""], ["です", ""]]}]], "qzh": "你有什么想问我们的吗？", "za": ["有的，请问我可以请教一个问题吗", "在4月入学之前，如果有什么推荐提前阅读的书、或者建议提前做好的准备，非常希望老师们能指点一下"], "alts": [], "aq": "mensetsu-audio/q_fe6b405318.mp3", "aa": "mensetsu-audio/a_fc42447abf.mp3"}, {"n": 20, "tag": "最后感言与决心", "q": [["最後", "さいご"], ["に", ""], ["何", "なに"], ["か", ""], ["言っ", "いっ"], ["て", ""], ["おき", ""], ["たい", ""], ["こと", ""], ["は", ""], ["あり", ""], ["ます", ""], ["か", ""], ["。", ""]], "a": [[{"kw": false, "toks": [["本日", "ほんじつ"], ["は", ""], ["緊張", "きんちょう"], ["し", ""], ["て", ""], ["い", ""], ["まし", ""], ["た", ""], ["が", ""], ["、", ""]]}, {"kw": true, "toks": [["先生方", "せんせいがた"], ["が", ""], ["優しく", "やさしく"], ["お", ""], ["話", "はなし"], ["を", ""], ["聞い", "きい"], ["て", ""], ["くださっ", ""], ["た", ""]]}, {"kw": false, "toks": [["の", ""], ["で", ""], ["、", ""]]}, {"kw": true, "toks": [["落ち着い", "おちつい"], ["て", ""], ["話す", "はなす"]]}, {"kw": false, "toks": [["こと", ""], ["が", ""], ["でき", ""], ["まし", ""], ["た", ""]]}], [{"kw": false, "toks": [["合格", "ごうかく"], ["を", ""], ["いただけ", ""], ["まし", ""], ["たら", ""], ["、", ""]]}, {"kw": true, "toks": [["四年間", "よねんかん"], ["一日", "いちにち"], ["も", ""], ["気", "き"], ["を", ""], ["抜か", "ぬか"], ["ず", ""], ["に", ""], ["頑張り", "がんばり"], ["ます", ""]]}], [{"kw": false, "toks": [["春", "はる"], ["から", ""]]}, {"kw": true, "toks": [["先生方", "せんせいがた"], ["の", ""], ["授業", "じゅぎょう"], ["を", ""], ["受ける", "うける"], ["の", ""], ["を", ""], ["心", "こころ"], ["から", ""], ["楽しみ", "たのしみ"], ["に", ""]]}, {"kw": false, "toks": [["し", ""], ["て", ""], ["い", ""], ["ます", ""], ["。", ""], ["本日", "ほんじつ"], ["は", ""], ["本当", "ほんとう"], ["に", ""], ["ありがとう", ""], ["ござい", ""], ["まし", ""], ["た", ""]]}]], "qzh": "最后还有什么想说的吗？", "za": ["今天原本很紧张，但各位老师特别温和地倾听我说话，让我能够平静下来回答", "如果能获得合格，这四年里我每一天都绝不松懈努力学习", "我发自内心地期待春天能上各位老师的课。今天真的非常感谢各位老师"], "alts": [{"qzh": "那么最后，如果有什么想对考官说的话请讲。", "q": [["で", ""], ["は", ""], ["最後", "さいご"], ["に", ""], ["、", ""], ["面接官", "めんせつかん"], ["に", ""], ["伝え", "つたえ"], ["て", ""], ["おき", ""], ["たい", ""], ["こと", ""], ["が", ""], ["あれ", ""], ["ば", ""], ["どうぞ", ""], ["。", ""]], "aq": "mensetsu-audio/q_77e1d783a4.mp3"}], "aq": "mensetsu-audio/q_f0edf2cd8c.mp3", "aa": "mensetsu-audio/a_3c5fa44dc6.mp3"}]}], "stage": {"enter": {"title": "🚪 进门报号台词", "steps": ["敲3下 → 听到「どうぞ」进门轻关门 → 椅子旁站直微笑报号 → 说完45°鞠躬 → 「どうぞ」后说「失礼いたします」坐前一半："], "after": "", "zh": ["打扰了", "我是准考证号 {{EXAM_NO}} 号、{{ZH_NAME}}", "今天请各位老师多多关照"], "clauses": [[["失礼", "しつれい"], ["いたし", ""], ["ます", ""], ["。", ""]], [["受験番号", "じゅけんばんごう"], ["{{EXAM_NO}}", ""], ["番", "ばん"], ["、", ""], ["{{NAME}}", ""], ["です", ""], ["。", ""]], [["本日", "ほんじつ"], ["は", ""], ["よろしく", ""], ["お", ""], ["願い", "ねがい"], ["いたし", ""], ["ます", ""], ["。", ""]]], "audio": "mensetsu-audio/st_b491a208d9.mp3"}, "exit": {"title": "🚪 结束退场台词（考官说「これで終わります」）", "steps": ["坐着点头说第1句 → 起身站椅子旁说第2句并45°鞠躬 → 门口转身说第3句鞠躬出门（出校门前绝不掏手机）："], "after": "", "zh": ["非常感谢", "感谢各位老师百忙之中抽出宝贵时间", "告辞了"], "clauses": [[["ありがとう", ""], ["ござい", ""], ["まし", ""], ["た", ""], ["。", ""]], [["本日", "ほんじつ"], ["は", ""], ["お忙しい中", "おいそがしいなか"], ["、", ""], ["お", ""], ["時間", "じかん"], ["を", ""], ["いただき", ""], ["、", ""], ["ありがとう", ""], ["ござい", ""], ["まし", ""], ["た", ""], ["。", ""]], [["失礼", "しつれい"], ["いたし", ""], ["ます", ""], ["。", ""]]], "audio": "mensetsu-audio/st_61b3f581dd.mp3"}}, "rescue": [{"situation": "没听清考官问题", "zh": "不好意思，能麻烦您再说一遍吗？", "toks": [["すみ", ""], ["ませ", ""], ["ん", ""], ["、", ""], ["もう一度", "もういちど"], ["お", ""], ["願い", "ねがい"], ["でき", ""], ["ます", ""], ["でしょう", ""], ["か", ""], ["。", ""]], "audio": "mensetsu-audio/rs_87f7e68a06.mp3"}, {"situation": "某个词没听懂（把听到的音照念一遍）", "zh": "不好意思，请问「〇〇」是什么意思呢？", "toks": [["すみ", ""], ["ませ", ""], ["ん", ""], ["、", ""], ["「", ""], ["〇", ""], ["〇", ""], ["」", ""], ["は", ""], ["どう", ""], ["いう", ""], ["意味", "いみ"], ["でしょう", ""], ["か", ""], ["。", ""]], "audio": "mensetsu-audio/rs_10e430b073.mp3"}, {"situation": "想确认自己没理解偏", "zh": "请问您是指〇〇的意思吗？（等老师点头再答）", "toks": [["〇", ""], ["〇", ""], ["と", ""], ["いう", ""], ["こと", ""], ["でしょう", ""], ["か", ""], ["。", ""]], "audio": "mensetsu-audio/rs_4a88a3ec03.mp3"}, {"situation": "脑子卡壳需要3秒组织语言", "zh": "请问可以让我稍微思考一下吗？", "toks": [["少し", "すこし"], ["考え", "かんがえ"], ["て", ""], ["も", ""], ["よろしい", ""], ["でしょう", ""], ["か", ""], ["。", ""]], "audio": "mensetsu-audio/rs_2bde22bddc.mp3"}, {"situation": "完全没准备到的冷门知识", "zh": "不好意思，那块我还学习得不够充分，入学前一定好好查清楚。", "toks": [["すみ", ""], ["ませ", ""], ["ん", ""], ["、", ""], ["そこ", ""], ["は", ""], ["まだ", ""], ["勉強不足", "べんきょうぶそく"], ["でし", ""], ["た", ""], ["。", ""], ["入学", "にゅうがく"], ["まで", ""], ["に", ""], ["しっかり", ""], ["調べ", "しらべ"], ["て", ""], ["おき", ""], ["ます", ""], ["。", ""]], "audio": "mensetsu-audio/rs_5bcd950e54.mp3"}], "presetWords": ["人間的実学", "キャリア支援課の方", "手厚い", "一人ひとり", "少人数", "経済学概論", "国際経済論", "貿易事務", "授業料減免制度", "131万3千円", "528万3千円", "物価高", "為替", "心残り", "遠回り", "お伺い"], "commuteFlow": "mensetsu-audio/commute_flow_02d1f326.m4a", "commuteQa": "mensetsu-audio/commute_qa_87559272.m4a", "built": "11/17 05:05"};
+const KW='mensetsu-tango-v3', KD='mensetsu-done-v3', KP='mensetsu-prof-v1', KC='mensetsu-chk-v1';
 
+let marked=new Set(), doneSet=new Set(), chkSet=new Set();
+let prof={name:'',zhName:'',city:'',zhCity:'',no:''};
+try{marked=new Set(JSON.parse(localStorage.getItem(KW)||'[]'))}catch(e){}
+try{doneSet=new Set(JSON.parse(localStorage.getItem(KD)||'[]'))}catch(e){}
+try{chkSet=new Set(JSON.parse(localStorage.getItem(KC)||'[]'))}catch(e){}
+try{Object.assign(prof,JSON.parse(localStorage.getItem(KP)||'{}'))}catch(e){}
+
+/* 支持私密 #hash 一键注入本机姓名/城市/考号（不走服务器、不留痕在URL栏） */
+(function parseHashProfile(){
+  if(!location.hash || !location.hash.includes('='))return;
+  const sp=new URLSearchParams(location.hash.slice(1));
+  let touched=false;
+  for(const k of ['name','zhName','city','zhCity','no']){
+    if(sp.has(k)){prof[k]=sp.get(k).trim();touched=true;}
+  }
+  if(touched){
+    try{localStorage.setItem(KP,JSON.stringify(prof))}catch(e){}
+    try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}
+  }
+})();
+
+const saveW=()=>{try{localStorage.setItem(KW,JSON.stringify([...marked]))}catch(e){}};
+const saveD=()=>{try{localStorage.setItem(KD,JSON.stringify([...doneSet]))}catch(e){}};
+const saveP=()=>{try{localStorage.setItem(KP,JSON.stringify(prof))}catch(e){}};
+const saveC=()=>{try{localStorage.setItem(KC,JSON.stringify([...chkSet]))}catch(e){}};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function applyProf(str){
+  return str
+    .replace(/\{\{NAME\}\}/g, prof.name||'〇〇')
+    .replace(/\{\{ZH_NAME\}\}/g, prof.zhName||prof.name||'〇〇')
+    .replace(/\{\{CITY\}\}/g, prof.city||'〇〇市')
+    .replace(/\{\{ZH_CITY\}\}/g, prof.zhCity||prof.city||'〇〇市')
+    .replace(/\{\{EXAM_NO\}\}/g, prof.no||'〇〇');
+}
+
+/* 受验番号日语读音自动生成器（防进门嘴瓢） */
+function examNoYomi(no){
+  const clean=(no||'').trim();
+  if(!/^\d+$/.test(clean))return '';
+  const dig=['ゼロ','いち','に','さん','よん','ご','ろく','なな','はち','きゅう'];
+  const byDigit=clean.split('').map(d=>dig[Number(d)]).join('・')+' ばん';
+  const n=parseInt(clean,10);
+  if(clean.startsWith('0') || n===0 || n>9999)return `🔊 番号读法：じゅけんばんごう ${byDigit}`;
+  const u1=['','いち','に','さん','よん','ご','ろく','なな','はち','きゅう'];
+  let intStr='';
+  const th=Math.floor(n/1000), hu=Math.floor((n%1000)/100), te=Math.floor((n%100)/10), on=n%10;
+  if(th)intStr+=th===1?'せん':th===3?'さんぜん':th===8?'はっせん':u1[th]+'せん';
+  if(hu)intStr+=hu===1?'ひゃく':hu===3?'さんびゃく':hu===6?'ろっぴゃく':hu===8?'はっぴゃく':u1[hu]+'ひゃく';
+  if(te)intStr+=te===1?'じゅう':u1[te]+'じゅう';
+  if(on)intStr+=u1[on];
+  return `🔊 番号读法：${byDigit}（或连读：${intStr}ばん）`;
+}
+
+/* 倒计时徽章（按东京日历天计算，11/17显示距面试4天） */
+(function updateCountdown(){
+  const jstNow=new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Tokyo'}));
+  const today0=new Date(jstNow.getFullYear(),jstNow.getMonth(),jstNow.getDate());
+  const exam0=new Date(2026,10,21);
+  const days=Math.round((exam0-today0)/86400000);
+  const el=document.getElementById('cd-badge');
+  if(days===0)el.textContent='🔥 今日决战';
+  else if(days===1)el.textContent='🔥 明日开考';
+  else if(days>1)el.textContent=`距考 ${days} 天`;
+  else el.textContent='11/21';
+})();
+
+/* 词典收集与 <ruby> 渲染 */
 const words=new Map();
-function line(toks,n){
+function renderToks(toks,segN){
   return toks.map(([s,y])=>{
-    if(!y)return esc(s);
+    const txt=esc(applyProf(s));
+    if(!y)return txt;
     if(!words.has(s))words.set(s,{y,qs:new Set()});
-    words.get(s).qs.add(n);
-    return `<span class="w" data-w="${esc(s)}" data-y="${esc(y)}">${esc(s)}</span>`;
+    if(segN)words.get(s).qs.add(segN);
+    return `<ruby class="w${marked.has(s)?' on':''}" data-w="${esc(s)}">${txt}<rt>${esc(y)}</rt></ruby>`;
   }).join('');
 }
+function renderClauseSpans(spans,segN){
+  return spans.map(sp=>{
+    const inner=renderToks(sp.toks,segN);
+    return sp.kw?`<mark class="kw">${inner}</mark>`:`<span class="non-kw">${inner}</span>`;
+  }).join('');
+}
+
 const allSegs=[];
-for(const b of D.blocks){
+D.blocks.forEach((b,bIdx)=>{
+  b.idx=bIdx;
   for(const s of b.segs){
+    s.blockIdx=bIdx;
     s.blockTitle=b.title;
+    s.blockShort=b.short;
     allSegs.push(s);
-    line(s.q,s.n);
-    for(const a of s.a)line(a,s.n);
+    renderToks(s.q,s.n);
+    for(const alt of s.alts)renderToks(alt.q,s.n);
+    for(const cl of s.a)renderClauseSpans(cl,s.n);
   }
-}
+});
+for(const c of D.stage.enter.clauses)renderToks(c,0);
+for(const c of D.stage.exit.clauses)renderToks(c,0);
+for(const r of D.rescue)renderToks(r.toks,0);
 
-const speeds=[1.0,0.85,1.15];
-let spIdx=0;
-const curPlayer=new Audio();
-let playingSeg=null, blockQueue=[];
-
-function stopSingle(){
-  blockQueue=[];
-  curPlayer.pause();
-  if(playingSeg){playingSeg.classList.remove('playing');playingSeg=null;}
-}
-function playSingle(src,segEl){
-  const cAudio=document.getElementById('c-audio');
-  if(!cAudio.paused)cAudio.pause();
-  if(playingSeg===segEl && !curPlayer.paused && curPlayer.src.endsWith(src)){
-    stopSingle();return;
-  }
-  stopSingle();
-  if(segEl){playingSeg=segEl;segEl.classList.add('playing');}
-  curPlayer.src=src;
-  curPlayer.playbackRate=speeds[spIdx];
-  curPlayer.play().catch(()=>{});
-}
-function playBlockAnswers(bIdx){
-  const cAudio=document.getElementById('c-audio');
-  if(!cAudio.paused)cAudio.pause();
-  stopSingle();
-  const b=D.blocks[bIdx];
-  blockQueue=b.segs.map(s=>({src:s.aa, n:s.n}));
-  playNextInQueue();
-}
-function playNextInQueue(){
-  if(playingSeg){playingSeg.classList.remove('playing');playingSeg=null;}
-  if(!blockQueue.length)return;
-  const nxt=blockQueue.shift();
-  const el=document.querySelector(`.seg[data-n="${nxt.n}"]`);
-  if(el){playingSeg=el;el.classList.add('playing');}
-  curPlayer.src=nxt.src;
-  curPlayer.playbackRate=speeds[spIdx];
-  curPlayer.play().catch(()=>{});
-}
-curPlayer.onended=()=>{
-  if(blockQueue.length)playNextInQueue();
-  else stopSingle();
-};
-
-const blocksEl=document.getElementById('blocks'), sheetView=document.getElementById('sheet-view'), ol=document.getElementById('ol');
-let onlyUnlearned=false, reciteMode=false;
+/* 主台词表高密度渲染 */
+let onlyUnlearned=false, studyMode='read';
+const canvas=document.getElementById('sheet-canvas');
 
 function renderSheet(){
-  let h='', shown=0;
+  let h='';
+  if(!onlyUnlearned){
+    const en=D.stage.enter;
+    const yomiHint=examNoYomi(prof.no);
+    const profBtnLabel=prof.no?`✏️ 考号 ${prof.no}`:(prof.name?`✏️ 填受验番号`:`✏️ 填姓名/考号`);
+    h+=`<section class="stage-card" id="sec-enter">`+
+       `<div class="st-hd"><b>${esc(en.title)}</b><div style="display:flex;gap:4px"><button type="button" class="mbtn b-edit-p">${esc(profBtnLabel)}</button><button type="button" class="mbtn b-clip" data-src="${esc(en.audio)}" data-label="🚪 开场进门报号">▶ 听</button></div></div>`+
+       en.steps.map(x=>`<div class="st-step">${esc(x)}</div>`).join('')+
+       `<div class="st-ja">${en.clauses.map(c=>renderToks(c,0)).join('<span class="sl"> ／ </span>')}</div>`+
+       (yomiHint?`<div class="st-no-yomi">${esc(yomiHint)}</div>`:'')+
+       `<div class="seg-zh st-zh">${esc(applyProf(en.zh.join(' ／ ')))}</div>`+
+       (en.after?`<div class="st-step">${esc(en.after)}</div>`:'')+
+       `</section>`;
+  }
+
+  let shown=0;
   D.blocks.forEach((b,bIdx)=>{
-    const visSegs=b.segs.filter(s=>!onlyUnlearned || !doneSet.has(s.n));
-    if(!visSegs.length)return;
-    shown+=visSegs.length;
-    h+=`<section class="block"><div class="blk-head">`+
-       `<span class="blk-title">${esc(b.title)}</span>`+
-       `<button type="button" class="b-pblk" data-b="${bIdx}">🔊 顺播整块台词</button>`+
-       `</div>`;
-    for(const s of visSegs){
+    const vis=b.segs.filter(s=>!onlyUnlearned || !doneSet.has(s.n));
+    if(!vis.length)return;
+    shown+=vis.length;
+    h+=`<section class="block" id="blk-${bIdx}">`+
+       `<div class="blk-hd"><span class="blk-t">${esc(b.title)}</span>`+
+       `<button type="button" class="mbtn b-blk-play" data-b="${bIdx}">▶ 顺播</button></div>`;
+    for(const s of vis){
       const isDone=doneSet.has(s.n);
-      const cls=s.a.map((a,i)=>`<div class="cl"><div class="za">${esc(s.za[i]||'')}</div><div class="ja">${line(a,s.n)}</div></div>`).join('');
-      h+=`<div class="seg${isDone?' done':''}" data-n="${s.n}">`+
-         `<div class="seg-top">`+
-         `<span class="tag">§${s.n} ${esc(s.tag)}</span>`+
-         `<span class="q-trig">考官问：${line(s.q,s.n)}</span>`+
+      const isLoop=(playMode==='loop' && curSegN===s.n && !audio.paused);
+      const altBadge=s.alts.length?`<span class="s-alt-tag" title="点此听考官换词问法：${esc(s.alts.map(x=>x.qzh).join(' / '))}">+同义</span>`:'';
+      const jaFlow=s.a.map(cl=>`<span class="cl">${renderClauseSpans(cl,s.n)}</span>`).join('<span class="sl"> ／ </span>');
+      const zhFlow=esc(applyProf(s.za.join(' ／ ')));
+      h+=`<article class="seg${isDone?' done':''}${curSegN===s.n && !audio.paused?' playing':''}" id="seg-${s.n}" data-n="${s.n}">`+
+         `<div class="seg-hd">`+
+         `<div class="s-head-l"><span class="s-id">${isDone?'✓ ':''}§${s.n} ${esc(s.tag)}</span>`+
+         `<span class="s-q">${renderToks(s.q,s.n)}${altBadge}</span></div>`+
          `<div class="s-acts">`+
-         `<button type="button" class="b-pq" data-src="${esc(s.aq)}">🔊 问</button>`+
-         `<button type="button" class="b-pa" data-src="${esc(s.aa)}">🔊 答</button>`+
-         `<button type="button" class="b-done" aria-pressed="${isDone}">${isDone?'✓ 已熟':'✓ 背熟'}</button>`+
+         `<button type="button" class="mbtn b-pq" title="听考官提问">问</button>`+
+         `<button type="button" class="mbtn b-pa" title="听示范回答">▶</button>`+
+         `<button type="button" class="mbtn b-loop${isLoop?' loop-on':''}" title="单段无限循环洗脑跟读">🔁</button>`+
+         `<button type="button" class="mbtn b-done" aria-pressed="${isDone}" title="标为已背熟">✓</button>`+
          `</div></div>`+
-         `<div class="clauses">${cls}</div></div>`;
+         `<div class="seg-ja">${jaFlow}</div>`+
+         `<div class="seg-zh">${zhFlow}</div>`+
+         `</article>`;
     }
     h+=`</section>`;
   });
-  blocksEl.innerHTML=h;
-  document.getElementById('all-done').hidden=shown>0;
-  document.getElementById('rem').textContent=allSegs.length-doneSet.size;
-  refreshWords();
-}
 
-function refreshWords(){
-  for(const el of document.querySelectorAll('.w'))el.classList.toggle('on',marked.has(el.dataset.w));
-  const rows=[...words].filter(([s])=>marked.has(s));
-  ol.innerHTML=rows.map(([s,w])=>`<li><span class="lw">${esc(s)}</span><span class="lr">${esc(w.y)}</span><span class="ln">§${[...w.qs].join('、')}</span></li>`).join('');
-  document.getElementById('empty').hidden=rows.length>0;
-  document.getElementById('cnt').textContent=rows.length;
-}
-
-blocksEl.addEventListener('click',e=>{
-  const pblk=e.target.closest('.b-pblk');
-  if(pblk){playBlockAnswers(Number(pblk.dataset.b));return;}
-  const seg=e.target.closest('.seg');if(!seg)return;
-  const n=Number(seg.dataset.n);
-  const bpq=e.target.closest('.b-pq');
-  if(bpq){playSingle(bpq.dataset.src,seg);return;}
-  const bpa=e.target.closest('.b-pa');
-  if(bpa){playSingle(bpa.dataset.src,seg);return;}
-  const bd=e.target.closest('.b-done');
-  if(bd){doneSet.has(n)?doneSet.delete(n):doneSet.add(n);saveD();renderSheet();return;}
-  if(reciteMode){
-    const cl=e.target.closest('.cl');
-    if(cl && (!cl.classList.contains('peek') || !e.target.closest('.w'))){cl.classList.toggle('peek');return;}
+  if(!onlyUnlearned){
+    const ex=D.stage.exit;
+    h+=`<section class="stage-card" id="sec-rescue">`+
+       `<div class="st-hd"><b>${esc(ex.title)}</b><button type="button" class="mbtn b-clip" data-src="${esc(ex.audio)}" data-label="🚪 结束退场致谢">▶ 听示范</button></div>`+
+       ex.steps.map(x=>`<div class="st-step">• ${esc(x)}</div>`).join('')+
+       `<div class="st-ja">${ex.clauses.map(c=>renderToks(c,0)).join('<span class="sl"> ／ </span>')}</div>`+
+       `<div class="seg-zh st-zh" style="margin-bottom:8px">${esc(applyProf(ex.zh.join(' ／ ')))}</div>`+
+       `<div class="st-hd" style="border-top:1px solid var(--line);padding-top:7px"><b>🆘 考场听不清/卡壳 5 句得体救场话</b></div>`+
+       D.rescue.map(r=>`<div class="rs-row"><div><div class="rs-meta">${esc(r.situation)} · ${esc(r.zh)}</div><div class="rs-ja">${renderToks(r.toks,0)}</div></div><button type="button" class="mbtn b-clip" data-src="${esc(r.audio)}" data-label="🆘 ${esc(r.situation)}">▶</button></div>`).join('')+
+       `</section>`;
   }
-  const w=e.target.closest('.w');
-  if(w){const s=w.dataset.w;marked.has(s)?marked.delete(s):marked.add(s);saveW();refreshWords();}
+
+  canvas.innerHTML=h;
+  document.getElementById('all-done-msg').hidden=shown>0;
+  document.getElementById('done-badge').textContent=`已熟 ${doneSet.size}/${allSegs.length}`;
+  refreshVocabUI();
+}
+
+/* 统一音频引擎：支持 单段播放 / 单段循环跟读(loop) / 顺播全表自动滚屏(seq) / 息屏长音轨(m4aFlow, m4aQa) */
+const audio=new Audio();
+const speeds=[1.0,0.85,1.15];
+let spIdx=0, playMode='seq', seqQueue=[], curSegN=null, loopTimer=null;
+const pbar=document.getElementById('pbar'), pTitle=document.getElementById('p-title'), pToggle=document.getElementById('p-toggle'), pMode=document.getElementById('p-mode'), pFill=document.getElementById('p-fill');
+
+function showPlayer(){pbar.hidden=false;document.body.classList.add('has-player');}
+function clearLoopTimer(){if(loopTimer){clearTimeout(loopTimer);loopTimer=null;}}
+
+function highlightPlayingSeg(n,scrollIt){
+  curSegN=n;
+  for(const el of document.querySelectorAll('.seg'))el.classList.toggle('playing',Number(el.dataset.n)===n);
+  for(const el of document.querySelectorAll('.b-loop')){
+    const sn=Number(el.closest('.seg').dataset.n);
+    el.classList.toggle('loop-on',playMode==='loop' && sn===n);
+  }
+  if(scrollIt && n){
+    const target=document.getElementById('seg-'+n);
+    if(target && !document.getElementById('v-sheet').hidden){
+      const r=target.getBoundingClientRect();
+      if(r.top<85 || r.bottom>window.innerHeight-130){
+        target.scrollIntoView({behavior:'smooth',block:'center'});
+      }
+    }
+  }
+}
+
+function updateMediaSession(title){
+  if('mediaSession' in navigator){
+    try{
+      navigator.mediaSession.metadata=new MediaMetadata({title,artist:'11/21 大阪経済大学 口頭試問'});
+      navigator.mediaSession.setActionHandler('previoustrack',()=>stepTrack(-1));
+      navigator.mediaSession.setActionHandler('nexttrack',()=>stepTrack(1));
+    }catch(e){}
+  }
+}
+
+function loadAndPlay(src,label,segN,scrollIt){
+  clearLoopTimer();
+  showPlayer();
+  highlightPlayingSeg(segN,scrollIt);
+  pTitle.textContent=label;
+  updateMediaSession(label);
+  audio.src=src;
+  audio.playbackRate=speeds[spIdx];
+  audio.play().catch(()=>{});
+  syncPlayButtons();
+}
+
+function playSegAnswer(n,modeOverride){
+  const s=allSegs.find(x=>x.n===n);if(!s)return;
+  if(modeOverride)playMode=modeOverride;
+  syncModeLabel();
+  if(playMode==='seq'){
+    const startIdx=allSegs.findIndex(x=>x.n===n);
+    seqQueue=allSegs.slice(startIdx+1).map(x=>x.n);
+  }else{
+    seqQueue=[];
+  }
+  loadAndPlay(s.aa,`§${s.n} ${s.tag}`,s.n,true);
+}
+
+function playBlockSeq(bIdx){
+  const b=D.blocks[bIdx];if(!b||!b.segs.length)return;
+  playMode='seq';syncModeLabel();
+  seqQueue=b.segs.slice(1).map(x=>x.n);
+  const first=b.segs[0];
+  loadAndPlay(first.aa,`${b.short} · §${first.n} ${first.tag}`,first.n,true);
+}
+
+function startCommuteM4a(kind){
+  playMode=kind;syncModeLabel();
+  seqQueue=[];
+  const src=kind==='m4aQa'?D.commuteQa:D.commuteFlow;
+  const label=kind==='m4aQa'?'🎤 息屏连播：考官提问→停3.5秒抢答→示范':'🎧 息屏连播：按6大板块纯男声从头顺读';
+  loadAndPlay(src,label,null,false);
+}
+
+function stepTrack(dir){
+  if(playMode==='m4aFlow'||playMode==='m4aQa'){
+    audio.currentTime=Math.max(0,audio.currentTime+dir*10);return;
+  }
+  const idx=allSegs.findIndex(x=>x.n===(curSegN||1));
+  const nxt=allSegs[(idx+dir+allSegs.length)%allSegs.length];
+  playSegAnswer(nxt.n,playMode==='single'?'seq':playMode);
+}
+
+audio.onended=()=>{
+  if(playMode==='loop' && curSegN){
+    const s=allSegs.find(x=>x.n===curSegN);
+    if(s){loopTimer=setTimeout(()=>loadAndPlay(s.aa,`🔁 循环跟读 §${s.n} ${s.tag}`,s.n,false),1100);return;}
+  }
+  if(playMode==='seq' && seqQueue.length){
+    const nextN=seqQueue.shift();
+    const s=allSegs.find(x=>x.n===nextN);
+    if(s){loopTimer=setTimeout(()=>loadAndPlay(s.aa,`§${s.n} ${s.tag}`,s.n,true),750);return;}
+  }
+  highlightPlayingSeg(null,false);
+  syncPlayButtons();
+};
+
+audio.ontimeupdate=()=>{
+  if(audio.duration)pFill.style.width=(audio.currentTime/audio.duration*100)+'%';
+};
+audio.onplay=syncPlayButtons;
+audio.onpause=syncPlayButtons;
+
+function syncPlayButtons(){pToggle.textContent=audio.paused?'▶':'⏸';}
+function syncModeLabel(){
+  const map={seq:'▶顺播',loop:'🔁单段循环',single:'单句',m4aFlow:'🎧息屏纯背',m4aQa:'🎤息屏问答'};
+  pMode.textContent=map[playMode]||'▶顺播';
+  pMode.classList.toggle('active',playMode==='loop'||playMode==='m4aFlow'||playMode==='m4aQa');
+}
+
+document.getElementById('p-prog').onclick=e=>{
+  if(!audio.duration)return;
+  const r=e.currentTarget.getBoundingClientRect();
+  audio.currentTime=((e.clientX-r.left)/r.width)*audio.duration;
+};
+pToggle.onclick=()=>{
+  if(!audio.src){playSegAnswer(1,'seq');return;}
+  audio.paused?audio.play().catch(()=>{}):audio.pause();
+};
+document.getElementById('p-prev').onclick=()=>stepTrack(-1);
+document.getElementById('p-next').onclick=()=>stepTrack(1);
+pMode.onclick=()=>{
+  const order=['seq','loop','m4aFlow','m4aQa'];
+  const nxt=order[(order.indexOf(playMode)+1)%order.length];
+  if(nxt==='m4aFlow'||nxt==='m4aQa')startCommuteM4a(nxt);
+  else{playMode=nxt;syncModeLabel();playSegAnswer(curSegN||1,nxt);}
+};
+document.getElementById('p-speed').onclick=e=>{
+  spIdx=(spIdx+1)%speeds.length;
+  audio.playbackRate=speeds[spIdx];
+  e.currentTarget.textContent=speeds[spIdx]+'x';
+};
+document.getElementById('p-close').onclick=()=>{
+  clearLoopTimer();audio.pause();highlightPlayingSeg(null,false);
+  pbar.hidden=true;document.body.classList.remove('has-player');
+};
+document.getElementById('b-commute-quick').onclick=()=>startCommuteM4a('m4aFlow');
+document.getElementById('d-flow-all').onclick=()=>playSegAnswer(1,'seq');
+document.getElementById('d-m4a-flow').onclick=()=>startCommuteM4a('m4aFlow');
+document.getElementById('d-m4a-qa').onclick=()=>startCommuteM4a('m4aQa');
+
+/* 主台词表点击事件委托 */
+canvas.addEventListener('click',e=>{
+  if(e.target.closest('.b-edit-p')){openProfModal();return;}
+  const clip=e.target.closest('.b-clip');
+  if(clip){playMode='single';syncModeLabel();seqQueue=[];loadAndPlay(clip.dataset.src,clip.dataset.label,null,false);return;}
+  const blkBtn=e.target.closest('.b-blk-play');
+  if(blkBtn){playBlockSeq(Number(blkBtn.dataset.b));return;}
+
+  const segEl=e.target.closest('.seg');
+  if(segEl){
+    const n=Number(segEl.dataset.n);
+    const s=allSegs.find(x=>x.n===n);
+    if(e.target.closest('.b-pq')){playMode='single';syncModeLabel();seqQueue=[];loadAndPlay(s.aq,`❓ 考官问 §${s.n}`,s.n,false);return;}
+    if(e.target.closest('.b-pa')){playSegAnswer(n,playMode==='loop'?'seq':(playMode.startsWith('m4a')?'seq':playMode));return;}
+    if(e.target.closest('.b-loop')){
+      if(playMode==='loop' && curSegN===n && !audio.paused){audio.pause();highlightPlayingSeg(null,false);}
+      else playSegAnswer(n,'loop');
+      return;
+    }
+    if(e.target.closest('.b-done')){
+      doneSet.has(n)?doneSet.delete(n):doneSet.add(n);saveD();renderSheet();return;
+    }
+    if(e.target.closest('.s-alt-tag') && s.alts.length){
+      const alt=s.alts[0];
+      playMode='single';syncModeLabel();seqQueue=[];
+      loadAndPlay(alt.aq,`❓ 同义问法：${alt.qzh}`,s.n,false);return;
+    }
+    if(studyMode==='mask'||studyMode==='skel'){
+      const cl=e.target.closest('.cl');
+      if(cl && (!cl.classList.contains('peek') || !e.target.closest('ruby.w'))){
+        cl.classList.toggle('peek');return;
+      }
+    }
+  }
+  const w=e.target.closest('ruby.w');
+  if(w){
+    const key=w.dataset.w;
+    marked.has(key)?marked.delete(key):marked.add(key);
+    saveW();refreshVocabUI();
+  }
 });
 
-/* 随机抽问模拟逻辑 */
-let drillDeck=[], drillIdx=0;
-function buildDrillDeck(){
-  drillDeck=[...allSegs];
-  for(let i=drillDeck.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[drillDeck[i],drillDeck[j]]=[drillDeck[j],drillDeck[i]];}
-  drillIdx=0;
+/* 背诵三阶模式切换（全文 / 🦴骨架 / 🙈遮背） */
+for(const btn of document.querySelectorAll('.seg-ctrl [data-m]')){
+  btn.onclick=()=>{
+    studyMode=btn.dataset.m;
+    for(const b of document.querySelectorAll('.seg-ctrl [data-m]'))b.setAttribute('aria-pressed',b===btn);
+    const vs=document.getElementById('v-sheet');
+    vs.classList.toggle('mode-skel',studyMode==='skel');
+    vs.classList.toggle('mode-mask',studyMode==='mask');
+    for(const cl of canvas.querySelectorAll('.cl'))cl.classList.remove('peek');
+  };
 }
-function showDrillCard(autoPlay){
-  if(!drillDeck.length || drillIdx>=drillDeck.length)buildDrillDeck();
-  const s=drillDeck[drillIdx];
-  document.getElementById('d-progress').textContent=`随机抽问 ${drillIdx+1} / ${drillDeck.length}`;
-  const dq=document.getElementById('d-q');
-  dq.innerHTML=line(s.q,s.n);
-  dq.classList.toggle('blind',document.getElementById('d-blind').checked);
-  const qzh=document.getElementById('d-qzh');
-  qzh.textContent=s.qzh;qzh.hidden=true;
-  document.getElementById('d-ans').hidden=true;
-  document.getElementById('d-loc').textContent=`📍 对应总台词表：${s.blockTitle} → §${s.n}【${s.tag}】`;
-  document.getElementById('d-clauses').innerHTML=s.a.map((a,i)=>`<div class="cl"><div class="za">${esc(s.za[i]||'')}</div><div class="ja">${line(a,s.n)}</div></div>`).join('');
-  refreshWords();
-  if(autoPlay)playSingle(s.aq,null);
-}
-document.getElementById('d-q').onclick=e=>{e.currentTarget.classList.remove('blind')};
-document.getElementById('d-blind').onchange=e=>{document.getElementById('d-q').classList.toggle('blind',e.target.checked)};
-document.getElementById('d-replay').onclick=()=>{if(drillDeck[drillIdx])playSingle(drillDeck[drillIdx].aq,null)};
-document.getElementById('d-reveal').onclick=()=>{
-  document.getElementById('d-q').classList.remove('blind');
-  document.getElementById('d-qzh').hidden=false;
-  document.getElementById('d-ans').hidden=false;
-};
-document.getElementById('d-play-ans').onclick=()=>{if(drillDeck[drillIdx])playSingle(drillDeck[drillIdx].aa,null)};
-document.getElementById('d-next').onclick=()=>{drillIdx++;showDrillCard(true)};
-document.getElementById('drill-view').addEventListener('click',e=>{
-  const w=e.target.closest('.w');
-  if(w){const s=w.dataset.w;marked.has(s)?marked.delete(s):marked.add(s);saveW();refreshWords();}
-});
 
-document.getElementById('built').textContent=D.built;
-ol.addEventListener('click',e=>{const li=e.target.closest('li');if(li)li.classList.toggle('peek')});
-
-/* 顶部视图切换 */
-const tSheet=document.getElementById('t-sheet'),tDrill=document.getElementById('t-drill'),tList=document.getElementById('t-list');
-function setView(v){
-  stopSingle();
-  sheetView.hidden=v!=='sheet';
-  document.getElementById('drill-view').hidden=v!=='drill';
-  document.getElementById('list-view').hidden=v!=='list';
-  tSheet.setAttribute('aria-pressed',v==='sheet');
-  tDrill.setAttribute('aria-pressed',v==='drill');
-  tList.setAttribute('aria-pressed',v==='list');
-  if(v==='drill'){if(!drillDeck.length)buildDrillDeck();showDrillCard(true);}
-  window.scrollTo(0,0);
-}
-tSheet.onclick=()=>setView('sheet');
-tDrill.onclick=()=>setView('drill');
-tList.onclick=()=>setView('list');
-
-const bRecite=document.getElementById('b-recite');
-bRecite.onclick=()=>{
-  reciteMode=!reciteMode;
-  bRecite.setAttribute('aria-pressed',reciteMode);
-  sheetView.classList.toggle('recite',reciteMode);
-  for(const cl of blocksEl.querySelectorAll('.cl'))cl.classList.remove('peek');
-};
-const bKana=document.getElementById('b-kana');
-bKana.onclick=()=>{
-  const on=bKana.getAttribute('aria-pressed')!=='true';
-  bKana.setAttribute('aria-pressed',on);
+document.getElementById('b-kana').onclick=e=>{
+  const on=e.currentTarget.getAttribute('aria-pressed')!=='true';
+  e.currentTarget.setAttribute('aria-pressed',on);
   document.body.classList.toggle('all-kana',on);
 };
-const bUn=document.getElementById('b-unlearned');
-bUn.onclick=()=>{
+document.getElementById('b-zh').onclick=e=>{
+  const on=e.currentTarget.getAttribute('aria-pressed')!=='true';
+  e.currentTarget.setAttribute('aria-pressed',on);
+  document.body.classList.toggle('hide-zh',!on);
+};
+function toggleUnlearned(){
   onlyUnlearned=!onlyUnlearned;
-  bUn.setAttribute('aria-pressed',onlyUnlearned);
+  document.getElementById('b-unlearned').setAttribute('aria-pressed',onlyUnlearned);
+  document.getElementById('d-unlearned').setAttribute('aria-pressed',onlyUnlearned);
   renderSheet();
-};
-const bZh=document.getElementById('b-zh');
-bZh.onclick=()=>{
-  const on=bZh.getAttribute('aria-pressed')!=='true';
-  bZh.setAttribute('aria-pressed',on);
-  document.body.classList.toggle('hide-zh',on);
-};
-const bSp=document.getElementById('b-speed');
-bSp.onclick=()=>{
-  spIdx=(spIdx+1)%speeds.length;
-  const r=speeds[spIdx];
-  bSp.textContent=r+'x';
-  curPlayer.playbackRate=r;
-  document.getElementById('c-audio').playbackRate=r;
-};
-
-/* 锁屏随身连播 */
-const bCom=document.getElementById('b-commute'),comBox=document.getElementById('commute-box'),cAudio=document.getElementById('c-audio');
-const cFlow=document.getElementById('c-flow'),cQa=document.getElementById('c-qa');
-function setCommute(which){
-  cFlow.setAttribute('aria-pressed',which==='flow');
-  cQa.setAttribute('aria-pressed',which==='qa');
-  cAudio.src=which==='flow'?D.commuteFlow:D.commuteQa;
-  cAudio.playbackRate=speeds[spIdx];
 }
-setCommute('flow');
-bCom.onclick=()=>{const on=bCom.getAttribute('aria-pressed')!=='true';bCom.setAttribute('aria-pressed',on);comBox.hidden=!on;};
-cFlow.onclick=()=>{setCommute('flow');cAudio.play().catch(()=>{})};
-cQa.onclick=()=>{setCommute('qa');cAudio.play().catch(()=>{})};
-cAudio.onplay=()=>stopSingle();
+document.getElementById('b-unlearned').onclick=toggleUnlearned;
+document.getElementById('d-unlearned').onclick=toggleUnlearned;
 
-const bh=document.getElementById('b-hide');
-bh.onclick=()=>{const on=bh.getAttribute('aria-pressed')!=='true';bh.setAttribute('aria-pressed',on);ol.classList.toggle('hide',on);for(const li of ol.children)li.classList.remove('peek')};
-document.getElementById('b-clear').onclick=()=>{if(marked.size&&confirm('清空生词本里的标记？')){marked.clear();saveW();refreshWords()}};
-document.getElementById('b-reset-done').onclick=()=>{if(doneSet.size&&confirm('把全部「已背熟」恢复为未背，重新顺一遍总表？')){doneSet.clear();saveD();renderSheet()}};
+/* 滚动监听高亮当前板块标签 */
+const secIds=['sec-enter','blk-0','blk-1','blk-2','blk-3','blk-4','blk-5','sec-rescue'];
+window.addEventListener('scroll',()=>{
+  if(document.getElementById('v-sheet').hidden)return;
+  let activeId='sec-enter';
+  for(const id of secIds){
+    const el=document.getElementById(id);
+    if(el && el.getBoundingClientRect().top<=120)activeId=id;
+  }
+  for(const a of document.querySelectorAll('#m-rail a.j-pill, #d-rail a')){
+    a.classList.toggle('active',a.getAttribute('href')==='#'+activeId);
+  }
+},{passive:true});
 
+/* 视图切换（总表 / 抽问模考 / 生词本 / 考场清单） */
+let curView='sheet';
+function setView(v){
+  curView=v;
+  for(const k of ['sheet','drill','vocab','prep']){
+    document.getElementById('v-'+k).hidden=(k!==v);
+  }
+  document.querySelector('.jump-rail-wrap').hidden=(v!=='sheet');
+  for(const b of document.querySelectorAll('[data-v]'))b.setAttribute('aria-pressed',b.dataset.v===v);
+  if(v==='drill'){if(!drillQueue.length)rebuildDrillQueue();presentDrillCard(true);}
+  window.scrollTo(0,0);
+}
+for(const b of document.querySelectorAll('[data-v]'))b.onclick=()=>setView(b.dataset.v);
+
+/* 🎲 考官抽问模考引擎（35种真题问法 + 盲听 + 思考秒表 + 卡壳重抽队列 + 15分钟倒计时） */
+let drillPoolMode='all', drillQueue=[], drillPos=0, blindMode=true;
+let reactStart=0, reactTick=null, examSec=900, examTick=null;
+
+function buildAllPrompts(){
+  const list=[];
+  for(const s of allSegs){
+    if(drillPoolMode==='weak' && doneSet.has(s.n))continue;
+    list.push({seg:s, qToks:s.q, qzh:s.qzh, aq:s.aq, isAlt:false});
+    if(drillPoolMode!=='core'){
+      for(const alt of s.alts){
+        list.push({seg:s, qToks:alt.q, qzh:alt.qzh+'（考官换词问法）', aq:alt.aq, isAlt:true});
+      }
+    }
+  }
+  return list.length?list:allSegs.map(s=>({seg:s, qToks:s.q, qzh:s.qzh, aq:s.aq, isAlt:false}));
+}
+function rebuildDrillQueue(){
+  drillQueue=buildAllPrompts();
+  for(let i=drillQueue.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[drillQueue[i],drillQueue[j]]=[drillQueue[j],drillQueue[i]];}
+  drillPos=0;
+}
+function presentDrillCard(autoSpeak){
+  if(!drillQueue.length || drillPos>=drillQueue.length)rebuildDrillQueue();
+  const item=drillQueue[drillPos];
+  const s=item.seg;
+  document.getElementById('d-prog').textContent=`随机抽问 ${drillPos+1} / ${drillQueue.length}${item.isAlt?' · 换词追问':''}`;
+  document.getElementById('d-q').innerHTML=renderToks(item.qToks,s.n);
+  document.getElementById('d-qzh').textContent=item.qzh;
+  document.getElementById('d-qbox').classList.toggle('blind',blindMode);
+  document.getElementById('d-ans').hidden=true;
+  document.getElementById('d-loc-txt').textContent=`📍 ${s.blockShort} · §${s.n}【${s.tag}】`;
+  document.getElementById('d-ans-ja').innerHTML=s.a.map(cl=>`<span class="cl">${renderClauseSpans(cl,s.n)}</span>`).join('<span class="sl"> ／ </span>');
+  document.getElementById('d-ans-zh').textContent=applyProf(s.za.join(' ／ '));
+
+  if(reactTick)clearInterval(reactTick);
+  reactStart=Date.now();
+  const rEl=document.getElementById('d-react');
+  reactTick=setInterval(()=>{
+    const sec=((Date.now()-reactStart)/1000).toFixed(0);
+    rEl.textContent=`⏱ 已用时 ${sec}s`;
+  },500);
+
+  if(autoSpeak){
+    playMode='single';syncModeLabel();seqQueue=[];
+    loadAndPlay(item.aq,`🎲 考官抽问`,null,false);
+  }
+}
+
+for(const b of document.querySelectorAll('#d-pool-ctrl button')){
+  b.onclick=()=>{
+    drillPoolMode=b.dataset.pool;
+    for(const x of document.querySelectorAll('#d-pool-ctrl button'))x.setAttribute('aria-pressed',x===b);
+    rebuildDrillQueue();presentDrillCard(true);
+  };
+}
+document.getElementById('d-blind-btn').onclick=e=>{
+  blindMode=!blindMode;
+  e.currentTarget.setAttribute('aria-pressed',blindMode);
+  document.getElementById('d-qbox').classList.toggle('blind',blindMode && document.getElementById('d-ans').hidden);
+};
+document.getElementById('d-peek-q').onclick=()=>document.getElementById('d-qbox').classList.remove('blind');
+document.getElementById('d-replay').onclick=()=>{const it=drillQueue[drillPos];if(it)loadAndPlay(it.aq,'🎲 重听考官提问',null,false);};
+document.getElementById('d-show').onclick=()=>{
+  if(reactTick){clearInterval(reactTick);reactTick=null;}
+  document.getElementById('d-qbox').classList.remove('blind');
+  document.getElementById('d-ans').hidden=false;
+};
+document.getElementById('d-skip').onclick=()=>{drillPos++;presentDrillCard(true);};
+document.getElementById('d-play-a').onclick=()=>{const it=drillQueue[drillPos];if(it)loadAndPlay(it.seg.aa,`§${it.seg.n} 示范回答`,null,false);};
+document.getElementById('d-goto').onclick=()=>{
+  const it=drillQueue[drillPos];if(!it)return;
+  setView('sheet');
+  setTimeout(()=>{const el=document.getElementById('seg-'+it.seg.n);if(el)el.scrollIntoView({behavior:'smooth',block:'center'});},60);
+};
+document.getElementById('d-g-retry').onclick=()=>{
+  const it=drillQueue[drillPos];
+  if(it){
+    doneSet.delete(it.seg.n);saveD();renderSheet();
+    const insertAt=Math.min(drillQueue.length, drillPos+4);
+    drillQueue.splice(insertAt,0,it);
+  }
+  drillPos++;presentDrillCard(true);
+};
+document.getElementById('d-g-pass').onclick=()=>{
+  const it=drillQueue[drillPos];
+  if(it){doneSet.add(it.seg.n);saveD();renderSheet();}
+  drillPos++;presentDrillCard(true);
+};
+document.getElementById('v-drill').addEventListener('click',e=>{
+  const w=e.target.closest('ruby.w');
+  if(w){const k=w.dataset.w;marked.has(k)?marked.delete(k):marked.add(k);saveW();refreshVocabUI();}
+});
+
+/* 15分钟真实考场倒计时 */
+const timerBtn=document.getElementById('d-timer');
+timerBtn.onclick=()=>{
+  if(examTick){clearInterval(examTick);examTick=null;timerBtn.textContent=`⏸ ${fmtSec(examSec)} (点此继续)`;return;}
+  if(examSec<=0)examSec=900;
+  examTick=setInterval(()=>{
+    examSec--;
+    timerBtn.classList.toggle('warn',examSec<=180);
+    if(examSec<=0){clearInterval(examTick);examTick=null;timerBtn.textContent='🔔 15:00 面试结束！';return;}
+    timerBtn.textContent=`⏱ ${fmtSec(examSec)}`;
+  },1000);
+  timerBtn.textContent=`⏱ ${fmtSec(examSec)}`;
+};
+function fmtSec(s){return `${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;}
+
+/* 🔤 生词本管理 */
+const vList=document.getElementById('v-list');
+function refreshVocabUI(){
+  for(const el of document.querySelectorAll('ruby.w'))el.classList.toggle('on',marked.has(el.dataset.w));
+  const rows=[...words].filter(([s])=>marked.has(s));
+  vList.innerHTML=rows.map(([s,w])=>{
+    const firstN=[...w.qs][0]||1;
+    const qsLabel=w.qs.size?`§${[...w.qs].join('·')}`:'礼仪';
+    return `<li class="v-item" data-n="${firstN}"><span class="v-w">${esc(s)}</span><span class="v-y">${esc(w.y)}</span>`+
+           (w.qs.size?`<button type="button" class="v-jump" data-go="${firstN}">${qsLabel} ↗</button>`:`<span class="v-jump">${qsLabel}</span>`)+`</li>`;
+  }).join('');
+  document.getElementById('v-empty').hidden=rows.length>0;
+  for(const c of document.querySelectorAll('.v-cnt'))c.textContent=rows.length;
+}
+document.getElementById('v-seed').onclick=()=>{
+  for(const w of D.presetWords){if(words.has(w))marked.add(w);}
+  saveW();refreshVocabUI();
+};
+document.getElementById('v-hide').onclick=e=>{
+  const on=e.currentTarget.getAttribute('aria-pressed')!=='true';
+  e.currentTarget.setAttribute('aria-pressed',on);
+  vList.classList.toggle('hide-yomi',on);
+  for(const li of vList.children)li.classList.remove('peek');
+};
+document.getElementById('v-clear').onclick=()=>{if(marked.size&&confirm('清空生词本里的全部标记？')){marked.clear();saveW();refreshVocabUI();}};
+vList.addEventListener('click',e=>{
+  const go=e.target.closest('[data-go]');
+  if(go){
+    const n=Number(go.dataset.go);
+    setView('sheet');
+    setTimeout(()=>{const el=document.getElementById('seg-'+n);if(el)el.scrollIntoView({behavior:'smooth',block:'center'});},60);
+    return;
+  }
+  const li=e.target.closest('.v-item');if(li)li.classList.toggle('peek');
+});
+
+/* 📋 考前打勾清单 */
+const CHECK_ITEMS=[
+  '打印《受験票》：A4白纸、竖向、100%原寸，正反面严禁写任何字或做记号',
+  '带齐证件：在留卡 ＋ 语言学校学生证 ＋ 交通卡/现金',
+  '纯走时无声手表（严禁戴 Apple Watch / 智能手环）＋ 黑笔 ＋ 手帕',
+  '进大隅校区前：先关掉手机系统闹钟（防关机自启响铃！），再彻底关机放包里',
+  '西装只扣最上面第一颗扣子（坐下也保持扣着）；双肩包进校门后改用手提',
+  '考前把大经大官网 3 个页面（国际共创学部 / 就职支援 / 课程表）看满两遍',
+  '向语校老师核对最新出勤率（确认 §18 说 99% 还是按最新实际数字说）'
+];
+function renderChecklist(){
+  document.getElementById('chk-list').innerHTML=CHECK_ITEMS.map((txt,i)=>{
+    const c=chkSet.has(i);
+    return `<label class="chk${c?' checked':''}"><input type="checkbox" data-ci="${i}" ${c?'checked':''}><span>${esc(txt)}</span></label>`;
+  }).join('');
+}
+document.getElementById('chk-list').addEventListener('change',e=>{
+  const i=Number(e.target.dataset.ci);
+  e.target.checked?chkSet.add(i):chkSet.delete(i);
+  saveC();renderChecklist();
+});
+
+/* ⚙️ 个性化与暗色设置弹窗 */
+const modal=document.getElementById('prof-modal');
+function openProfModal(){
+  document.getElementById('in-no').value=prof.no||'';
+  document.getElementById('in-name').value=prof.name||'';
+  document.getElementById('in-city').value=prof.city||'';
+  modal.hidden=false;
+}
+document.getElementById('b-gear').onclick=openProfModal;
+document.getElementById('m-cancel').onclick=()=>{modal.hidden=true;};
+modal.onclick=e=>{if(e.target===modal)modal.hidden=true;};
+document.getElementById('m-save').onclick=()=>{
+  prof.no=document.getElementById('in-no').value.trim();
+  prof.name=document.getElementById('in-name').value.trim();
+  prof.city=document.getElementById('in-city').value.trim();
+  saveP();modal.hidden=true;renderSheet();
+};
+document.getElementById('b-theme-toggle').onclick=()=>{
+  const root=document.documentElement;
+  const mq=window.matchMedia?matchMedia('(prefers-color-scheme:dark)'):null;
+  const cur=root.dataset.theme||(mq&&mq.matches?'dark':'light');
+  const nxt=cur==='dark'?'light':'dark';
+  root.dataset.theme=nxt;
+  try{localStorage.setItem('mensetsu-theme',nxt)}catch(e){}
+};
+document.getElementById('b-reset-done').onclick=()=>{
+  if(doneSet.size&&confirm('把全部「已熟」重置为未背状态？')){doneSet.clear();saveD();renderSheet();}
+};
+
+document.getElementById('built-t').textContent=D.built;
 renderSheet();
-
-/* 暗色开关・礼仪面板 */
-(function () {
-  const root=document.documentElement,bt=document.getElementById('b-theme'),sheet=document.getElementById('rei');
-  const mq=window.matchMedia?matchMedia('(prefers-color-scheme: dark)'):null;
-  const cur=()=>root.dataset.theme||(mq&&mq.matches?'dark':'light');
-  const label=()=>{bt.textContent=cur()==='dark'?'亮色':'暗色'};
-  bt.onclick=()=>{const t=cur()==='dark'?'light':'dark';root.dataset.theme=t;try{localStorage.setItem('mensetsu-theme',t)}catch(e){}label()};
-  if(mq&&mq.addEventListener)mq.addEventListener('change',label);
-  label();
-  const shut=()=>{sheet.hidden=true;document.body.style.overflow=''};
-  document.getElementById('b-rei').onclick=()=>{sheet.hidden=false;document.body.style.overflow='hidden';sheet.scrollTop=0};
-  document.getElementById('rei-x').onclick=shut;
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!sheet.hidden)shut()});
-})();
+renderChecklist();
 </script>
 </body>
 </html>
